@@ -1,0 +1,197 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import {
+  getUserData,
+  getUnlockedAchievements,
+  getUniqueStrainCount,
+  achievements,
+  UserData,
+  Achievement,
+} from "@/lib/store";
+
+export default function ProfilePage() {
+  const t = useTranslations("profile");
+  const [data, setData] = useState<UserData | null>(null);
+  const [unlocked, setUnlocked] = useState<Achievement[]>([]);
+
+  useEffect(() => {
+    const d = getUserData();
+    setData(d);
+    setUnlocked(getUnlockedAchievements(d));
+  }, []);
+
+  if (!data) {
+    return (
+      <div className="max-w-lg mx-auto px-4 pb-24 pt-8 text-center">
+        <div className="text-4xl animate-float">🔍</div>
+      </div>
+    );
+  }
+
+  const uniqueStrains = getUniqueStrainCount(data);
+  const unlockedIds = new Set(unlocked.map((a) => a.id));
+
+  // Top strains by frequency
+  const strainFreq: Record<string, { name: string; image: string; count: number }> = {};
+  data.checkins.forEach((c) => {
+    if (!strainFreq[c.strainId]) {
+      strainFreq[c.strainId] = { name: c.strainName, image: c.strainImage, count: 0 };
+    }
+    strainFreq[c.strainId].count++;
+  });
+  const topStrains = Object.values(strainFreq).sort((a, b) => b.count - a.count).slice(0, 5);
+
+  // Average rating
+  const avgRating = data.checkins.length > 0
+    ? (data.checkins.reduce((sum, c) => sum + c.rating, 0) / data.checkins.length).toFixed(1)
+    : "—";
+
+  const settingsItems = [
+    { icon: "👤", label: t("editProfile") },
+    { icon: "🔔", label: t("notifications") },
+    { icon: "🌍", label: t("language") },
+    { icon: "🔒", label: t("privacy") },
+    { icon: "💚", label: t("subscription") },
+    { icon: "📤", label: t("exportData") },
+  ];
+
+  return (
+    <div className="max-w-lg mx-auto px-4 pb-24">
+      {/* Profile Header */}
+      <div className="glass-card rounded-3xl p-6 mt-6 mb-6 text-center">
+        <div className="text-5xl mb-3">🔥</div>
+        <h1 className="text-xl font-black">WIZL Explorer</h1>
+        {data.isPro && (
+          <span className="inline-block mt-2 pro-badge px-3 py-1 rounded-full text-xs font-bold text-black">WIZL PRO</span>
+        )}
+        <p className="text-text-muted text-xs mt-2">
+          Joined {new Date(data.joinedAt).toLocaleDateString("en", { month: "short", year: "numeric" })}
+        </p>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-4 gap-2 mb-6">
+        <div className="glass-card rounded-2xl p-3 text-center">
+          <p className="text-2xl font-black text-accent-green">{data.checkins.length}</p>
+          <p className="text-text-muted text-[10px]">{t("checkins")}</p>
+        </div>
+        <div className="glass-card rounded-2xl p-3 text-center">
+          <p className="text-2xl font-black text-accent-purple">{uniqueStrains}</p>
+          <p className="text-text-muted text-[10px]">{t("uniqueStrains")}</p>
+        </div>
+        <div className="glass-card rounded-2xl p-3 text-center">
+          <p className="text-2xl font-black text-accent-orange">{avgRating}</p>
+          <p className="text-text-muted text-[10px]">Avg Rating</p>
+        </div>
+        <div className="glass-card rounded-2xl p-3 text-center">
+          <p className="text-2xl font-black text-accent-love">{unlocked.length}</p>
+          <p className="text-text-muted text-[10px]">{t("badges")}</p>
+        </div>
+      </div>
+
+      {/* Achievements */}
+      <section className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-bold">🏆 {t("badges")}</h2>
+          <span className="text-text-muted text-xs">{unlocked.length}/{achievements.length}</span>
+        </div>
+        <div className="grid grid-cols-4 gap-2">
+          {achievements.map((ach) => {
+            const earned = unlockedIds.has(ach.id);
+            return (
+              <div
+                key={ach.id}
+                className={`glass-card rounded-xl p-3 text-center transition-all ${
+                  earned ? "border border-accent-green/20" : "opacity-30 grayscale"
+                }`}
+              >
+                <span className="text-2xl">{ach.icon}</span>
+                <p className="text-[9px] text-text-muted mt-1 leading-tight">{ach.name}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Shop CTA */}
+      <Link href="/shop" className="glass-card rounded-2xl p-4 mb-6 flex items-center gap-3 border border-accent-purple/20 hover:bg-bg-card-hover transition-all block">
+        <span className="text-2xl">🏪</span>
+        <div className="flex-1">
+          <p className="font-bold text-sm">Own a shop?</p>
+          <p className="text-text-muted text-xs">Add your shop to the WIZL map — $4.20/mo</p>
+        </div>
+        <span className="text-text-muted text-xs">→</span>
+      </Link>
+
+      {/* Top Strains */}
+      {topStrains.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-bold mb-3">⭐ Top Strains</h2>
+          <div className="flex flex-col gap-2">
+            {topStrains.map((s, i) => (
+              <div key={s.name} className="glass-card rounded-xl p-3 flex items-center gap-3">
+                <span className="text-text-muted text-xs font-bold w-5">#{i + 1}</span>
+                <span className="text-xl">{s.image}</span>
+                <span className="flex-1 font-semibold text-sm">{s.name}</span>
+                <span className="text-accent-green text-xs font-bold">{s.count}x</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Recent Check-ins */}
+      <section className="mb-6">
+        <h2 className="text-lg font-bold mb-3">📝 {t("recentActivity")}</h2>
+        {data.checkins.length > 0 ? (
+          <div className="flex flex-col gap-2">
+            {data.checkins.slice(0, 10).map((checkin) => (
+              <div key={checkin.id} className="glass-card rounded-xl p-3 flex items-center gap-3">
+                <span className="text-xl">{checkin.strainImage}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm">{checkin.strainName}</p>
+                  {checkin.review && (
+                    <p className="text-text-muted text-xs line-clamp-1">{checkin.review}</p>
+                  )}
+                </div>
+                <div className="flex flex-col items-end gap-0.5">
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: checkin.rating }).map((_, i) => (
+                      <span key={i} className="text-accent-green text-[10px]">🌿</span>
+                    ))}
+                  </div>
+                  <span className="text-text-muted text-[10px]">
+                    {new Date(checkin.createdAt).toLocaleDateString("en", { month: "short", day: "numeric" })}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <div className="text-3xl mb-2">🔍</div>
+            <p className="text-text-secondary text-sm">{t("noCheckins")}</p>
+            <Link href="/checkin" className="text-accent-green text-sm font-semibold">{t("firstScan")} →</Link>
+          </div>
+        )}
+      </section>
+
+      {/* Settings */}
+      <section>
+        <h2 className="text-lg font-bold mb-3">⚙️ {t("settings")}</h2>
+        <div className="flex flex-col gap-2">
+          {settingsItems.map((item) => (
+            <button key={item.label} className="glass-card rounded-xl p-3 flex items-center gap-3 text-left hover:bg-bg-card-hover transition-all">
+              <span>{item.icon}</span>
+              <span className="text-sm text-text-secondary">{item.label}</span>
+              <span className="ml-auto text-text-muted text-xs">→</span>
+            </button>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
