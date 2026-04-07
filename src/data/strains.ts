@@ -14,6 +14,7 @@ export const strains: Strain[] = [
     rating: 4.8,
     reviewCount: 342,
     image: "🍪",
+    color: "#34d399",
   },
   {
     id: "og-kush",
@@ -28,6 +29,7 @@ export const strains: Strain[] = [
     rating: 4.7,
     reviewCount: 1205,
     image: "👑",
+    color: "#34d399",
   },
   {
     id: "blue-dream",
@@ -42,6 +44,7 @@ export const strains: Strain[] = [
     rating: 4.6,
     reviewCount: 980,
     image: "💙",
+    color: "#60a5fa",
   },
   {
     id: "girl-scout-cookies",
@@ -56,6 +59,7 @@ export const strains: Strain[] = [
     rating: 4.8,
     reviewCount: 756,
     image: "🍫",
+    color: "#a78bfa",
   },
   {
     id: "sour-diesel",
@@ -70,6 +74,7 @@ export const strains: Strain[] = [
     rating: 4.5,
     reviewCount: 892,
     image: "⛽",
+    color: "#facc15",
   },
   {
     id: "wedding-cake",
@@ -84,6 +89,7 @@ export const strains: Strain[] = [
     rating: 4.7,
     reviewCount: 623,
     image: "🎂",
+    color: "#c084fc",
   },
   {
     id: "purple-haze",
@@ -98,6 +104,7 @@ export const strains: Strain[] = [
     rating: 4.4,
     reviewCount: 567,
     image: "💜",
+    color: "#e879f9",
   },
   {
     id: "gelato",
@@ -112,6 +119,7 @@ export const strains: Strain[] = [
     rating: 4.9,
     reviewCount: 1102,
     image: "🍨",
+    color: "#fb923c",
   },
   {
     id: "jack-herer",
@@ -126,6 +134,7 @@ export const strains: Strain[] = [
     rating: 4.5,
     reviewCount: 445,
     image: "🌲",
+    color: "#4ade80",
   },
   {
     id: "pineapple-express",
@@ -140,6 +149,7 @@ export const strains: Strain[] = [
     rating: 4.6,
     reviewCount: 834,
     image: "🍍",
+    color: "#fbbf24",
   },
   {
     id: "gorilla-glue",
@@ -154,6 +164,7 @@ export const strains: Strain[] = [
     rating: 4.7,
     reviewCount: 978,
     image: "🦍",
+    color: "#6b7280",
   },
   {
     id: "thai-stick",
@@ -168,6 +179,7 @@ export const strains: Strain[] = [
     rating: 4.3,
     reviewCount: 312,
     image: "🇹🇭",
+    color: "#f97316",
   },
 ];
 

@@ -12,6 +12,11 @@ export interface Strain {
   rating: number;
   reviewCount: number;
   image: string;
+  color: string;
+  genetics?: {
+    parents: string[];
+  };
+  terpenes?: string[];
 }
 
 export interface CheckIn {

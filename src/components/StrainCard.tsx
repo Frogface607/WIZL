@@ -56,7 +56,7 @@ export default function StrainCard({ strain }: { strain: Strain }) {
                 >
                   {strain.type}
                 </span>
-                {strain.genetics.parents.length > 0 && (
+                {strain.genetics?.parents && strain.genetics.parents.length > 0 && (
                   <span className="text-white/60 text-[10px] flex items-center gap-0.5">
                     <IconDna className="w-3 h-3" />
                     {strain.genetics.parents.slice(0, 2).join(" x ")}
@@ -84,7 +84,7 @@ export default function StrainCard({ strain }: { strain: Strain }) {
 
           {/* Terpene badges */}
           <div className="flex flex-wrap gap-1.5 mb-3">
-            {strain.terpenes.slice(0, 3).map((terp) => (
+            {(strain.terpenes || []).slice(0, 3).map((terp) => (
               <span
                 key={terp}
                 className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium text-white/90 backdrop-blur-md"
