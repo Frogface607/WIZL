@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { strains, recentCheckins } from "@/data/strains";
 import StrainCard from "@/components/StrainCard";
 import CheckinCard from "@/components/CheckinCard";
+import { WizlLogo, IconScan } from "@/components/icons";
 
 export default function Home() {
   const t = useTranslations();
@@ -11,48 +12,59 @@ export default function Home() {
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
       {/* Hero */}
-      <section className="py-10 text-center">
-        <div className="text-5xl mb-4 animate-float">🔍</div>
-        <h1 className="text-3xl font-black gradient-text mb-1">{t("brand.name")}</h1>
-        <p className="text-sm gradient-love font-medium mb-3">{t("brand.tagline")}</p>
-        <p className="text-text-secondary text-sm max-w-xs mx-auto mb-6">
-          {t("brand.description")}
-        </p>
-        <div className="flex gap-3 justify-center">
-          <Link
-            href="/checkin"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all glow-green"
-          >
-            🔍 {t("home.scanBtn")}
+      <section className="pt-8 pb-10 text-center relative">
+        {/* Background glow */}
+        <div className="absolute inset-0 -top-20 bg-gradient-to-b from-accent-green/8 via-accent-purple/5 to-transparent pointer-events-none rounded-3xl" />
+
+        <div className="relative z-10">
+          <h1 className="text-5xl font-black gradient-text mb-1 tracking-tighter">{t("brand.name")}</h1>
+          <p className="text-sm gradient-love font-semibold mb-6">{t("brand.tagline")}</p>
+
+          {/* Scan button — the portal */}
+          <Link href="/scan" className="inline-block mb-6 group">
+            <div className="relative">
+              {/* Outer glow ring */}
+              <div className="absolute inset-0 rounded-full bg-accent-green/20 blur-xl group-hover:bg-accent-green/30 transition-all scale-125" />
+              {/* Ring */}
+              <div className="relative w-28 h-28 rounded-full border-2 border-accent-green/50 flex items-center justify-center group-hover:border-accent-green transition-all"
+                   style={{ boxShadow: "0 0 30px rgba(52,211,153,0.3), 0 0 60px rgba(52,211,153,0.1), inset 0 0 30px rgba(52,211,153,0.1)" }}>
+                {/* Inner circle */}
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent-green/20 to-accent-purple/20 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-purple/30 transition-all">
+                  <IconScan className="w-8 h-8 text-accent-green group-hover:scale-110 transition-transform" />
+                </div>
+              </div>
+            </div>
+            <p className="text-accent-green font-bold text-sm mt-3 uppercase tracking-wider">
+              {t("home.scanBtn")}
+            </p>
           </Link>
-          <Link
-            href="/strains"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium hover:bg-bg-card-hover transition-all"
-          >
-            🌿 {t("home.browseBtn")}
-          </Link>
+
+          <p className="text-text-secondary text-sm max-w-xs mx-auto">
+            {t("brand.description")}
+          </p>
         </div>
       </section>
 
-      {/* Quick Stats */}
+      {/* Stats */}
       <section className="grid grid-cols-3 gap-3 mb-8">
-        <div className="glass-card rounded-2xl p-3 text-center">
-          <p className="text-2xl font-black text-accent-green">{strains.length}</p>
-          <p className="text-text-muted text-xs">{t("home.strains")}</p>
-        </div>
-        <div className="glass-card rounded-2xl p-3 text-center">
-          <p className="text-2xl font-black text-accent-purple">2.4K</p>
-          <p className="text-text-muted text-xs">{t("home.checkins")}</p>
-        </div>
-        <div className="glass-card rounded-2xl p-3 text-center">
-          <p className="text-2xl font-black text-accent-orange">891</p>
-          <p className="text-text-muted text-xs">{t("home.explorers")}</p>
-        </div>
+        {[
+          { value: strains.length.toString(), label: t("home.strains"), color: "text-accent-green" },
+          { value: "2.4K", label: t("home.checkins"), color: "text-accent-purple" },
+          { value: "891", label: t("home.explorers"), color: "text-accent-orange" },
+        ].map((stat) => (
+          <div key={stat.label} className="glass-card rounded-2xl p-3 text-center">
+            <p className={`text-2xl font-black ${stat.color}`}>{stat.value}</p>
+            <p className="text-text-muted text-[10px] uppercase tracking-wider font-medium">{stat.label}</p>
+          </div>
+        ))}
       </section>
 
       {/* AI Scanner Promo */}
-      <section className="glass-card rounded-2xl p-5 mb-8 glow-purple relative overflow-hidden">
-        <div className="relative z-10">
+      <section className="mb-8 relative overflow-hidden rounded-2xl"
+               style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(167,139,250,0.15) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(52,211,153,0.1) 0%, transparent 50%), rgba(19,19,22,0.85)",
+                        border: "1px solid rgba(167,139,250,0.2)",
+                        boxShadow: "0 0 30px rgba(167,139,250,0.15)" }}>
+        <div className="p-5 relative z-10">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">📸</span>
             <span className="pro-badge px-2 py-0.5 rounded-full text-[10px] font-bold text-black">
@@ -61,10 +73,7 @@ export default function Home() {
           </div>
           <h3 className="font-bold text-lg mb-1">{t("home.aiScanner")}</h3>
           <p className="text-text-secondary text-sm mb-3">{t("home.aiScannerDesc")}</p>
-          <Link
-            href="/checkin"
-            className="inline-flex items-center gap-1.5 text-accent-purple text-sm font-semibold"
-          >
+          <Link href="/scan" className="inline-flex items-center gap-1.5 text-accent-purple text-sm font-semibold hover:text-accent-purple/80 transition-colors">
             {t("home.tryNow")} →
           </Link>
         </div>
@@ -73,12 +82,12 @@ export default function Home() {
       {/* Trending */}
       <section className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold">🔥 {t("home.trending")}</h2>
-          <Link href="/strains" className="text-accent-green text-sm font-medium">
+          <h2 className="text-lg font-bold uppercase tracking-wide">🔥 {t("home.trending")}</h2>
+          <Link href="/strains" className="text-accent-green text-sm font-medium hover:text-accent-green/80 transition-colors">
             {t("home.seeAll")} →
           </Link>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           {topStrains.map((strain) => (
             <StrainCard key={strain.id} strain={strain} />
           ))}
@@ -87,7 +96,7 @@ export default function Home() {
 
       {/* Recent Activity */}
       <section className="mb-8">
-        <h2 className="text-lg font-bold mb-4">⚡ {t("home.recentCheckins")}</h2>
+        <h2 className="text-lg font-bold mb-4 uppercase tracking-wide">⚡ {t("home.recentCheckins")}</h2>
         <div className="flex flex-col gap-3">
           {recentCheckins.map((checkin) => (
             <CheckinCard key={checkin.id} checkin={checkin} />
@@ -96,7 +105,9 @@ export default function Home() {
       </section>
 
       {/* PRO CTA */}
-      <section className="glass-card rounded-2xl p-6 mb-8 text-center border border-accent-green/20">
+      <section className="rounded-2xl p-6 mb-8 text-center relative overflow-hidden"
+               style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(52,211,153,0.12) 0%, transparent 60%), rgba(19,19,22,0.85)",
+                        border: "1px solid rgba(52,211,153,0.15)" }}>
         <h3 className="text-xl font-bold mb-1">{t("home.unlockPro")}</h3>
         <p className="text-sm gradient-love font-medium mb-3">{t("brand.tagline")}</p>
         <p className="text-text-secondary text-sm mb-4">{t("home.proDesc")}</p>
@@ -107,7 +118,8 @@ export default function Home() {
         </div>
         <Link
           href="/pro"
-          className="block w-full py-3 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all glow-green text-center"
+          className="block w-full py-3.5 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all text-center"
+          style={{ boxShadow: "0 0 20px rgba(52,211,153,0.3)" }}
         >
           {t("home.startTrial")}
         </Link>
