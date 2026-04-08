@@ -33,7 +33,7 @@ export default function Navigation() {
                 <span className={`${isScan ? "bg-accent-green text-black w-10 h-10 rounded-full flex items-center justify-center -mt-5 shadow-lg" : ""}`}>
                   {isScan ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src="/logo-wizl.svg" alt="" className="w-6 h-6" />
+                    <img src="/logo-mark.png" alt="" className="w-7 h-7" />
                   ) : (
                     Icon && <Icon className="w-5 h-5" />
                   )}

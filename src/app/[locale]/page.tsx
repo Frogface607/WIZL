@@ -19,7 +19,9 @@ export default function Home() {
 
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-wizl.svg" alt="WIZL" className="w-80 h-80 mx-auto mb-2" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-mark.png" alt="WIZL" className="w-48 h-48 mx-auto mb-3 drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]" />
+          <h1 className="text-4xl font-black gradient-text tracking-tighter mb-1">WIZL</h1>
           <p className="text-sm gradient-love font-semibold mb-6">{t("brand.tagline")}</p>
 
           {/* Scan button -- the portal */}
