@@ -141,7 +141,7 @@ export default async function StrainPage({
                 <span className="text-lg">🏪</span>
                 <div className="flex-1">
                   <p className="font-semibold text-sm">{s.name}</p>
-                  <p className="text-text-muted text-xs">{s.district} • {s.hours}</p>
+                  <p className="text-text-muted text-xs">{s.city}, {s.country}{s.hours ? ` • ${s.hours}` : ""}</p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="text-accent-green text-xs font-bold">{s.rating}</span>
