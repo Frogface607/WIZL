@@ -20,9 +20,9 @@ export default function Home() {
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-mark.png" alt="WIZL" className="w-48 h-48 mx-auto mb-3 mix-blend-screen drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]" />
-          <h1 className="text-5xl font-brand gradient-text tracking-wider mb-1">WIZL</h1>
-          <p className="text-sm gradient-love font-semibold mb-6">{t("brand.tagline")}</p>
+          <img src="/logo-mark.png" alt="WIZL" className="w-48 h-48 mx-auto -mb-2 mix-blend-screen drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]" />
+          <h1 className="text-5xl font-brand font-bold tracking-[0.25em]" style={{background: "linear-gradient(135deg, #2d8a6e 0%, #5b7db5 50%, #9678b8 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"}}>WIZL</h1>
+          <p className="text-sm gradient-love font-semibold mb-6 mt-1">{t("brand.tagline")}</p>
 
           {/* Scan button -- the portal */}
           <Link href="/scan" className="inline-block mb-6 group">
