@@ -51,10 +51,15 @@ export default function StrainsPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
-      <h1 className="text-2xl font-black mt-6 mb-4 flex items-center gap-2">
-        <Leaf className="w-6 h-6 text-accent-green" />
-        {t("title")}
-      </h1>
+      <div className="flex items-end justify-between mt-6 mb-4">
+        <h1 className="text-2xl font-black flex items-center gap-2">
+          <Leaf className="w-6 h-6 text-accent-green" />
+          {t("title")}
+        </h1>
+        <span className="text-text-muted text-sm font-medium">
+          {strains.length} strains
+        </span>
+      </div>
 
       <div className="relative mb-4">
         <input
