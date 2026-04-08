@@ -4,10 +4,10 @@
   --bg-primary: #050507;
   --bg-card: #0f0f13;
   --bg-card-hover: #161619;
-  --accent-green: #34d399;
-  --accent-purple: #a78bfa;
-  --accent-orange: #fb923c;
-  --accent-love: #f472b6;
+  --accent-green: #2d8a6e;
+  --accent-purple: #9678b8;
+  --accent-orange: #c4956a;
+  --accent-love: #b87da8;
   --text-primary: #f4f4f5;
   --text-secondary: #d4d4d8;
   --text-muted: #a1a1aa;
@@ -38,13 +38,13 @@ body {
 
 /* Strain type gradients */
 .strain-sativa {
-  background: linear-gradient(135deg, #fb923c, #facc15);
+  background: linear-gradient(135deg, #c4956a, #b8a862);
 }
 .strain-indica {
-  background: linear-gradient(135deg, #a78bfa, #818cf8);
+  background: linear-gradient(135deg, #9678b8, #7b6fad);
 }
 .strain-hybrid {
-  background: linear-gradient(135deg, #34d399, #2dd4bf);
+  background: linear-gradient(135deg, #2d8a6e, #3a9b8a);
 }
 
 /* Glow effects — stronger */
@@ -72,7 +72,7 @@ body {
 
 /* Gradient text — WIZL brand */
 .gradient-text {
-  background: linear-gradient(135deg, #34d399 0%, #a78bfa 50%, #f472b6 100%);
+  background: linear-gradient(135deg, #2d8a6e 0%, #9678b8 50%, #b87da8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -80,7 +80,7 @@ body {
 
 /* "with love" gradient */
 .gradient-love {
-  background: linear-gradient(135deg, #f472b6, #a78bfa);
+  background: linear-gradient(135deg, #b87da8, #9678b8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -112,13 +112,13 @@ html {
   100% { background-position: 200% center; }
 }
 .pro-badge {
-  background: linear-gradient(90deg, #34d399, #a78bfa, #34d399);
+  background: linear-gradient(90deg, #2d8a6e, #9678b8, #2d8a6e);
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
 }
 
 .price-420 {
-  background: linear-gradient(90deg, #34d399, #facc15, #a78bfa, #34d399);
+  background: linear-gradient(90deg, #2d8a6e, #b8a862, #9678b8, #2d8a6e);
   background-size: 300% auto;
   animation: shimmer 4s linear infinite;
   -webkit-background-clip: text;
