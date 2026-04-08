@@ -56,10 +56,10 @@ export default function StrainCard({ strain }: { strain: Strain }) {
                 >
                   {strain.type}
                 </span>
-                {strain.genetics?.parents && strain.genetics.parents.length > 0 && (
+                {strain.genetics && strain.genetics !== "Unknown" && (
                   <span className="text-white/60 text-[10px] flex items-center gap-0.5">
                     <IconDna className="w-3 h-3" />
-                    {strain.genetics.parents.slice(0, 2).join(" x ")}
+                    {strain.genetics}
                   </span>
                 )}
               </div>

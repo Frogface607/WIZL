@@ -1,5 +1,7 @@
 export type StrainType = "sativa" | "indica" | "hybrid";
 
+export type Difficulty = "easy" | "moderate" | "hard";
+
 export interface Strain {
   id: string;
   name: string;
@@ -13,10 +15,15 @@ export interface Strain {
   reviewCount: number;
   image: string;
   color: string;
-  genetics?: {
-    parents: string[];
-  };
-  terpenes?: string[];
+  genetics: string;
+  breeder: string;
+  floweringTime: string;
+  difficulty: Difficulty;
+  bestFor: string[];
+  terpenes: string[];
+  origin: string;
+  aka: string[];
+  funFact: string;
 }
 
 export interface CheckIn {
