@@ -4,6 +4,7 @@ import { strains, recentCheckins } from "@/data/strains";
 import StrainCard from "@/components/StrainCard";
 import CheckinCard from "@/components/CheckinCard";
 import { WizlLogo, IconScan } from "@/components/icons";
+import { Camera, TrendingUp, Zap } from "lucide-react";
 
 export default function Home() {
   const t = useTranslations();
@@ -20,7 +21,7 @@ export default function Home() {
           <h1 className="text-5xl font-black gradient-text mb-1 tracking-tighter">{t("brand.name")}</h1>
           <p className="text-sm gradient-love font-semibold mb-6">{t("brand.tagline")}</p>
 
-          {/* Scan button — the portal */}
+          {/* Scan button -- the portal */}
           <Link href="/scan" className="inline-block mb-6 group">
             <div className="relative">
               {/* Outer glow ring */}
@@ -66,7 +67,7 @@ export default function Home() {
                         boxShadow: "0 0 30px rgba(167,139,250,0.15)" }}>
         <div className="p-5 relative z-10">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xl">📸</span>
+            <Camera className="w-5 h-5 text-accent-purple" />
             <span className="pro-badge px-2 py-0.5 rounded-full text-[10px] font-bold text-black">
               {t("common.pro")}
             </span>
@@ -82,7 +83,10 @@ export default function Home() {
       {/* Trending */}
       <section className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold uppercase tracking-wide">🔥 {t("home.trending")}</h2>
+          <h2 className="text-lg font-bold uppercase tracking-wide flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-accent-orange" />
+            {t("home.trending")}
+          </h2>
           <Link href="/strains" className="text-accent-green text-sm font-medium hover:text-accent-green/80 transition-colors">
             {t("home.seeAll")} →
           </Link>
@@ -96,7 +100,10 @@ export default function Home() {
 
       {/* Recent Activity */}
       <section className="mb-8">
-        <h2 className="text-lg font-bold mb-4 uppercase tracking-wide">⚡ {t("home.recentCheckins")}</h2>
+        <h2 className="text-lg font-bold mb-4 uppercase tracking-wide flex items-center gap-2">
+          <Zap className="w-5 h-5 text-accent-green" />
+          {t("home.recentCheckins")}
+        </h2>
         <div className="flex flex-col gap-3">
           {recentCheckins.map((checkin) => (
             <CheckinCard key={checkin.id} checkin={checkin} />

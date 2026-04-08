@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getUserData, incrementScans, getScansRemaining } from "@/lib/store";
+import { strains } from "@/data/strains";
+import { Search, Camera, Zap, Droplets, Link2, ScanLine } from "lucide-react";
 
 interface ScanResult {
   name: string;
@@ -38,6 +40,7 @@ export default function ScanPage() {
   const [mode, setMode] = useState<"idle" | "loading" | "result">("idle");
   const [result, setResult] = useState<ScanResult | null>(null);
   const [description, setDescription] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [scansLeft, setScansLeft] = useState(5);
@@ -87,6 +90,35 @@ export default function ScanPage() {
     }
   };
 
+  const handleNameSearch = () => {
+    if (!searchQuery.trim()) return;
+
+    const query = searchQuery.trim().toLowerCase();
+    const found = strains.find(
+      (s) => s.name.toLowerCase() === query || s.id === query.replace(/\s+/g, "-")
+    );
+
+    if (found) {
+      // Found locally -- show as result directly
+      setResult({
+        name: found.name,
+        confidence: "high",
+        type: found.type,
+        thc_range: `${found.thc}%`,
+        cbd_range: `${found.cbd}%`,
+        effects: found.effects,
+        flavors: found.flavors,
+        description: found.description,
+        best_for: found.effects.slice(0, 2).join(", "),
+        similar_strains: [],
+      });
+      setMode("result");
+    } else {
+      // Not found locally -- call API
+      handleScan(undefined, searchQuery.trim());
+    }
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -110,6 +142,7 @@ export default function ScanPage() {
     setResult(null);
     setPreview(null);
     setDescription("");
+    setSearchQuery("");
     setError(null);
   };
 
@@ -118,7 +151,7 @@ export default function ScanPage() {
     return (
       <div className="max-w-lg mx-auto px-4 pb-24 pt-8">
         <div className="text-center py-20">
-          <div className="text-6xl mb-6 animate-float">🔍</div>
+          <ScanLine className="w-14 h-14 text-accent-green mx-auto mb-6 animate-float" />
           <h2 className="text-xl font-black gradient-text mb-2">
             {t("analyzing")}
           </h2>
@@ -153,7 +186,10 @@ export default function ScanPage() {
           ← {t("scanAgain")}
         </button>
 
-        <h2 className="text-lg font-bold mb-4">🔍 {t("scanResult")}</h2>
+        <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+          <ScanLine className="w-5 h-5 text-accent-green" />
+          {t("scanResult")}
+        </h2>
 
         {/* Main Result Card */}
         <div className="glass-card rounded-3xl p-6 mb-4 glow-green border border-accent-green/20">
@@ -204,7 +240,9 @@ export default function ScanPage() {
 
         {/* Effects */}
         <div className="glass-card rounded-2xl p-5 mb-4">
-          <h3 className="font-bold mb-3">⚡ Effects</h3>
+          <h3 className="font-bold mb-3 flex items-center gap-2">
+            <Zap className="w-4 h-4 text-accent-green" /> Effects
+          </h3>
           <div className="flex flex-wrap gap-2">
             {result.effects.map((effect) => (
               <span key={effect} className="px-3 py-1.5 rounded-full bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/20">
@@ -216,7 +254,9 @@ export default function ScanPage() {
 
         {/* Flavors */}
         <div className="glass-card rounded-2xl p-5 mb-4">
-          <h3 className="font-bold mb-3">👅 Flavors</h3>
+          <h3 className="font-bold mb-3 flex items-center gap-2">
+            <Droplets className="w-4 h-4 text-accent-purple" /> Flavors
+          </h3>
           <div className="flex flex-wrap gap-2">
             {result.flavors.map((flavor) => (
               <span key={flavor} className="px-3 py-1.5 rounded-full bg-accent-purple/10 text-accent-purple text-sm font-medium border border-accent-purple/20">
@@ -229,7 +269,9 @@ export default function ScanPage() {
         {/* Similar Strains */}
         {result.similar_strains.length > 0 && (
           <div className="glass-card rounded-2xl p-5 mb-6">
-            <h3 className="font-bold mb-3">🔗 Similar Strains</h3>
+            <h3 className="font-bold mb-3 flex items-center gap-2">
+              <Link2 className="w-4 h-4 text-text-secondary" /> Similar Strains
+            </h3>
             <div className="flex flex-wrap gap-2">
               {result.similar_strains.map((strain) => (
                 <span key={strain} className="px-3 py-1.5 rounded-full bg-bg-primary text-text-secondary text-sm border border-border">
@@ -250,20 +292,20 @@ export default function ScanPage() {
           </Link>
           <button
             onClick={reset}
-            className="flex-1 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium hover:bg-bg-card-hover transition-all"
+            className="flex-1 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium hover:bg-bg-card-hover transition-all flex items-center justify-center gap-2"
           >
-            {t("scanAgain")} 🔍
+            {t("scanAgain")} <ScanLine className="w-4 h-4" />
           </button>
         </div>
       </div>
     );
   }
 
-  // Idle state — scan input
+  // Idle state -- scan input
   return (
     <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
-      <div className="text-center mb-8">
-        <div className="text-5xl mb-3 animate-float">🔍</div>
+      <div className="text-center mb-6">
+        <ScanLine className="w-12 h-12 text-accent-green mx-auto mb-3 animate-float" />
         <h1 className="text-2xl font-black gradient-text mb-1">{t("title")}</h1>
         <p className="text-text-secondary text-sm">{t("subtitle")}</p>
       </div>
@@ -273,6 +315,42 @@ export default function ScanPage() {
           <p className="text-red-400 text-sm">{error}</p>
         </div>
       )}
+
+      {/* Search by strain name -- PRIMARY */}
+      <div className="mb-6">
+        <label className="text-text-secondary text-sm font-medium mb-2 block">
+          {t("searchByName")}
+        </label>
+        <div className="relative">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+          <input
+            type="text"
+            placeholder={t("searchPlaceholder")}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleNameSearch()}
+            className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3.5 pl-10 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors"
+          />
+        </div>
+        <button
+          onClick={handleNameSearch}
+          disabled={!searchQuery.trim()}
+          className={`w-full mt-3 py-3 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 ${
+            searchQuery.trim()
+              ? "bg-accent-green text-black hover:brightness-110 glow-green"
+              : "bg-bg-card text-text-muted border border-border"
+          }`}
+        >
+          <Search className="w-4 h-4" /> {t("title")}
+        </button>
+      </div>
+
+      {/* Divider */}
+      <div className="flex items-center gap-4 mb-6">
+        <div className="flex-1 h-px bg-border" />
+        <span className="text-text-muted text-xs">{t("orScan")}</span>
+        <div className="flex-1 h-px bg-border" />
+      </div>
 
       {/* Photo upload area */}
       <div className="mb-6">
@@ -287,9 +365,9 @@ export default function ScanPage() {
 
         <button
           onClick={() => fileRef.current?.click()}
-          className="w-full glass-card rounded-2xl p-8 border-2 border-dashed border-accent-green/30 text-center hover:bg-bg-card-hover hover:border-accent-green/50 transition-all group"
+          className="w-full glass-card rounded-2xl p-6 border-2 border-dashed border-accent-green/30 text-center hover:bg-bg-card-hover hover:border-accent-green/50 transition-all group"
         >
-          <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">📸</div>
+          <Camera className="w-10 h-10 text-accent-green mx-auto mb-2 group-hover:scale-110 transition-transform" />
           <p className="text-text-primary font-bold mb-1">{t("takePhoto")}</p>
           <p className="text-text-muted text-xs">{t("uploadPhoto")}</p>
         </button>
@@ -314,13 +392,13 @@ export default function ScanPage() {
         <button
           onClick={handleTextScan}
           disabled={!description.trim()}
-          className={`w-full mt-3 py-3 rounded-2xl font-bold transition-all ${
+          className={`w-full mt-3 py-3 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 ${
             description.trim()
               ? "bg-accent-green text-black hover:brightness-110 glow-green"
               : "bg-bg-card text-text-muted border border-border"
           }`}
         >
-          🔍 {t("title")}
+          <ScanLine className="w-4 h-4" /> {t("title")}
         </button>
       </div>
 

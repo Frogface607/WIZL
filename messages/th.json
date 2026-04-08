@@ -149,7 +149,10 @@
     "scanResult": "ผลสแกน",
     "saveCheckin": "บันทึกเป็นเช็คอิน",
     "scanAgain": "สแกนอีกครั้ง",
-    "confidence": "ความมั่นใจ"
+    "confidence": "ความมั่นใจ",
+    "searchByName": "ค้นหาชื่อสายพันธุ์",
+    "searchPlaceholder": "Blue Dream, OG Kush, Girl Scout Cookies...",
+    "orScan": "หรือสแกนด้วยกล้อง"
   },
   "common": {
     "pro": "PRO",

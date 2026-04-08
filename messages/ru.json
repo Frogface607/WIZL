@@ -149,7 +149,10 @@
     "scanResult": "Результат скана",
     "saveCheckin": "Сохранить как чекин",
     "scanAgain": "Сканировать ещё",
-    "confidence": "Уверенность"
+    "confidence": "Уверенность",
+    "searchByName": "Поиск по названию сорта",
+    "searchPlaceholder": "Blue Dream, OG Kush, Girl Scout Cookies...",
+    "orScan": "или сканируй камерой"
   },
   "common": {
     "pro": "PRO",

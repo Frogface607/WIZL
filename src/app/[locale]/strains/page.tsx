@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { strains } from "@/data/strains";
 import StrainCard from "@/components/StrainCard";
 import { StrainType } from "@/types";
+import { Leaf } from "lucide-react";
 
 type FilterType = "all" | StrainType;
 
@@ -17,11 +18,11 @@ export default function StrainsPage() {
   const [sort, setSort] = useState<SortValue>("rating");
   const [search, setSearch] = useState("");
 
-  const filters: { label: string; value: FilterType; icon: string }[] = [
-    { label: t("all"), value: "all", icon: "🌿" },
-    { label: t("sativa"), value: "sativa", icon: "☀️" },
-    { label: t("indica"), value: "indica", icon: "🌙" },
-    { label: t("hybrid"), value: "hybrid", icon: "⚡" },
+  const filters: { label: string; value: FilterType; className: string }[] = [
+    { label: t("all"), value: "all", className: "strain-hybrid" },
+    { label: t("sativa"), value: "sativa", className: "strain-sativa" },
+    { label: t("indica"), value: "indica", className: "strain-indica" },
+    { label: t("hybrid"), value: "hybrid", className: "strain-hybrid" },
   ];
 
   const sortOptions: { label: string; value: SortValue }[] = [
@@ -50,7 +51,10 @@ export default function StrainsPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
-      <h1 className="text-2xl font-black mt-6 mb-4">🌿 {t("title")}</h1>
+      <h1 className="text-2xl font-black mt-6 mb-4 flex items-center gap-2">
+        <Leaf className="w-6 h-6 text-accent-green" />
+        {t("title")}
+      </h1>
 
       <div className="relative mb-4">
         <input
@@ -60,7 +64,10 @@ export default function StrainsPage() {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 pl-10 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors"
         />
-        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-sm">🔍</span>
+        <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
       </div>
 
       <div className="flex gap-2 mb-4 overflow-x-auto hide-scrollbar">
@@ -70,11 +77,10 @@ export default function StrainsPage() {
             onClick={() => setFilter(f.value)}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
               filter === f.value
-                ? "bg-accent-green text-black"
+                ? `${f.className} text-white`
                 : "bg-bg-card text-text-secondary border border-border hover:bg-bg-card-hover"
             }`}
           >
-            <span>{f.icon}</span>
             {f.label}
           </button>
         ))}
@@ -108,8 +114,7 @@ export default function StrainsPage() {
 
       {filtered.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-4xl mb-3">🤷</div>
-          <p className="text-text-secondary">{t("nothingFound")}</p>
+          <p className="text-text-secondary text-lg font-medium mb-1">{t("nothingFound")}</p>
           <p className="text-text-muted text-sm">{t("tryDifferent")}</p>
         </div>
       )}

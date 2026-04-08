@@ -2,17 +2,18 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
+import { Home, Leaf, ScanLine, MapPin, User } from "lucide-react";
 
 export default function Navigation() {
   const t = useTranslations("nav");
   const pathname = usePathname();
 
   const navItems = [
-    { href: "/" as const, icon: "🏠", label: t("home") },
-    { href: "/strains" as const, icon: "🌿", label: t("strains") },
-    { href: "/scan" as const, icon: "🔍", label: t("scan") },
-    { href: "/map" as const, icon: "📍", label: t("map") },
-    { href: "/profile" as const, icon: "👤", label: t("profile") },
+    { href: "/" as const, icon: Home, label: t("home") },
+    { href: "/strains" as const, icon: Leaf, label: t("strains") },
+    { href: "/scan" as const, icon: ScanLine, label: t("scan") },
+    { href: "/map" as const, icon: MapPin, label: t("map") },
+    { href: "/profile" as const, icon: User, label: t("profile") },
   ];
 
   return (
@@ -22,14 +23,15 @@ export default function Navigation() {
           {navItems.map((item) => {
             const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
             const isScan = item.href === "/scan";
+            const Icon = item.icon;
 
             return (
               <Link key={item.href} href={item.href}
                 className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all ${
                   isActive ? "text-accent-green" : "text-text-muted hover:text-text-secondary"
                 }`}>
-                <span className={`text-xl ${isScan ? "bg-accent-green text-black w-10 h-10 rounded-full flex items-center justify-center -mt-5 shadow-lg" : ""}`}>
-                  {item.icon}
+                <span className={`${isScan ? "bg-accent-green text-black w-10 h-10 rounded-full flex items-center justify-center -mt-5 shadow-lg" : ""}`}>
+                  <Icon className={`${isScan ? "w-5 h-5" : "w-5 h-5"}`} />
                 </span>
                 <span className="text-[10px] font-medium">{item.label}</span>
               </Link>

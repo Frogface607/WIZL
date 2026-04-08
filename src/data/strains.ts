@@ -13,7 +13,7 @@ export const strains: Strain[] = [
     flavors: ["Cookies", "Cream", "Sweet", "Earthy"],
     rating: 4.8,
     reviewCount: 342,
-    image: "🍪",
+    image: "O",
     color: "#34d399",
   },
   {
@@ -28,7 +28,7 @@ export const strains: Strain[] = [
     flavors: ["Earthy", "Pine", "Woody", "Lemon"],
     rating: 4.7,
     reviewCount: 1205,
-    image: "👑",
+    image: "O",
     color: "#34d399",
   },
   {
@@ -43,7 +43,7 @@ export const strains: Strain[] = [
     flavors: ["Blueberry", "Sweet", "Berry", "Herbal"],
     rating: 4.6,
     reviewCount: 980,
-    image: "💙",
+    image: "B",
     color: "#60a5fa",
   },
   {
@@ -58,7 +58,7 @@ export const strains: Strain[] = [
     flavors: ["Sweet", "Earthy", "Mint", "Chocolate"],
     rating: 4.8,
     reviewCount: 756,
-    image: "🍫",
+    image: "G",
     color: "#a78bfa",
   },
   {
@@ -73,7 +73,7 @@ export const strains: Strain[] = [
     flavors: ["Diesel", "Citrus", "Earthy", "Pungent"],
     rating: 4.5,
     reviewCount: 892,
-    image: "⛽",
+    image: "S",
     color: "#facc15",
   },
   {
@@ -88,7 +88,7 @@ export const strains: Strain[] = [
     flavors: ["Vanilla", "Sweet", "Earthy", "Pepper"],
     rating: 4.7,
     reviewCount: 623,
-    image: "🎂",
+    image: "W",
     color: "#c084fc",
   },
   {
@@ -103,7 +103,7 @@ export const strains: Strain[] = [
     flavors: ["Berry", "Sweet", "Earthy", "Grape"],
     rating: 4.4,
     reviewCount: 567,
-    image: "💜",
+    image: "P",
     color: "#e879f9",
   },
   {
@@ -118,7 +118,7 @@ export const strains: Strain[] = [
     flavors: ["Citrus", "Sweet", "Cream", "Berry"],
     rating: 4.9,
     reviewCount: 1102,
-    image: "🍨",
+    image: "G",
     color: "#fb923c",
   },
   {
@@ -133,7 +133,7 @@ export const strains: Strain[] = [
     flavors: ["Pine", "Earthy", "Woody", "Spicy"],
     rating: 4.5,
     reviewCount: 445,
-    image: "🌲",
+    image: "J",
     color: "#4ade80",
   },
   {
@@ -148,7 +148,7 @@ export const strains: Strain[] = [
     flavors: ["Pineapple", "Tropical", "Citrus", "Sweet"],
     rating: 4.6,
     reviewCount: 834,
-    image: "🍍",
+    image: "P",
     color: "#fbbf24",
   },
   {
@@ -163,7 +163,7 @@ export const strains: Strain[] = [
     flavors: ["Earthy", "Pine", "Sour", "Chocolate"],
     rating: 4.7,
     reviewCount: 978,
-    image: "🦍",
+    image: "G",
     color: "#6b7280",
   },
   {
@@ -178,7 +178,7 @@ export const strains: Strain[] = [
     flavors: ["Citrus", "Herbal", "Spicy", "Tropical"],
     rating: 4.3,
     reviewCount: 312,
-    image: "🇹🇭",
+    image: "T",
     color: "#f97316",
   },
 ];

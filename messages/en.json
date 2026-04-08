@@ -149,7 +149,10 @@
     "scanResult": "Scan Result",
     "saveCheckin": "Save as Check-in",
     "scanAgain": "Scan Again",
-    "confidence": "Confidence"
+    "confidence": "Confidence",
+    "searchByName": "Search by strain name",
+    "searchPlaceholder": "Blue Dream, OG Kush, Girl Scout Cookies...",
+    "orScan": "or scan with camera"
   },
   "common": {
     "pro": "PRO",
