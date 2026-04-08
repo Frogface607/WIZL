@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { strains, recentCheckins } from "@/data/strains";
 import { shops } from "@/data/shops";
 import CheckinCard from "@/components/CheckinCard";
+import StrainActions from "@/components/StrainActions";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -215,6 +216,11 @@ export default async function StrainPage({
       </Link>
 
       {/* ============================================= */}
+      {/* WISHLIST & FAVORITE */}
+      {/* ============================================= */}
+      <StrainActions strainId={strain.id} />
+
+      {/* ============================================= */}
       {/* DESCRIPTION */}
       {/* ============================================= */}
       <section className="glass-card rounded-2xl p-5 mb-5">
@@ -242,43 +248,56 @@ export default async function StrainPage({
       )}
 
       {/* ============================================= */}
-      {/* EFFECTS & FLAVORS */}
+      {/* EFFECTS — Leafly-style bars */}
       {/* ============================================= */}
-      <div className="grid grid-cols-1 gap-4 mb-5">
-        <div className="glass-card rounded-2xl p-5">
-          <h2 className="font-bold mb-3 text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
-            <Zap className="w-4 h-4" />
-            {t("effects")}
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {strain.effects.map((effect) => (
-              <span
-                key={effect}
-                className="px-3 py-1.5 rounded-full bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/20"
-              >
-                {effect}
-              </span>
-            ))}
-          </div>
+      <section className="glass-card rounded-2xl p-5 mb-5">
+        <h2 className="font-bold mb-4 text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
+          <Zap className="w-4 h-4" />
+          {t("effects")}
+        </h2>
+        <div className="flex flex-col gap-3">
+          {strain.effects.map((effect, idx) => {
+            const intensity = Math.max(30, 95 - idx * 13);
+            return (
+              <div key={effect}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm text-text-primary font-medium">{effect}</span>
+                  <span className="text-xs text-text-muted">{intensity}%</span>
+                </div>
+                <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{
+                      width: `${intensity}%`,
+                      background: `linear-gradient(90deg, ${strain.color}, ${strain.color}99)`,
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
+      </section>
 
-        <div className="glass-card rounded-2xl p-5">
-          <h2 className="font-bold mb-3 text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
-            <Droplets className="w-4 h-4" />
-            {t("flavors")}
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {strain.flavors.map((flavor) => (
-              <span
-                key={flavor}
-                className="px-3 py-1.5 rounded-full bg-accent-purple/10 text-accent-purple text-sm font-medium border border-accent-purple/20"
-              >
-                {flavor}
-              </span>
-            ))}
-          </div>
+      {/* ============================================= */}
+      {/* FLAVORS */}
+      {/* ============================================= */}
+      <section className="glass-card rounded-2xl p-5 mb-5">
+        <h2 className="font-bold mb-3 text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
+          <Droplets className="w-4 h-4" />
+          {t("flavors")}
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          {strain.flavors.map((flavor) => (
+            <span
+              key={flavor}
+              className="px-3 py-1.5 rounded-full bg-accent-purple/10 text-accent-purple text-sm font-medium border border-accent-purple/20"
+            >
+              {flavor}
+            </span>
+          ))}
         </div>
-      </div>
+      </section>
 
       {/* ============================================= */}
       {/* BEST FOR */}

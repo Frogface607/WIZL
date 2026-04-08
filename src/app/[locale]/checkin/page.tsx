@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { strains, moods } from "@/data/strains";
+import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
 
@@ -16,15 +17,22 @@ export default function CheckinPage() {
   const [review, setReview] = useState("");
   const [selectedMood, setSelectedMood] = useState("");
   const [search, setSearch] = useState("");
+  const [shopSearch, setShopSearch] = useState("");
+  const [selectedShop, setSelectedShop] = useState<{ id: string; name: string } | null>(null);
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
 
   const filteredStrains = strains.filter((s) =>
     s.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const filteredShops = shops.filter((s) =>
+    s.name.toLowerCase().includes(shopSearch.toLowerCase()) ||
+    s.city.toLowerCase().includes(shopSearch.toLowerCase())
+  ).slice(0, 5);
+
   const handleSubmit = () => {
     if (!selectedStrain || rating === 0) return;
-    const result = addCheckin(selectedStrain, rating, selectedMood, review);
+    const result = addCheckin(selectedStrain, rating, selectedMood, review, selectedShop || undefined);
     setNewAchievements(result.newAchievements);
     setStep("done");
   };
@@ -154,6 +162,49 @@ export default function CheckinPage() {
             <p className="text-text-muted text-sm">{t("tapToScan")}</p>
             <p className="text-text-muted text-xs mt-1">{t("aiRecognize")}</p>
           </Link>
+        </div>
+
+        <div className="mb-6">
+          <h3 className="font-bold mb-3">📍 Where are you?</h3>
+          {selectedShop ? (
+            <div className="glass-card rounded-2xl p-3 flex items-center gap-3">
+              <span className="text-xl">🏪</span>
+              <div className="flex-1">
+                <p className="font-semibold text-sm">{selectedShop.name}</p>
+              </div>
+              <button onClick={() => setSelectedShop(null)} className="text-text-muted text-xs hover:text-accent-love transition-colors">✕ Remove</button>
+            </div>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Search shop..."
+                value={shopSearch}
+                onChange={(e) => setShopSearch(e.target.value)}
+                className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors mb-2"
+              />
+              {shopSearch.length > 0 && (
+                <div className="flex flex-col gap-1">
+                  {filteredShops.map((shop) => (
+                    <button
+                      key={shop.id}
+                      onClick={() => { setSelectedShop({ id: shop.id, name: shop.name }); setShopSearch(""); }}
+                      className="glass-card rounded-xl p-2.5 flex items-center gap-2 text-left hover:bg-bg-card-hover transition-all"
+                    >
+                      <span className="text-sm">🏪</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{shop.name}</p>
+                        <p className="text-text-muted text-[10px]">{shop.city}, {shop.country}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {shopSearch.length === 0 && (
+                <p className="text-text-muted text-xs text-center py-2">Optional — tag the shop you&apos;re at</p>
+              )}
+            </>
+          )}
         </div>
 
         <button onClick={handleSubmit} disabled={rating === 0}

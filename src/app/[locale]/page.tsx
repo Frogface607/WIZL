@@ -121,12 +121,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recent Activity */}
+      {/* Social Feed */}
       <section className="mb-8">
-        <h2 className="text-lg font-bold mb-4 uppercase tracking-wide flex items-center gap-2">
+        <h2 className="text-lg font-bold mb-1 uppercase tracking-wide flex items-center gap-2">
           <Zap className="w-5 h-5 text-accent-green" />
           {t("home.recentCheckins")}
         </h2>
+        <p className="text-text-muted text-xs mb-4">What the community is smoking right now</p>
         <div className="flex flex-col gap-3">
           {recentCheckins.map((checkin) => (
             <CheckinCard key={checkin.id} checkin={checkin} />

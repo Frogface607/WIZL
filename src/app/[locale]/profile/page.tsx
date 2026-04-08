@@ -7,20 +7,25 @@ import {
   getUserData,
   getUnlockedAchievements,
   getUniqueStrainCount,
+  getTasteProfile,
   achievements,
   UserData,
   Achievement,
+  TasteProfile,
 } from "@/lib/store";
+import { strains } from "@/data/strains";
 
 export default function ProfilePage() {
   const t = useTranslations("profile");
   const [data, setData] = useState<UserData | null>(null);
   const [unlocked, setUnlocked] = useState<Achievement[]>([]);
+  const [taste, setTaste] = useState<TasteProfile | null>(null);
 
   useEffect(() => {
     const d = getUserData();
     setData(d);
     setUnlocked(getUnlockedAchievements(d));
+    setTaste(getTasteProfile(d, strains));
   }, []);
 
   if (!data) {
@@ -91,6 +96,89 @@ export default function ProfilePage() {
           <p className="text-text-muted text-[10px]">{t("badges")}</p>
         </div>
       </div>
+
+      {/* Taste Profile */}
+      {taste && taste.favoriteType && (
+        <section className="mb-6">
+          <h2 className="text-lg font-bold mb-3">🧬 Your Taste</h2>
+          <div className="glass-card rounded-2xl p-5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${
+                taste.favoriteType.type === "sativa" ? "bg-yellow-500/20" :
+                taste.favoriteType.type === "indica" ? "bg-purple-500/20" : "bg-emerald-500/20"
+              }`}>
+                {taste.favoriteType.type === "sativa" ? "☀️" : taste.favoriteType.type === "indica" ? "🌙" : "⚡"}
+              </div>
+              <div>
+                <p className="font-bold text-sm capitalize">{taste.favoriteType.type} Lover</p>
+                <p className="text-text-muted text-xs">{taste.favoriteType.pct}% of your check-ins</p>
+              </div>
+              <div className="ml-auto text-right">
+                <p className="text-accent-green font-bold text-lg">{taste.avgThc}%</p>
+                <p className="text-text-muted text-[10px]">avg THC</p>
+              </div>
+            </div>
+            {taste.topEffects.length > 0 && (
+              <div className="mb-3">
+                <p className="text-text-muted text-[10px] font-medium uppercase tracking-wider mb-2">Your top effects</p>
+                <div className="flex flex-col gap-1.5">
+                  {taste.topEffects.slice(0, 3).map((e) => (
+                    <div key={e.name} className="flex items-center gap-2">
+                      <span className="text-sm text-text-primary w-20 truncate">{e.name}</span>
+                      <div className="flex-1 h-1.5 rounded-full bg-white/5 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-accent-green"
+                          style={{ width: `${Math.min(100, (e.count / (taste.topEffects[0]?.count || 1)) * 100)}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {taste.topFlavors.length > 0 && (
+              <div>
+                <p className="text-text-muted text-[10px] font-medium uppercase tracking-wider mb-2">Your top flavors</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {taste.topFlavors.slice(0, 5).map((f) => (
+                    <span key={f.name} className="px-2 py-1 rounded-lg bg-accent-purple/10 text-accent-purple text-[10px] font-medium border border-accent-purple/20">
+                      {f.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Wishlist */}
+      {data.wishlist && data.wishlist.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-lg font-bold mb-3">📋 Want to Try</h2>
+          <div className="flex flex-col gap-2">
+            {data.wishlist.map((id) => {
+              const s = strains.find((st) => st.id === id);
+              if (!s) return null;
+              return (
+                <Link key={id} href={`/strains/${id}`} className="glass-card rounded-xl p-3 flex items-center gap-3 hover:bg-bg-card-hover transition-all">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-black text-white"
+                    style={{ background: `linear-gradient(135deg, ${s.color}, ${s.color}99)` }}
+                  >
+                    {s.name.charAt(0)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm">{s.name}</p>
+                    <span className={`strain-${s.type} px-2 py-0.5 rounded-full text-[9px] font-bold uppercase text-white`}>{s.type}</span>
+                  </div>
+                  <span className="text-accent-green text-xs font-bold">{s.thc}% THC</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Achievements */}
       <section className="mb-6">

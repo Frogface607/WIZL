@@ -11,11 +11,14 @@ export interface UserCheckin {
   mood: string;
   review: string;
   createdAt: string;
+  shopId?: string;
+  shopName?: string;
 }
 
 export interface UserData {
   checkins: UserCheckin[];
   favorites: string[]; // strain IDs
+  wishlist: string[]; // strain IDs — "want to try"
   scansToday: number;
   scansDate: string; // YYYY-MM-DD
   isPro: boolean;
@@ -187,6 +190,7 @@ function getDefaultData(): UserData {
   return {
     checkins: [],
     favorites: [],
+    wishlist: [],
     scansToday: 0,
     scansDate: new Date().toISOString().split("T")[0],
     isPro: false,
@@ -216,7 +220,8 @@ export function addCheckin(
   strain: Strain,
   rating: number,
   mood: string,
-  review: string
+  review: string,
+  shop?: { id: string; name: string }
 ): { data: UserData; newAchievements: Achievement[] } {
   const data = getUserData();
   const oldUnlocked = getUnlockedAchievements(data);
@@ -231,6 +236,7 @@ export function addCheckin(
     mood,
     review,
     createdAt: new Date().toISOString(),
+    ...(shop ? { shopId: shop.id, shopName: shop.name } : {}),
   };
 
   data.checkins.unshift(checkin);
@@ -282,6 +288,64 @@ export function getUnlockedAchievements(data: UserData): Achievement[] {
 
 export function getUniqueStrainCount(data: UserData): number {
   return new Set(data.checkins.map((c) => c.strainId)).size;
+}
+
+export function toggleWishlist(strainId: string): UserData {
+  const data = getUserData();
+  const idx = data.wishlist.indexOf(strainId);
+  if (idx === -1) {
+    data.wishlist.push(strainId);
+  } else {
+    data.wishlist.splice(idx, 1);
+  }
+  saveUserData(data);
+  return data;
+}
+
+export interface TasteProfile {
+  favoriteType: { type: string; pct: number } | null;
+  topEffects: { name: string; count: number }[];
+  topFlavors: { name: string; count: number }[];
+  avgThc: number;
+  avgRating: number;
+  totalUnique: number;
+}
+
+export function getTasteProfile(data: UserData, allStrains: Strain[]): TasteProfile {
+  const checkins = data.checkins;
+  if (checkins.length === 0) {
+    return { favoriteType: null, topEffects: [], topFlavors: [], avgThc: 0, avgRating: 0, totalUnique: 0 };
+  }
+
+  // Favorite type
+  const typeCounts: Record<string, number> = {};
+  checkins.forEach((c) => { typeCounts[c.strainType] = (typeCounts[c.strainType] || 0) + 1; });
+  const topType = Object.entries(typeCounts).sort((a, b) => b[1] - a[1])[0];
+  const favoriteType = topType ? { type: topType[0], pct: Math.round((topType[1] / checkins.length) * 100) } : null;
+
+  // Top effects & flavors from checked-in strains
+  const effectCounts: Record<string, number> = {};
+  const flavorCounts: Record<string, number> = {};
+  let thcSum = 0;
+  let thcCount = 0;
+
+  checkins.forEach((c) => {
+    const strain = allStrains.find((s) => s.id === c.strainId);
+    if (strain) {
+      strain.effects.forEach((e) => { effectCounts[e] = (effectCounts[e] || 0) + 1; });
+      strain.flavors.forEach((f) => { flavorCounts[f] = (flavorCounts[f] || 0) + 1; });
+      thcSum += strain.thc;
+      thcCount++;
+    }
+  });
+
+  const topEffects = Object.entries(effectCounts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([name, count]) => ({ name, count }));
+  const topFlavors = Object.entries(flavorCounts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([name, count]) => ({ name, count }));
+  const avgThc = thcCount > 0 ? Math.round(thcSum / thcCount) : 0;
+  const avgRating = checkins.length > 0 ? +(checkins.reduce((s, c) => s + c.rating, 0) / checkins.length).toFixed(1) : 0;
+  const totalUnique = new Set(checkins.map((c) => c.strainId)).size;
+
+  return { favoriteType, topEffects, topFlavors, avgThc, avgRating, totalUnique };
 }
 
 export function getScansRemaining(data: UserData): number {
