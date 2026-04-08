@@ -26,7 +26,7 @@
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
   --color-border: var(--border);
-  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-brand), system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, monospace;
 }
 
