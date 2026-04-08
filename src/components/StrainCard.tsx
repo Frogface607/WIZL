@@ -20,16 +20,23 @@ function strainGlow(color: string): string {
   return `0 0 20px ${color}25, 0 0 40px ${color}10, inset 0 1px 0 ${color}20`;
 }
 
-// Terpene icons
-const terpeneIcons: Record<string, string> = {
-  Myrcene: "🫐",
-  Limonene: "🍋",
-  Caryophyllene: "🌶️",
-  Pinene: "🌲",
-  Linalool: "💐",
-  Humulene: "🍺",
-  Terpinolene: "🌿",
-  Ocimene: "🌸",
+// Effect icons — universal, everyone understands these
+const effectIcons: Record<string, string> = {
+  Creative: "🎨",
+  Happy: "😊",
+  Relaxed: "😌",
+  Uplifted: "🚀",
+  Euphoria: "✨",
+  Energetic: "⚡",
+  Focused: "🎯",
+  Hungry: "🍕",
+  Sleepy: "😴",
+  Talkative: "💬",
+  Giggly: "😂",
+  Tingly: "🌊",
+  Aroused: "🔥",
+  "Pain Relief": "💊",
+  Calm: "🧘",
 };
 
 export default function StrainCard({ strain }: { strain: Strain }) {
@@ -82,23 +89,23 @@ export default function StrainCard({ strain }: { strain: Strain }) {
             </div>
           </div>
 
-          {/* Terpene badges */}
+          {/* Effects */}
           <div className="flex flex-wrap gap-1.5 mb-3">
-            {(strain.terpenes || []).slice(0, 3).map((terp) => (
+            {(strain.effects || []).slice(0, 3).map((effect) => (
               <span
-                key={terp}
+                key={effect}
                 className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium text-white/90 backdrop-blur-md"
                 style={{ backgroundColor: `${strain.color}35`, border: `1px solid ${strain.color}40` }}
               >
-                <span className="text-xs">{terpeneIcons[terp] || "🧪"}</span>
-                {terp}
+                <span className="text-xs">{effectIcons[effect] || "✨"}</span>
+                {effect}
               </span>
             ))}
           </div>
 
-          {/* THC / CBD bars */}
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
+          {/* THC bar + Flavors */}
+          <div className="flex items-center gap-3">
+            <div className="w-20 shrink-0">
               <div className="flex items-center justify-between mb-1">
                 <span className="text-white/50 text-[9px] font-medium">THC</span>
                 <span className="text-white/80 text-[10px] font-bold">{strain.thc}%</span>
@@ -114,17 +121,11 @@ export default function StrainCard({ strain }: { strain: Strain }) {
               </div>
             </div>
             <div className="w-px h-6 bg-white/10" />
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-white/50 text-[9px] font-medium">CBD</span>
-                <span className="text-white/80 text-[10px] font-bold">{strain.cbd}%</span>
-              </div>
-              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-accent-purple/60"
-                  style={{ width: `${Math.min((strain.cbd / 5) * 100, 100)}%` }}
-                />
-              </div>
+            <div className="flex-1 min-w-0">
+              <span className="text-white/40 text-[9px] font-medium">FLAVOR</span>
+              <p className="text-white/70 text-[10px] truncate mt-0.5">
+                {(strain.flavors || []).slice(0, 3).join(" · ")}
+              </p>
             </div>
           </div>
         </div>

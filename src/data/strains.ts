@@ -59,7 +59,7 @@ export const strains: Strain[] = [
     name: "Girl Scout Cookies",
     type: "hybrid",
     thc: 25,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "GSC hits like a warm hug from a heavyweight champion. Sweet, earthy, minty — this Bay Area legend delivers full-body euphoria that starts in your head and melts down through every muscle. You'll be one with your couch in 15 minutes flat.",
     effects: ["Euphoria", "Happy", "Relaxed", "Creative", "Uplifted"],
@@ -109,7 +109,7 @@ export const strains: Strain[] = [
     name: "Gorilla Glue #4",
     type: "hybrid",
     thc: 30,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "Will literally glue you to whatever surface you're sitting on — the name doesn't lie. At 30% THC, this is the heavy artillery of the weed world. Earthy, sour, chocolate notes, and absolutely devastating potency. Beginners, proceed with extreme caution.",
     effects: ["Relaxed", "Euphoria", "Happy", "Sleepy", "Hungry"],
@@ -134,7 +134,7 @@ export const strains: Strain[] = [
     name: "Jack Herer",
     type: "sativa",
     thc: 21,
-    cbd: 0.1,
+    cbd: 0.3,
     description:
       "Named after the legendary cannabis activist who wrote 'The Emperor Wears No Clothes.' This is the intellectual's sativa — clear-headed, focused, creative, with a piney freshness that makes you want to go outside and conquer the world. Or at least your to-do list.",
     effects: ["Focused", "Energetic", "Creative", "Uplifted", "Happy"],
@@ -159,7 +159,7 @@ export const strains: Strain[] = [
     name: "Wedding Cake",
     type: "indica",
     thc: 27,
-    cbd: 0.1,
+    cbd: 0.08,
     description:
       "A wedding where both the bride and groom are your couch. Vanilla sweetness meets peppery kick in this absolute powerhouse. The body high is a warm blanket of euphoria that makes everything feel right. Save this one for when you have zero plans.",
     effects: ["Relaxed", "Happy", "Euphoria", "Sleepy", "Hungry"],
@@ -184,7 +184,7 @@ export const strains: Strain[] = [
     name: "Gelato",
     type: "hybrid",
     thc: 25,
-    cbd: 0.1,
+    cbd: 0.15,
     description:
       "Italian ice cream, but instead of calories — THC. Creamy, fruity, perfectly balanced between head and body. Gelato is that rare strain where every single person who tries it goes 'oh WOW.' Top 3 strains on the planet. Don't argue, you'll lose.",
     effects: ["Relaxed", "Happy", "Euphoria", "Creative", "Uplifted"],
@@ -209,7 +209,7 @@ export const strains: Strain[] = [
     name: "Purple Haze",
     type: "sativa",
     thc: 20,
-    cbd: 0.1,
+    cbd: 0.4,
     description:
       "Jimi Hendrix wrote a song about it for a reason. Berry sweetness meets psychedelic headiness in this old-school classic. The high is dreamy, creative, and slightly trippy — like your brain just put on rose-tinted glasses and turned up the color saturation on reality.",
     effects: ["Creative", "Euphoria", "Energetic", "Happy", "Uplifted"],
@@ -259,7 +259,7 @@ export const strains: Strain[] = [
     name: "AK-47",
     type: "hybrid",
     thc: 20,
-    cbd: 0.1,
+    cbd: 0.6,
     description:
       "Don't let the aggressive name fool you — AK-47 delivers a mellow, steady, long-lasting buzz that's more 'peaceful afternoon' than 'call of duty.' Sweet and floral with an earthy backbone. One of the best strains for just vibing without going overboard.",
     effects: ["Happy", "Relaxed", "Uplifted", "Euphoria", "Creative"],
@@ -284,7 +284,7 @@ export const strains: Strain[] = [
     name: "Northern Lights",
     type: "indica",
     thc: 18,
-    cbd: 0.1,
+    cbd: 0.5,
     description:
       "The queen of indicas. Northern Lights wraps you in a warm, heavy blanket of relaxation that starts in your body and slowly dims the lights in your brain. Sweet, spicy, earthy — this is the 'I'm done for the day' strain. Pure nighttime bliss.",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoria", "Hungry"],
@@ -309,7 +309,7 @@ export const strains: Strain[] = [
     name: "Pineapple Express",
     type: "hybrid",
     thc: 24,
-    cbd: 0.1,
+    cbd: 0.08,
     description:
       "Yes, like the movie. No, even better. Tropical explosion in your mouth with a high that's energetic, giggly, and creative. Equal parts party fuel and productivity booster. The universal crowd-pleaser that literally everyone enjoys.",
     effects: ["Happy", "Energetic", "Uplifted", "Creative", "Focused"],
@@ -334,7 +334,7 @@ export const strains: Strain[] = [
     name: "Trainwreck",
     type: "sativa",
     thc: 22,
-    cbd: 0.1,
+    cbd: 0.15,
     description:
       "Hits you like a... well, you get it. Trainwreck comes in fast and strong with a mind-bending euphoria that's slightly spacey. Lemony, piney, with a sweet kick. Not for the faint of heart, but absolutely perfect when you want to blast off.",
     effects: ["Euphoria", "Creative", "Happy", "Uplifted", "Energetic"],
@@ -359,7 +359,7 @@ export const strains: Strain[] = [
     name: "Granddaddy Purple",
     type: "indica",
     thc: 20,
-    cbd: 0.1,
+    cbd: 0.2,
     description:
       "The big purple grandpa of indica strains. GDP delivers a two-punch combo: cerebral euphoria hits first, then the heavy body relaxation rolls in like a tide. Grape, berry, candy sweetness. One of the most beautiful buds you'll ever see.",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoria", "Hungry"],
@@ -384,7 +384,7 @@ export const strains: Strain[] = [
     name: "Amnesia Haze",
     type: "sativa",
     thc: 22,
-    cbd: 0.1,
+    cbd: 0.08,
     description:
       "You'll forget why you walked into the kitchen, but you'll have the time of your life standing there. Amnesia Haze is a citrusy, earthy powerhouse sativa that delivers a euphoric, almost psychedelic headspace. Amsterdam's favorite daytime smoke.",
     effects: ["Euphoria", "Energetic", "Creative", "Happy", "Uplifted"],
@@ -463,7 +463,7 @@ export const strains: Strain[] = [
     name: "Durban Poison",
     type: "sativa",
     thc: 20,
-    cbd: 0.1,
+    cbd: 0.15,
     description:
       "Africa's gift to the cannabis world. Pure sativa energy from the port city of Durban, South Africa. Sweet, piney, with a kick of anise that's unlike anything else. This is your espresso shot strain — pure, clean, cerebral stimulation.",
     effects: ["Energetic", "Uplifted", "Creative", "Focused", "Happy"],
@@ -488,7 +488,7 @@ export const strains: Strain[] = [
     name: "Maui Wowie",
     type: "sativa",
     thc: 19,
-    cbd: 0.1,
+    cbd: 0.8,
     description:
       "Aloha from the 70s! This Hawaiian classic delivers tropical vibes and energetic euphoria. Pineapple, mango, and citrus flavors transport you straight to a beach hammock. Light, uplifting, zero couch-lock. The vacation strain you can take anywhere.",
     effects: ["Happy", "Energetic", "Uplifted", "Creative", "Euphoria"],
@@ -567,7 +567,7 @@ export const strains: Strain[] = [
     name: "Oreo Zushi",
     type: "hybrid",
     thc: 28,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "Dessert hybrid that tastes like cookies & cream dipped in luxury. Powerful but smooth — the high starts in your head with creative euphoria, then the body melt kicks in. The one that started it all for WIZL. If you know, you know.",
     effects: ["Euphoria", "Relaxed", "Creative", "Happy", "Hungry"],
@@ -617,7 +617,7 @@ export const strains: Strain[] = [
     name: "Zkittlez",
     type: "indica",
     thc: 23,
-    cbd: 0.1,
+    cbd: 0.15,
     description:
       "Taste the rainbow — for real this time. Zkittlez delivers an explosion of fruity candy flavors with a calm, focused indica high that won't knock you out. It's the rare indica that keeps your mind sharp while your body vibes. A modern classic.",
     effects: ["Relaxed", "Happy", "Focused", "Euphoria", "Sleepy"],
@@ -642,7 +642,7 @@ export const strains: Strain[] = [
     name: "Mimosa",
     type: "hybrid",
     thc: 22,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "Brunch, but make it herbal. Mimosa tastes like orange juice and champagne had a beautiful baby together. Energetic, uplifting, social — this is the strain you reach for when the group chat says 'we're meeting at 2pm.' Daytime perfection.",
     effects: ["Energetic", "Happy", "Uplifted", "Creative", "Focused"],
@@ -667,7 +667,7 @@ export const strains: Strain[] = [
     name: "MAC",
     type: "hybrid",
     thc: 23,
-    cbd: 0.1,
+    cbd: 0.2,
     description:
       "Miracle Alien Cookies — yes, that's really the name. And yes, it lives up to the hype. Creamy, citrusy, with an almost floral sweetness. The high is perfectly balanced: creative enough to work, relaxed enough to enjoy not working. A true all-rounder.",
     effects: ["Creative", "Happy", "Euphoria", "Relaxed", "Uplifted"],
@@ -692,7 +692,7 @@ export const strains: Strain[] = [
     name: "Ice Cream Cake",
     type: "indica",
     thc: 25,
-    cbd: 0.1,
+    cbd: 0.08,
     description:
       "Dessert before bed, but make it indica. Creamy, vanilla, doughy sweetness with a body high that tucks you in like a weighted blanket. ICC is the 'one more episode' strain — you'll be too comfortable to move but too happy to care.",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoria", "Hungry"],
@@ -742,7 +742,7 @@ export const strains: Strain[] = [
     name: "Gary Payton",
     type: "hybrid",
     thc: 25,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "Named after the NBA Hall of Famer 'The Glove,' and this strain grips you just as tight. Gassy, earthy, with a sweet finish. The high is perfectly balanced — creative and euphoric up top, relaxed and comfortable down below. All-star genetics.",
     effects: ["Euphoria", "Relaxed", "Creative", "Happy", "Tingly"],
@@ -767,7 +767,7 @@ export const strains: Strain[] = [
     name: "Lemon Cherry Gelato",
     type: "hybrid",
     thc: 26,
-    cbd: 0.1,
+    cbd: 0.15,
     description:
       "The TikTok darling that actually deserves the hype. Lemon tartness meets cherry sweetness meets creamy Gelato smoothness. The high is giggly, euphoric, and social. This is the strain that made every zoomer's 'must try' list in 2023.",
     effects: ["Euphoria", "Giggly", "Relaxed", "Creative", "Happy"],
@@ -792,7 +792,7 @@ export const strains: Strain[] = [
     name: "London Pound Cake",
     type: "indica",
     thc: 25,
-    cbd: 0.1,
+    cbd: 0.2,
     description:
       "Proper British dessert vibes, but make it California. Berry, grape, nutty sweetness with an aroma so loud your neighbors will know what you're up to. Heavy relaxation with a dreamy headspace. Posh couch-lock at its finest.",
     effects: ["Relaxed", "Sleepy", "Euphoria", "Happy", "Hungry"],
@@ -821,7 +821,7 @@ export const strains: Strain[] = [
     name: "Bruce Banner #3",
     type: "hybrid",
     thc: 29,
-    cbd: 0.1,
+    cbd: 0.08,
     description:
       "You won't like it when it's angry... actually, you'll love it. Named after the Hulk's alter ego for a very good reason — this thing SMASHES. Sweet, diesel, earthy. Starts with insane euphoria, then the green giant puts you down gently. One of the strongest strains ever tested.",
     effects: ["Euphoria", "Creative", "Happy", "Relaxed", "Energetic"],
@@ -846,7 +846,7 @@ export const strains: Strain[] = [
     name: "Godfather OG",
     type: "indica",
     thc: 28,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "They call it the Don of all OGs, and it'll make you an offer you can't refuse — mainly because you'll be too stoned to refuse anything. Grape, earthy, piney. This is weapons-grade indica. Clear your schedule before you partake.",
     effects: ["Relaxed", "Sleepy", "Euphoria", "Happy", "Hungry"],
@@ -871,7 +871,7 @@ export const strains: Strain[] = [
     name: "Do-Si-Dos",
     type: "indica",
     thc: 26,
-    cbd: 0.1,
+    cbd: 0.2,
     description:
       "Named after the Girl Scout cookie (not the dance), Do-Si-Dos is GSC's heavier, sleepier cousin. Lime, mint, sweet earth — it's like a mojito that puts you to bed. Face-melting relaxation with a surprisingly pleasant cerebral onset. The nightcap strain.",
     effects: ["Relaxed", "Euphoria", "Happy", "Sleepy", "Tingly"],
@@ -896,7 +896,7 @@ export const strains: Strain[] = [
     name: "Strawberry Cough",
     type: "sativa",
     thc: 20,
-    cbd: 0.1,
+    cbd: 0.3,
     description:
       "Named because it tastes like fresh strawberries and WILL make you cough — even if you've been smoking for years. This sativa is all about the flavor and the clean, anxiety-free, uplifting energy. Sweet berry perfection. Featured in that movie 'Children of Men' for a reason.",
     effects: ["Happy", "Uplifted", "Energetic", "Creative", "Focused"],
@@ -925,7 +925,7 @@ export const strains: Strain[] = [
     name: "GMO Cookies",
     type: "indica",
     thc: 27,
-    cbd: 0.1,
+    cbd: 0.08,
     description:
       "Garlic. Mushroom. Onion. That's what GMO stands for, and YES, it actually tastes like that. Love it or hate it, there's nothing else like it in cannabis. Under the savory funk is a devastating indica high that'll have you questioning your life choices (happily).",
     effects: ["Relaxed", "Euphoria", "Sleepy", "Happy", "Hungry"],
@@ -950,7 +950,7 @@ export const strains: Strain[] = [
     name: "Tangie",
     type: "sativa",
     thc: 19,
-    cbd: 0.1,
+    cbd: 0.5,
     description:
       "If someone turned a fresh tangerine into weed, this is what you'd get. Tangie is aggressively citrusy in the best possible way. Uplifting, creative, and energetic with zero paranoia. The ultimate daytime sativa for people who want flavor AND function.",
     effects: ["Creative", "Uplifted", "Energetic", "Happy", "Focused"],
@@ -975,7 +975,7 @@ export const strains: Strain[] = [
     name: "Forbidden Fruit",
     type: "indica",
     thc: 21,
-    cbd: 0.1,
+    cbd: 0.15,
     description:
       "The name is a warning: once you try this, you'll keep coming back. Cherry, tropical, and grapefruit flavors collide in the most delicious indica you've ever smoked. Relaxing but not knockout-level. The 'treat yourself' strain.",
     effects: ["Relaxed", "Happy", "Euphoria", "Sleepy", "Tingly"],
@@ -1000,7 +1000,7 @@ export const strains: Strain[] = [
     name: "Purple Punch",
     type: "indica",
     thc: 20,
-    cbd: 0.1,
+    cbd: 0.4,
     description:
       "Imagine grape Kool-Aid, blueberry muffins, and a warm blanket had a baby. That's Purple Punch. Sweet, fruity, zero harshness. The indica effects creep in gently and settle you into the most comfortable state of existence. Dessert before dreamland.",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoria", "Hungry"],
@@ -1083,7 +1083,7 @@ export const strains: Strain[] = [
     name: "Chemdawg",
     type: "hybrid",
     thc: 21,
-    cbd: 0.1,
+    cbd: 0.2,
     description:
       "The mysterious patriarch of modern cannabis. Nobody knows exactly where Chemdawg came from, but it spawned Sour Diesel, OG Kush, and dozens more legends. Diesel, earthy, sharp. The high is cerebral and heavy. Respect your elders.",
     effects: ["Creative", "Euphoria", "Uplifted", "Relaxed", "Happy"],
@@ -1133,7 +1133,7 @@ export const strains: Strain[] = [
     name: "Green Crack",
     type: "sativa",
     thc: 21,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "Snoop Dogg named this one, and he nailed it — pure, laser-focused energy that feels like someone turned your brain up to 11. Mango, citrus, tropical sweetness. This is the 'clean the entire house at 2am' strain. Inattention doesn't stand a chance.",
     effects: ["Energetic", "Focused", "Happy", "Uplifted", "Creative"],
@@ -1158,7 +1158,7 @@ export const strains: Strain[] = [
     name: "Super Silver Haze",
     type: "sativa",
     thc: 21,
-    cbd: 0.1,
+    cbd: 0.15,
     description:
       "Three-time Cannabis Cup champion. SSH is the Olympics gold medalist of sativas — long-lasting, cerebral, and energetic with a metallic, citrusy, skunky edge. The high builds slowly and keeps going for hours. A marathon, not a sprint.",
     effects: ["Energetic", "Uplifted", "Happy", "Creative", "Euphoria"],
@@ -1208,7 +1208,7 @@ export const strains: Strain[] = [
     name: "Bubba Kush",
     type: "indica",
     thc: 22,
-    cbd: 0.1,
+    cbd: 0.3,
     description:
       "The tranquilizer dart of the cannabis world. Bubba Kush delivers a heavy, dreamy body high with hash-like, chocolate, coffee flavors. It's the strain that makes your eyelids heavy and your problems light. Classic West Coast nighttime indica.",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoria", "Hungry"],
@@ -1233,7 +1233,7 @@ export const strains: Strain[] = [
     name: "Blue Cheese",
     type: "indica",
     thc: 20,
-    cbd: 0.1,
+    cbd: 0.8,
     description:
       "It smells exactly like what you think — funky, pungent blue cheese meets sweet blueberry. Either you love it or it clears the room. The high is mellow, happy, and deeply relaxing. A British classic that's perfect for winding down with zero pretense.",
     effects: ["Relaxed", "Happy", "Euphoria", "Sleepy", "Hungry"],
@@ -1258,7 +1258,7 @@ export const strains: Strain[] = [
     name: "Thin Mint GSC",
     type: "hybrid",
     thc: 24,
-    cbd: 0.1,
+    cbd: 0.05,
     description:
       "The minty phenotype of GSC that became its own legend. Sweeter, mintier, and slightly more relaxing than the original. Like eating thin mint cookies while wrapped in a warm blanket of euphoria. The dessert pheno that launched a thousand crosses.",
     effects: ["Relaxed", "Euphoria", "Happy", "Creative", "Sleepy"],
@@ -1283,7 +1283,7 @@ export const strains: Strain[] = [
     name: "Banana Kush",
     type: "indica",
     thc: 22,
-    cbd: 0.1,
+    cbd: 0.2,
     description:
       "Tastes like a fresh banana smoothie, hits like a warm tropical vacation. Sweet, fruity, creamy — with a mellow indica body high that's happy and talkative before getting sleepy. One of the most uniquely delicious strains out there.",
     effects: ["Happy", "Relaxed", "Uplifted", "Euphoria", "Sleepy"],
@@ -1308,7 +1308,7 @@ export const strains: Strain[] = [
     name: "Headband",
     type: "hybrid",
     thc: 24,
-    cbd: 0.1,
+    cbd: 0.3,
     description:
       "Named because it literally feels like someone put a gentle pressure band around your forehead. It's not uncomfortable — it's uniquely pleasant. Lemon, diesel, creamy. Long-lasting hybrid that's creative and dreamy. One of the most distinctive highs in cannabis.",
     effects: ["Euphoria", "Relaxed", "Happy", "Creative", "Focused"],
