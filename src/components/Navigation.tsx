@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Home, Leaf, MapPin, User } from "lucide-react";
+import { Home, Leaf, MapPin, User, ScanLine } from "lucide-react";
 
 export default function Navigation() {
   const t = useTranslations("nav");
@@ -32,8 +32,7 @@ export default function Navigation() {
                 }`}>
                 <span className={`${isScan ? "bg-accent-green text-black w-10 h-10 rounded-full flex items-center justify-center -mt-5 shadow-lg" : ""}`}>
                   {isScan ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src="/logo-mark.png" alt="" className="w-7 h-7" />
+                    <ScanLine className="w-5 h-5" />
                   ) : (
                     Icon && <Icon className="w-5 h-5" />
                   )}

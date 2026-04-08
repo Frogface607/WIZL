@@ -27,7 +27,9 @@ export default async function StrainPage({
   const t = await getTranslations("strains");
   const strainCheckins = recentCheckins.filter((c) => c.strainId === id);
   const availableAt = shops.filter((s) =>
-    s.topStrains.some((ts) => ts.toLowerCase() === strain.name.toLowerCase())
+    "topStrains" in s && Array.isArray((s as any).topStrains)
+      ? (s as any).topStrains.some((ts: string) => ts.toLowerCase() === strain.name.toLowerCase())
+      : false
   );
 
   return (
