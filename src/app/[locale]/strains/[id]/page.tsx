@@ -26,6 +26,8 @@ import {
   Store,
 } from "lucide-react";
 
+export const dynamic = "force-static";
+
 export function generateStaticParams() {
   return strains.map((s) => ({ id: s.id }));
 }
