@@ -132,7 +132,7 @@ export default async function StrainPage({
           </div>
 
           {/* Name & Type */}
-          <h1 className="text-3xl font-black text-text-heading leading-tight tracking-tight">
+          <h1 className="text-3xl font-black text-text-primary leading-tight tracking-tight">
             {strain.name}
           </h1>
 
