@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Home, Leaf, ScanLine, MapPin, User } from "lucide-react";
+import { Home, Leaf, MapPin, User } from "lucide-react";
 
 export default function Navigation() {
   const t = useTranslations("nav");
@@ -11,7 +11,7 @@ export default function Navigation() {
   const navItems = [
     { href: "/" as const, icon: Home, label: t("home") },
     { href: "/strains" as const, icon: Leaf, label: t("strains") },
-    { href: "/scan" as const, icon: ScanLine, label: t("scan") },
+    { href: "/scan" as const, icon: null, label: t("scan") },
     { href: "/map" as const, icon: MapPin, label: t("map") },
     { href: "/profile" as const, icon: User, label: t("profile") },
   ];
@@ -31,7 +31,12 @@ export default function Navigation() {
                   isActive ? "text-accent-green" : "text-text-muted hover:text-text-secondary"
                 }`}>
                 <span className={`${isScan ? "bg-accent-green text-black w-10 h-10 rounded-full flex items-center justify-center -mt-5 shadow-lg" : ""}`}>
-                  <Icon className={`${isScan ? "w-5 h-5" : "w-5 h-5"}`} />
+                  {isScan ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src="/logo-wizl.svg" alt="" className="w-6 h-6" />
+                  ) : (
+                    Icon && <Icon className="w-5 h-5" />
+                  )}
                 </span>
                 <span className="text-[10px] font-medium">{item.label}</span>
               </Link>

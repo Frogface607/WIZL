@@ -273,11 +273,38 @@ export default function ScanPage() {
               <Link2 className="w-4 h-4 text-text-secondary" /> Similar Strains
             </h3>
             <div className="flex flex-wrap gap-2">
-              {result.similar_strains.map((strain) => (
-                <span key={strain} className="px-3 py-1.5 rounded-full bg-bg-primary text-text-secondary text-sm border border-border">
-                  {strain}
-                </span>
-              ))}
+              {result.similar_strains.map((strain) => {
+                const localStrain = strains.find(
+                  (s) => s.name.toLowerCase() === strain.toLowerCase() || s.id === strain.toLowerCase().replace(/\s+/g, "-")
+                );
+                return (
+                  <button
+                    key={strain}
+                    onClick={() => {
+                      if (localStrain) {
+                        setResult({
+                          name: localStrain.name,
+                          confidence: "high",
+                          type: localStrain.type,
+                          thc_range: `${localStrain.thc}%`,
+                          cbd_range: `${localStrain.cbd}%`,
+                          effects: localStrain.effects,
+                          flavors: localStrain.flavors,
+                          description: localStrain.description,
+                          best_for: localStrain.effects.slice(0, 2).join(", "),
+                          similar_strains: [],
+                        });
+                      } else {
+                        setSearchQuery(strain);
+                        handleScan(undefined, strain);
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-full bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/20 hover:bg-accent-green/20 transition-colors cursor-pointer"
+                  >
+                    {strain}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

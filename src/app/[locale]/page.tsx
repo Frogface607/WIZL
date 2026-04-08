@@ -18,6 +18,8 @@ export default function Home() {
         <div className="absolute inset-0 -top-20 bg-gradient-to-b from-accent-green/8 via-accent-purple/5 to-transparent pointer-events-none rounded-3xl" />
 
         <div className="relative z-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-wizl.svg" alt="WIZL" className="w-20 h-20 mx-auto mb-4" />
           <h1 className="text-5xl font-black gradient-text mb-1 tracking-tighter">{t("brand.name")}</h1>
           <p className="text-sm gradient-love font-semibold mb-6">{t("brand.tagline")}</p>
 
