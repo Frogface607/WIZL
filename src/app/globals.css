@@ -100,6 +100,13 @@ html {
 }
 .animate-float { animation: float 3s ease-in-out infinite; }
 
+@keyframes firefly {
+  0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+  25% { transform: translate(12px, -18px); opacity: 0.6; }
+  50% { transform: translate(-8px, -30px); opacity: 0.3; }
+  75% { transform: translate(15px, -12px); opacity: 0.7; }
+}
+
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }

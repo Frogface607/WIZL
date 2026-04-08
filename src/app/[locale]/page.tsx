@@ -13,9 +13,28 @@ export default function Home() {
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
       {/* Hero */}
-      <section className="pt-8 pb-10 text-center relative">
+      <section className="pt-8 pb-10 text-center relative overflow-hidden">
         {/* Background glow */}
         <div className="absolute inset-0 -top-20 bg-gradient-to-b from-accent-green/8 via-accent-purple/5 to-transparent pointer-events-none rounded-3xl" />
+
+        {/* Fireflies */}
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              width: `${2 + (i % 3) * 2}px`,
+              height: `${2 + (i % 3) * 2}px`,
+              left: `${8 + (i * 7.5) % 85}%`,
+              top: `${10 + (i * 13) % 75}%`,
+              background: i % 2 === 0 ? "#34d399" : "#a78bfa",
+              opacity: 0.4,
+              filter: `blur(${1 + (i % 2)}px)`,
+              animation: `firefly ${4 + (i % 4) * 2}s ease-in-out infinite`,
+              animationDelay: `${(i * 0.7) % 5}s`,
+            }}
+          />
+        ))}
 
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
