@@ -27,9 +27,10 @@ export default function Home() {
               height: `${2 + (i % 3) * 2}px`,
               left: `${8 + (i * 7.5) % 85}%`,
               top: `${10 + (i * 13) % 75}%`,
-              background: i % 2 === 0 ? "#34d399" : "#a78bfa",
-              opacity: 0.4,
-              filter: `blur(${1 + (i % 2)}px)`,
+              background: "#fbbf24",
+              boxShadow: "0 0 6px 2px rgba(251,191,36,0.4)",
+              opacity: 0.5,
+              filter: `blur(${0.5 + (i % 2) * 0.5}px)`,
               animation: `firefly ${4 + (i % 4) * 2}s ease-in-out infinite`,
               animationDelay: `${(i * 0.7) % 5}s`,
             }}
