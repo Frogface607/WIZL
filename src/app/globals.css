@@ -65,6 +65,11 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* Brand font */
+.font-brand {
+  font-family: var(--font-brand), system-ui, sans-serif;
+}
+
 /* Gradient text — WIZL brand */
 .gradient-text {
   background: linear-gradient(135deg, #34d399 0%, #a78bfa 50%, #f472b6 100%);

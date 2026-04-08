@@ -2,8 +2,16 @@ import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Righteous } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+
+const righteous = Righteous({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-brand",
+  display: "swap",
+});
 import AgeGate from "@/components/AgeGate";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
@@ -37,7 +45,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="h-full antialiased">
+    <html lang={locale} className={`h-full antialiased ${righteous.variable}`}>
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <AgeGate>
