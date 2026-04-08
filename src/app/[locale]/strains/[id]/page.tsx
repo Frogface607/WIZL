@@ -59,17 +59,17 @@ const terpeneData: Record<string, { description: string; color: string }> = {
   Ocimene: { description: "Sweet, decongestant. Fresh and herbal", color: "#67e8f9" },
 };
 
-const TerpeneIcon = ({ terpene, className }: { terpene: string; className?: string }) => {
+const TerpeneIcon = ({ terpene, className, style }: { terpene: string; className?: string; style?: React.CSSProperties }) => {
   switch (terpene) {
-    case "Myrcene": return <Droplets className={className} />;
-    case "Limonene": return <Citrus className={className} />;
-    case "Caryophyllene": return <Flame className={className} />;
-    case "Pinene": return <TreePine className={className} />;
-    case "Linalool": return <Flower2 className={className} />;
-    case "Humulene": return <Leaf className={className} />;
-    case "Terpinolene": return <Cherry className={className} />;
-    case "Ocimene": return <Wind className={className} />;
-    default: return <Sparkles className={className} />;
+    case "Myrcene": return <Droplets className={className} style={style} />;
+    case "Limonene": return <Citrus className={className} style={style} />;
+    case "Caryophyllene": return <Flame className={className} style={style} />;
+    case "Pinene": return <TreePine className={className} style={style} />;
+    case "Linalool": return <Flower2 className={className} style={style} />;
+    case "Humulene": return <Leaf className={className} style={style} />;
+    case "Terpinolene": return <Cherry className={className} style={style} />;
+    case "Ocimene": return <Wind className={className} style={style} />;
+    default: return <Sparkles className={className} style={style} />;
   }
 };
 
