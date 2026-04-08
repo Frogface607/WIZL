@@ -19,7 +19,7 @@ export default function Home() {
 
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-wizl.svg" alt="WIZL" className="w-36 h-36 mx-auto mb-2" />
+          <img src="/logo-wizl.svg" alt="WIZL" className="w-80 h-80 mx-auto mb-2" />
           <p className="text-sm gradient-love font-semibold mb-6">{t("brand.tagline")}</p>
 
           {/* Scan button -- the portal */}
