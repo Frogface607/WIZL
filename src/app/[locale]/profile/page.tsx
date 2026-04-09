@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { User, Bell, Globe, Shield, Crown, Download, ChevronRight, Star, Search, Trophy, Store, Heart, Leaf } from "lucide-react";
 import {
   getUserData,
   getUnlockedAchievements,
@@ -31,7 +32,7 @@ export default function ProfilePage() {
   if (!data) {
     return (
       <div className="max-w-lg mx-auto px-4 pb-24 pt-8 text-center">
-        <div className="text-4xl animate-float">🔍</div>
+        <Search className="w-10 h-10 text-accent-green animate-float mx-auto" />
       </div>
     );
   }
@@ -55,19 +56,21 @@ export default function ProfilePage() {
     : "—";
 
   const settingsItems = [
-    { icon: "👤", label: t("editProfile") },
-    { icon: "🔔", label: t("notifications") },
-    { icon: "🌍", label: t("language") },
-    { icon: "🔒", label: t("privacy") },
-    { icon: "💚", label: t("subscription") },
-    { icon: "📤", label: t("exportData") },
+    { icon: User, label: t("editProfile"), href: "#" },
+    { icon: Bell, label: t("notifications"), href: "#" },
+    { icon: Globe, label: t("language"), href: "#" },
+    { icon: Shield, label: t("privacy"), href: "/privacy" },
+    { icon: Crown, label: t("subscription"), href: "/pro" },
+    { icon: Download, label: t("exportData"), href: "#" },
   ];
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
       {/* Profile Header */}
       <div className="glass-card rounded-3xl p-6 mt-6 mb-6 text-center">
-        <div className="text-5xl mb-3">🔥</div>
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-green/30 to-accent-purple/30 flex items-center justify-center mx-auto mb-3">
+          <User className="w-8 h-8 text-accent-green" />
+        </div>
         <h1 className="text-xl font-black">WIZL Explorer</h1>
         {data.isPro && (
           <span className="inline-block mt-2 pro-badge px-3 py-1 rounded-full text-xs font-bold text-black">WIZL PRO</span>
@@ -100,14 +103,14 @@ export default function ProfilePage() {
       {/* Taste Profile */}
       {taste && taste.favoriteType && (
         <section className="mb-6">
-          <h2 className="text-lg font-bold mb-3">🧬 Your Taste</h2>
+          <h2 className="text-lg font-bold mb-3 flex items-center gap-2"><Leaf className="w-5 h-5 text-accent-green" /> Your Taste</h2>
           <div className="glass-card rounded-2xl p-5">
             <div className="flex items-center gap-3 mb-4">
               <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${
                 taste.favoriteType.type === "sativa" ? "bg-yellow-500/20" :
                 taste.favoriteType.type === "indica" ? "bg-purple-500/20" : "bg-emerald-500/20"
               }`}>
-                {taste.favoriteType.type === "sativa" ? "☀️" : taste.favoriteType.type === "indica" ? "🌙" : "⚡"}
+                <Leaf className="w-6 h-6 text-white" />
               </div>
               <div>
                 <p className="font-bold text-sm capitalize">{taste.favoriteType.type} Lover</p>
@@ -155,7 +158,7 @@ export default function ProfilePage() {
       {/* Wishlist */}
       {data.wishlist && data.wishlist.length > 0 && (
         <section className="mb-6">
-          <h2 className="text-lg font-bold mb-3">📋 Want to Try</h2>
+          <h2 className="text-lg font-bold mb-3 flex items-center gap-2"><Heart className="w-5 h-5 text-accent-love" /> Want to Try</h2>
           <div className="flex flex-col gap-2">
             {data.wishlist.map((id) => {
               const s = strains.find((st) => st.id === id);
@@ -183,7 +186,7 @@ export default function ProfilePage() {
       {/* Achievements */}
       <section className="mb-6">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-bold">🏆 {t("badges")}</h2>
+          <h2 className="text-lg font-bold flex items-center gap-2"><Trophy className="w-5 h-5 text-accent-orange" /> {t("badges")}</h2>
           <span className="text-text-muted text-xs">{unlocked.length}/{achievements.length}</span>
         </div>
         <div className="grid grid-cols-4 gap-2">
@@ -206,7 +209,7 @@ export default function ProfilePage() {
 
       {/* Shop CTA */}
       <Link href="/shop" className="glass-card rounded-2xl p-4 mb-6 flex items-center gap-3 border border-accent-purple/20 hover:bg-bg-card-hover transition-all block">
-        <span className="text-2xl">🏪</span>
+        <Store className="w-6 h-6 text-accent-purple" />
         <div className="flex-1">
           <p className="font-bold text-sm">Own a shop?</p>
           <p className="text-text-muted text-xs">Add your shop to the WIZL map — $4.20/mo</p>
@@ -217,12 +220,12 @@ export default function ProfilePage() {
       {/* Top Strains */}
       {topStrains.length > 0 && (
         <section className="mb-6">
-          <h2 className="text-lg font-bold mb-3">⭐ Top Strains</h2>
+          <h2 className="text-lg font-bold mb-3 flex items-center gap-2"><Star className="w-5 h-5 text-accent-green" /> Top Strains</h2>
           <div className="flex flex-col gap-2">
             {topStrains.map((s, i) => (
               <div key={s.name} className="glass-card rounded-xl p-3 flex items-center gap-3">
                 <span className="text-text-muted text-xs font-bold w-5">#{i + 1}</span>
-                <span className="text-xl">{s.image}</span>
+                <span className="w-8 h-8 rounded-lg bg-accent-green/10 flex items-center justify-center text-sm font-bold text-accent-green">{s.name.charAt(0)}</span>
                 <span className="flex-1 font-semibold text-sm">{s.name}</span>
                 <span className="text-accent-green text-xs font-bold">{s.count}x</span>
               </div>
@@ -233,12 +236,12 @@ export default function ProfilePage() {
 
       {/* Recent Check-ins */}
       <section className="mb-6">
-        <h2 className="text-lg font-bold mb-3">📝 {t("recentActivity")}</h2>
+        <h2 className="text-lg font-bold mb-3 flex items-center gap-2"><Leaf className="w-5 h-5 text-accent-purple" /> {t("recentActivity")}</h2>
         {data.checkins.length > 0 ? (
           <div className="flex flex-col gap-2">
             {data.checkins.slice(0, 10).map((checkin) => (
               <div key={checkin.id} className="glass-card rounded-xl p-3 flex items-center gap-3">
-                <span className="text-xl">{checkin.strainImage}</span>
+                <span className="w-8 h-8 rounded-lg bg-accent-purple/10 flex items-center justify-center text-sm font-bold text-accent-purple">{checkin.strainName.charAt(0)}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-sm">{checkin.strainName}</p>
                   {checkin.review && (
@@ -248,7 +251,7 @@ export default function ProfilePage() {
                 <div className="flex flex-col items-end gap-0.5">
                   <div className="flex gap-0.5">
                     {Array.from({ length: checkin.rating }).map((_, i) => (
-                      <span key={i} className="text-accent-green text-[10px]">🌿</span>
+                      <span key={i} className="text-accent-green text-[10px]">★</span>
                     ))}
                   </div>
                   <span className="text-text-muted text-[10px]">
@@ -260,7 +263,7 @@ export default function ProfilePage() {
           </div>
         ) : (
           <div className="text-center py-8">
-            <div className="text-3xl mb-2">🔍</div>
+            <Search className="w-8 h-8 text-accent-green mx-auto mb-2" />
             <p className="text-text-secondary text-sm">{t("noCheckins")}</p>
             <Link href="/checkin" className="text-accent-green text-sm font-semibold">{t("firstScan")} →</Link>
           </div>
@@ -269,14 +272,14 @@ export default function ProfilePage() {
 
       {/* Settings */}
       <section>
-        <h2 className="text-lg font-bold mb-3">⚙️ {t("settings")}</h2>
+        <h2 className="text-lg font-bold mb-3 flex items-center gap-2"><User className="w-5 h-5 text-text-muted" /> {t("settings")}</h2>
         <div className="flex flex-col gap-2">
           {settingsItems.map((item) => (
-            <button key={item.label} className="glass-card rounded-xl p-3 flex items-center gap-3 text-left hover:bg-bg-card-hover transition-all">
-              <span>{item.icon}</span>
+            <Link key={item.label} href={item.href} className="glass-card rounded-xl p-3 flex items-center gap-3 text-left hover:bg-bg-card-hover transition-all">
+              <item.icon className="w-4 h-4 text-text-muted" />
               <span className="text-sm text-text-secondary">{item.label}</span>
-              <span className="ml-auto text-text-muted text-xs">→</span>
-            </button>
+              <ChevronRight className="ml-auto w-4 h-4 text-text-muted" />
+            </Link>
           ))}
         </div>
       </section>
