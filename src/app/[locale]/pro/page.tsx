@@ -28,30 +28,17 @@ export default function ProPage() {
 
   const handleSubscribe = async () => {
     setLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-      const data = await res.json();
+    // Redirect to Gumroad checkout
+    window.location.href = "https://wizlspace.gumroad.com/l/wizlpro";
+    return;
+  };
 
-      if (data.url && data.url !== "#demo-checkout") {
-        // Real checkout — redirect to LemonSqueezy
-        window.location.href = data.url;
-      } else {
-        // Demo mode — activate PRO locally
-        const userData = getUserData();
-        userData.isPro = true;
-        saveUserData(userData);
-        setSubscribed(true);
-      }
-    } catch {
-      // Fallback: activate demo PRO
-      const userData = getUserData();
-      userData.isPro = true;
-      saveUserData(userData);
-      setSubscribed(true);
+  const _handleDemoSubscribe = () => {
+    // Demo mode — activate PRO locally (kept for testing)
+    const userData = getUserData();
+    userData.isPro = true;
+    saveUserData(userData);
+    setSubscribed(true);
     } finally {
       setLoading(false);
     }
