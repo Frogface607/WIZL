@@ -1,19 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createCheckout } from "@/lib/lemonsqueezy";
+import { NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { email, locale } = body as { email?: string; locale?: string };
+/**
+ * Gumroad checkout — simple redirect to the product page.
+ * Gumroad handles all auth, payment, subscription logic.
+ * On purchase, user is redirected back to /pro?success=true via Gumroad settings.
+ */
+const GUMROAD_URL = "https://wizlspace.gumroad.com/l/wizlpro";
 
-    const checkout = await createCheckout(email, locale);
+export async function POST() {
+  return NextResponse.json({
+    url: GUMROAD_URL,
+    provider: "gumroad",
+  });
+}
 
-    return NextResponse.json(checkout);
-  } catch (error) {
-    console.error("Checkout error:", error);
-    return NextResponse.json(
-      { error: "Failed to create checkout" },
-      { status: 500 }
-    );
-  }
+export async function GET() {
+  return NextResponse.json({
+    url: GUMROAD_URL,
+    provider: "gumroad",
+  });
 }

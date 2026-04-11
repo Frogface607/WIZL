@@ -26,22 +26,19 @@ export default function ProPage() {
     }
   }, [searchParams]);
 
-  const handleSubscribe = async () => {
+  const handleSubscribe = () => {
     setLoading(true);
     // Redirect to Gumroad checkout
     window.location.href = "https://wizlspace.gumroad.com/l/wizlpro";
-    return;
   };
 
+  // Demo mode — activate PRO locally (kept for testing, not used in production)
   const _handleDemoSubscribe = () => {
-    // Demo mode — activate PRO locally (kept for testing)
     const userData = getUserData();
     userData.isPro = true;
     saveUserData(userData);
     setSubscribed(true);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(false);
   };
 
   const features = [
