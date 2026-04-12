@@ -141,6 +141,8 @@
   "scan": {
     "title": "AI Сканер сортов",
     "subtitle": "Сфоткай или опиши что у тебя",
+    "scanButton": "Скан",
+    "searchButton": "Найти",
     "takePhoto": "Сделать фото",
     "uploadPhoto": "Загрузить фото",
     "orDescribe": "Или опиши",
@@ -151,7 +153,7 @@
     "scanAgain": "Сканировать ещё",
     "confidence": "Уверенность",
     "searchByName": "Поиск по названию сорта",
-    "searchPlaceholder": "Blue Dream, OG Kush, Girl Scout Cookies...",
+    "searchPlaceholder": "Введите название сорта...",
     "orScan": "или сканируй камерой"
   },
   "common": {

@@ -141,6 +141,8 @@
   "scan": {
     "title": "AI สแกนสายพันธุ์",
     "subtitle": "ถ่ายรูปหรืออธิบายสิ่งที่คุณมี",
+    "scanButton": "สแกน",
+    "searchButton": "ค้นหา",
     "takePhoto": "ถ่ายรูป",
     "uploadPhoto": "อัปโหลดรูป",
     "orDescribe": "หรืออธิบาย",
@@ -151,7 +153,7 @@
     "scanAgain": "สแกนอีกครั้ง",
     "confidence": "ความมั่นใจ",
     "searchByName": "ค้นหาชื่อสายพันธุ์",
-    "searchPlaceholder": "Blue Dream, OG Kush, Girl Scout Cookies...",
+    "searchPlaceholder": "พิมพ์ชื่อสายพันธุ์...",
     "orScan": "หรือสแกนด้วยกล้อง"
   },
   "common": {

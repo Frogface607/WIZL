@@ -25,12 +25,25 @@ If you cannot identify the strain with certainty:
 
 Be friendly, knowledgeable, and helpful. Like a budtender who really knows their stuff.`;
 
+const LANGUAGE_MAP: Record<string, string> = {
+  en: "English",
+  ru: "Russian",
+  th: "Thai (ภาษาไทย)",
+  es: "Spanish",
+  de: "German",
+  fr: "French",
+  ja: "Japanese",
+  ko: "Korean",
+  zh: "Chinese (Simplified)",
+};
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { image, description } = body as {
+    const { image, description, locale } = body as {
       image?: string;
       description?: string;
+      locale?: string;
     };
 
     if (!image && !description) {
@@ -104,7 +117,9 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 1024,
-        system: SYSTEM_PROMPT,
+        system: SYSTEM_PROMPT + (locale && locale !== "en"
+          ? `\n\nIMPORTANT: Respond with ALL text values (description, effects, flavors, best_for) in ${LANGUAGE_MAP[locale] || locale}. Keep strain names and type in English, but translate everything else.`
+          : ""),
         messages: [{ role: "user", content }],
       }),
     });

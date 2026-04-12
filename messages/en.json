@@ -141,6 +141,8 @@
   "scan": {
     "title": "AI Strain Scanner",
     "subtitle": "Snap a photo or describe what you got",
+    "scanButton": "Scan",
+    "searchButton": "Search",
     "takePhoto": "Take a photo",
     "uploadPhoto": "Upload photo",
     "orDescribe": "Or describe it",
@@ -151,7 +153,7 @@
     "scanAgain": "Scan Again",
     "confidence": "Confidence",
     "searchByName": "Search by strain name",
-    "searchPlaceholder": "Blue Dream, OG Kush, Girl Scout Cookies...",
+    "searchPlaceholder": "Type strain name...",
     "orScan": "or scan with camera"
   },
   "common": {

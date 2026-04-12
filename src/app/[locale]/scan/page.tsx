@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getUserData, incrementScans, getScansRemaining } from "@/lib/store";
 import { strains } from "@/data/strains";
@@ -36,6 +36,7 @@ const confidenceLabels = {
 export default function ScanPage() {
   const t = useTranslations("scan");
   const tc = useTranslations("common");
+  const locale = useLocale();
   const fileRef = useRef<HTMLInputElement>(null);
   const [mode, setMode] = useState<"idle" | "loading" | "result">("idle");
   const [result, setResult] = useState<ScanResult | null>(null);
@@ -70,6 +71,7 @@ export default function ScanPage() {
         body: JSON.stringify({
           image: image || undefined,
           description: text || undefined,
+          locale,
         }),
       });
 
@@ -368,7 +370,7 @@ export default function ScanPage() {
               : "bg-bg-card text-text-muted border border-border"
           }`}
         >
-          <Search className="w-4 h-4" /> {t("title")}
+          <Search className="w-4 h-4" /> {t("searchButton")}
         </button>
       </div>
 
@@ -425,7 +427,7 @@ export default function ScanPage() {
               : "bg-bg-card text-text-muted border border-border"
           }`}
         >
-          <ScanLine className="w-4 h-4" /> {t("title")}
+          <ScanLine className="w-4 h-4" /> {t("scanButton")}
         </button>
       </div>
 
