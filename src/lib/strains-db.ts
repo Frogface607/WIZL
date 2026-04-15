@@ -79,6 +79,7 @@ function mapSupabaseToStrain(s: SupabaseStrain): Strain {
  * Fetch all strains from Supabase, falling back to static data on error.
  */
 export async function fetchStrains(): Promise<Strain[]> {
+  if (!supabase) return staticStrains;
   try {
     const { data, error } = await supabase
       .from("strains")
@@ -99,6 +100,7 @@ export async function fetchStrains(): Promise<Strain[]> {
  * Fetch a single strain by ID from Supabase.
  */
 export async function fetchStrainById(id: string): Promise<Strain | null> {
+  if (!supabase) return staticStrains.find((s) => s.id === id) || null;
   try {
     const { data, error } = await supabase
       .from("strains")
@@ -120,6 +122,7 @@ export async function fetchStrainById(id: string): Promise<Strain | null> {
  * Search strains using Supabase full-text search (fts column).
  */
 export async function searchStrains(query: string): Promise<Strain[]> {
+  if (!supabase) return staticStrains.filter((s) => s.name.toLowerCase().includes(query.toLowerCase()));
   try {
     // Try full-text search first
     const tsQuery = query.trim().split(/\s+/).join(" & ");
