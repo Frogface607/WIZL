@@ -115,9 +115,9 @@ export default function AskWizl() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-bg-card/80">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent-green animate-pulse-soft" />
+              <span className="text-base">🧙‍♂️</span>
               <span className="font-semibold text-sm text-text-primary">
-                Ask WIZL
+                WIZL The Wizard
               </span>
               <span className="text-xs text-text-muted">
                 {MAX_MESSAGES_PER_SESSION - messageCount} left
@@ -139,10 +139,11 @@ export default function AskWizl() {
           >
             {messages.length === 0 && (
               <div className="text-center text-text-muted text-sm py-8 space-y-2">
-                <p className="text-lg">Hey there!</p>
+                <p className="text-3xl">🧙‍♂️</p>
+                <p className="text-lg">Welcome to the Space, traveler!</p>
                 <p>
-                  Ask me anything about cannabis strains, effects, terpenes, or
-                  get a recommendation.
+                  I&apos;m WIZL The Wizard — ask me about any strain, effects,
+                  terpenes, or get a recommendation.
                 </p>
                 <div className="flex flex-wrap justify-center gap-2 pt-2">
                   {[
@@ -170,10 +171,15 @@ export default function AskWizl() {
                 key={i}
                 className={`flex ${
                   msg.role === "user" ? "justify-end" : "justify-start"
-                }`}
+                } gap-2`}
               >
+                {msg.role === "assistant" && (
+                  <div className="w-7 h-7 rounded-full bg-accent-purple/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-sm">🧙‍♂️</span>
+                  </div>
+                )}
                 <div
-                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                     msg.role === "user"
                       ? "bg-accent-green/20 text-text-primary rounded-br-md"
                       : "bg-bg-card text-text-secondary rounded-bl-md"
