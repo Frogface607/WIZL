@@ -1,4 +1,38 @@
 import { Strain } from "@/types";
+import { supabase } from "./supabase";
+
+// ── Auth-aware user ID ──
+let _cachedUserId: string | null = null;
+
+/** Returns the Supabase auth user ID, or a localStorage fallback. */
+export function getUserId(): string {
+  if (_cachedUserId) return _cachedUserId;
+
+  // Try localStorage cache first (sync, no await)
+  if (typeof window !== "undefined") {
+    const cached = localStorage.getItem("wizl-user-id");
+    if (cached) {
+      _cachedUserId = cached;
+      return cached;
+    }
+  }
+
+  // Generate a fallback (will be replaced once auth initialises)
+  const fallback = `anon-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  if (typeof window !== "undefined") {
+    localStorage.setItem("wizl-user-id", fallback);
+  }
+  _cachedUserId = fallback;
+  return fallback;
+}
+
+/** Called by AuthProvider once auth session is ready. */
+export function setAuthUserId(userId: string): void {
+  _cachedUserId = userId;
+  if (typeof window !== "undefined") {
+    localStorage.setItem("wizl-user-id", userId);
+  }
+}
 
 // ── Types ──
 export interface UserCheckin {

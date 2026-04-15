@@ -15,6 +15,7 @@ import AgeGate from "@/components/AgeGate";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import AskWizl from "@/components/AskWizl";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "WIZL — Scan it. Know it. Track it.",
@@ -48,12 +49,14 @@ export default async function LocaleLayout({
     <html lang={locale} className={`h-full antialiased ${montserrat.variable}`}>
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <AgeGate>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Navigation />
-            <AskWizl />
-          </AgeGate>
+          <Providers>
+            <AgeGate>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Navigation />
+              <AskWizl />
+            </AgeGate>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>
