@@ -1,11 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { recentCheckins } from "@/data/strains";
 import { fetchStrains } from "@/lib/strains-db";
 import StrainCard from "@/components/StrainCard";
-import CheckinCard from "@/components/CheckinCard";
 import { WizlLogo, IconScan } from "@/components/icons";
-import { Camera, TrendingUp, Zap } from "lucide-react";
+import { Camera, TrendingUp } from "lucide-react";
 
 export default async function Home() {
   const allStrains = await fetchStrains();
@@ -75,8 +73,6 @@ export default async function Home() {
       <section className="grid grid-cols-3 gap-3 mb-8">
         {[
           { value: allStrains.length.toString(), label: t("home.strains"), color: "text-accent-green" },
-          { value: "2.4K", label: t("home.checkins"), color: "text-accent-purple" },
-          { value: "891", label: t("home.explorers"), color: "text-accent-orange" },
         ].map((stat) => (
           <div key={stat.label} className="glass-card rounded-2xl p-3 text-center">
             <p className={`text-2xl font-black ${stat.color}`}>{stat.value}</p>
@@ -123,20 +119,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Social Feed */}
-      <section className="mb-8">
-        <h2 className="text-lg font-bold mb-1 uppercase tracking-wide flex items-center gap-2">
-          <Zap className="w-5 h-5 text-accent-green" />
-          {t("home.recentCheckins")}
-        </h2>
-        <p className="text-text-muted text-xs mb-4">What the community is smoking right now</p>
-        <div className="flex flex-col gap-3">
-          {recentCheckins.map((checkin) => (
-            <CheckinCard key={checkin.id} checkin={checkin} />
-          ))}
-        </div>
-      </section>
-
       {/* PRO CTA */}
       <section className="rounded-2xl p-6 mb-8 text-center relative overflow-hidden"
                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(52,211,153,0.12) 0%, transparent 60%), rgba(19,19,22,0.85)",
@@ -145,9 +127,8 @@ export default async function Home() {
         <p className="text-sm gradient-love font-medium mb-3">{t("brand.tagline")}</p>
         <p className="text-text-secondary text-sm mb-4">{t("home.proDesc")}</p>
         <div className="flex items-center justify-center gap-2 mb-4">
-          <span className="text-text-muted line-through text-sm">$9.99</span>
           <span className="text-3xl font-black price-420">$4.20</span>
-          <span className="text-text-muted text-sm">{t("common.mo")}</span>
+          <span className="text-text-muted text-sm">/year</span>
         </div>
         <Link
           href="/pro"
