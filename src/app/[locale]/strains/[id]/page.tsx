@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { strains, recentCheckins } from "@/data/strains";
+import { recentCheckins } from "@/data/strains";
+import { fetchStrainById } from "@/lib/strains-db";
 import { shops } from "@/data/shops";
 import CheckinCard from "@/components/CheckinCard";
 import StrainActions from "@/components/StrainActions";
@@ -27,11 +28,7 @@ import {
   Store,
 } from "lucide-react";
 
-export const dynamic = "force-static";
-
-export function generateStaticParams() {
-  return strains.map((s) => ({ id: s.id }));
-}
+export const dynamic = "force-dynamic";
 
 const typeGradients: Record<string, string> = {
   sativa: "from-yellow-500/80 to-orange-500/80",
@@ -82,7 +79,7 @@ export default async function StrainPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const strain = strains.find((s) => s.id === id);
+  const strain = await fetchStrainById(id);
   if (!strain) return notFound();
 
   const t = await getTranslations("strains");
@@ -208,7 +205,7 @@ export default async function StrainPage({
       {/* CHECK-IN BUTTON */}
       {/* ============================================= */}
       <Link
-        href="/checkin"
+        href={`/checkin?strain=${strain.id}`}
         className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl bg-accent-green text-black font-bold text-sm hover:brightness-110 transition-all mb-5 shadow-lg shadow-accent-green/20"
       >
         <Zap className="w-5 h-5" />
@@ -494,7 +491,7 @@ export default async function StrainPage({
         <div className="glass-card rounded-2xl text-center py-10 px-6 mb-5">
           <Sparkles className="w-10 h-10 text-text-muted/30 mx-auto mb-3" />
           <p className="text-text-secondary text-sm font-medium mb-1">{t("noReviews")}</p>
-          <Link href="/checkin" className="text-accent-green text-sm font-semibold hover:underline">
+          <Link href={`/checkin?strain=${strain.id}`} className="text-accent-green text-sm font-semibold hover:underline">
             {t("writeReview")} &rarr;
           </Link>
         </div>

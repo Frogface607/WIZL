@@ -181,6 +181,14 @@ export const achievements: Achievement[] = [
     condition: (d) => d.totalScans >= 10,
     category: "special",
   },
+  {
+    id: "wizl-og",
+    name: "WIZL OG",
+    icon: "👑",
+    description: "Joined the Club — you're an original",
+    condition: (d) => d.isPro,
+    category: "special",
+  },
 ];
 
 // ── Storage helpers ──

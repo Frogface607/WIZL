@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { strains } from "@/data/strains";
+import { fetchStrains } from "@/lib/strains-db";
+import { strains as staticStrains } from "@/data/strains";
 import StrainCard from "@/components/StrainCard";
-import { StrainType } from "@/types";
+import { Strain, StrainType } from "@/types";
 import { Leaf } from "lucide-react";
 
 type FilterType = "all" | StrainType;
@@ -17,6 +18,19 @@ export default function StrainsPage() {
   const [filter, setFilter] = useState<FilterType>("all");
   const [sort, setSort] = useState<SortValue>("rating");
   const [search, setSearch] = useState("");
+  const [strains, setStrains] = useState<Strain[]>(staticStrains);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchStrains().then((data) => {
+      if (!cancelled) {
+        setStrains(data);
+        setLoading(false);
+      }
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   const filters: { label: string; value: FilterType; className: string }[] = [
     { label: t("all"), value: "all", className: "strain-hybrid" },
@@ -57,7 +71,7 @@ export default function StrainsPage() {
           {t("title")}
         </h1>
         <span className="text-text-muted text-sm font-medium">
-          {strains.length} strains
+          {loading ? "..." : `${strains.length} strains`}
         </span>
       </div>
 
@@ -111,13 +125,29 @@ export default function StrainsPage() {
         {t("found", { count: filtered.length })}
       </p>
 
-      <div className="flex flex-col gap-3">
-        {filtered.map((strain) => (
-          <StrainCard key={strain.id} strain={strain} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="glass-card rounded-2xl p-4 animate-pulse">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-bg-primary" />
+                <div className="flex-1">
+                  <div className="h-4 bg-bg-primary rounded w-32 mb-2" />
+                  <div className="h-3 bg-bg-primary rounded w-20" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3">
+          {filtered.map((strain) => (
+            <StrainCard key={strain.id} strain={strain} />
+          ))}
+        </div>
+      )}
 
-      {filtered.length === 0 && (
+      {!loading && filtered.length === 0 && (
         <div className="text-center py-12">
           <p className="text-text-secondary text-lg font-medium mb-1">{t("nothingFound")}</p>
           <p className="text-text-muted text-sm">{t("tryDifferent")}</p>

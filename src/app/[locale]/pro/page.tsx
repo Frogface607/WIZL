@@ -119,7 +119,7 @@ export default function ProPage() {
           <h3 className="font-bold text-sm">Shop owners</h3>
         </div>
         <p className="text-text-secondary text-xs leading-relaxed mb-2">
-          PRO also lets you add your shop to the WIZL map with a full menu, hours, and reviews. Same price — $4.20/mo.
+          PRO also lets you add your shop to the WIZL map with a full menu, hours, and reviews. Same $4.20 — forever.
         </p>
         <Link href="/shop" className="text-accent-orange text-xs font-semibold">
           Learn more →

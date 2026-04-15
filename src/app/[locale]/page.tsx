@@ -1,14 +1,16 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { strains, recentCheckins } from "@/data/strains";
+import { recentCheckins } from "@/data/strains";
+import { fetchStrains } from "@/lib/strains-db";
 import StrainCard from "@/components/StrainCard";
 import CheckinCard from "@/components/CheckinCard";
 import { WizlLogo, IconScan } from "@/components/icons";
 import { Camera, TrendingUp, Zap } from "lucide-react";
 
-export default function Home() {
+export default async function Home() {
+  const allStrains = await fetchStrains();
+  const topStrains = allStrains.slice(0, 5);
   const t = useTranslations();
-  const topStrains = strains.slice(0, 5);
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
@@ -72,7 +74,7 @@ export default function Home() {
       {/* Stats */}
       <section className="grid grid-cols-3 gap-3 mb-8">
         {[
-          { value: strains.length.toString(), label: t("home.strains"), color: "text-accent-green" },
+          { value: allStrains.length.toString(), label: t("home.strains"), color: "text-accent-green" },
           { value: "2.4K", label: t("home.checkins"), color: "text-accent-purple" },
           { value: "891", label: t("home.explorers"), color: "text-accent-orange" },
         ].map((stat) => (

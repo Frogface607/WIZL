@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getUserData, incrementScans, getScansRemaining } from "@/lib/store";
-import { strains } from "@/data/strains";
+import { fetchStrains } from "@/lib/strains-db";
+import { Strain } from "@/types";
 import { Search, Camera, Zap, Droplets, Link2, ScanLine } from "lucide-react";
 
 interface ScanResult {
@@ -46,11 +47,13 @@ export default function ScanPage() {
   const [error, setError] = useState<string | null>(null);
   const [scansLeft, setScansLeft] = useState(5);
   const [isPro, setIsPro] = useState(false);
+  const [strains, setStrains] = useState<Strain[]>([]);
 
   useEffect(() => {
     const data = getUserData();
     setScansLeft(getScansRemaining(data));
     setIsPro(data.isPro);
+    fetchStrains().then(setStrains);
   }, []);
 
   const handleScan = async (image?: string, text?: string) => {

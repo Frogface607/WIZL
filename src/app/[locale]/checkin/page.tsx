@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
-import { strains, moods } from "@/data/strains";
+import { moods } from "@/data/strains";
+import { fetchStrains, fetchStrainById } from "@/lib/strains-db";
 import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
@@ -11,6 +13,9 @@ import { addCheckin, Achievement } from "@/lib/store";
 export default function CheckinPage() {
   const t = useTranslations("checkin");
   const tc = useTranslations("common");
+  const searchParams = useSearchParams();
+  const preselectedId = searchParams.get("strain");
+  const [allStrains, setAllStrains] = useState<Strain[]>([]);
   const [step, setStep] = useState<"select" | "rate" | "done">("select");
   const [selectedStrain, setSelectedStrain] = useState<Strain | null>(null);
   const [rating, setRating] = useState(0);
@@ -21,7 +26,20 @@ export default function CheckinPage() {
   const [selectedShop, setSelectedShop] = useState<{ id: string; name: string } | null>(null);
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
 
-  const filteredStrains = strains.filter((s) =>
+  useEffect(() => {
+    fetchStrains().then((data) => {
+      setAllStrains(data);
+      if (preselectedId) {
+        const found = data.find((s) => s.id === preselectedId);
+        if (found) {
+          setSelectedStrain(found);
+          setStep("rate");
+        }
+      }
+    });
+  }, [preselectedId]);
+
+  const filteredStrains = allStrains.filter((s) =>
     s.name.toLowerCase().includes(search.toLowerCase())
   );
 
