@@ -5,8 +5,9 @@ import { useTranslations } from "next-intl";
 import { fetchStrains } from "@/lib/strains-db";
 import { strains as staticStrains } from "@/data/strains";
 import StrainCard from "@/components/StrainCard";
+import AskWizl from "@/components/AskWizl";
 import { Strain, StrainType } from "@/types";
-import { Leaf } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 type FilterType = "all" | StrainType;
 
@@ -65,9 +66,14 @@ export default function StrainsPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
-      <div className="flex items-end justify-between mt-6 mb-4">
+      {/* AI Chat */}
+      <div className="mt-4">
+        <AskWizl />
+      </div>
+
+      <div className="flex items-end justify-between mt-2 mb-4">
         <h1 className="text-2xl font-black flex items-center gap-2">
-          <Leaf className="w-6 h-6 text-accent-green" />
+          <BookOpen className="w-6 h-6 text-accent-green" />
           {t("title")}
         </h1>
         <span className="text-text-muted text-sm font-medium">

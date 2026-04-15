@@ -14,7 +14,6 @@ const montserrat = Montserrat({
 import AgeGate from "@/components/AgeGate";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
-import AskWizl from "@/components/AskWizl";
 import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
@@ -54,7 +53,6 @@ export default async function LocaleLayout({
               <Header />
               <main className="flex-1">{children}</main>
               <Navigation />
-              <AskWizl />
             </AgeGate>
           </Providers>
         </NextIntlClientProvider>

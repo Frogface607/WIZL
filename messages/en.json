@@ -8,6 +8,7 @@
   "nav": {
     "home": "Home",
     "strains": "Strains",
+    "book": "Book",
     "scan": "Scan",
     "map": "Map",
     "profile": "Profile"
@@ -22,21 +23,12 @@
     "legal": "By entering you confirm you are of legal age in your jurisdiction. WIZL is an educational cannabis discovery tool."
   },
   "home": {
-    "scanBtn": "Scan Strain",
-    "browseBtn": "Browse",
-    "strains": "Strains",
-    "checkins": "Check-ins",
-    "explorers": "Explorers",
-    "aiScanner": "AI Strain Scanner",
-    "aiScannerDesc": "Snap a photo of the jar — get a beautiful strain card with effects, flavors, and community rating. Like magic.",
-    "tryNow": "Try it now",
-    "trending": "Trending",
-    "seeAll": "See all",
-    "recentCheckins": "Recent Check-ins",
-    "unlockPro": "Join the Club",
-    "proDesc": "Unlimited scans, AI chat, full history, Club badge.",
-    "startTrial": "Join — $4.20/year",
-    "trialNote": "Pay what you want. Even rolling papers cost more."
+    "bookTitle": "The Book",
+    "bookDesc": "1800+ strains — search, explore, ask the Wizard",
+    "scanTitle": "Scan Strain",
+    "scanDesc": "Snap a photo — get instant strain info",
+    "mapTitle": "Explore Map",
+    "mapDesc": "Find cannabis shops near you"
   },
   "strains": {
     "title": "Strain Guide",

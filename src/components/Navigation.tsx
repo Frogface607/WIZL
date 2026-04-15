@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Home, Leaf, MapPin, User, ScanLine } from "lucide-react";
+import { Home, BookOpen, MapPin, User, ScanLine } from "lucide-react";
 
 export default function Navigation() {
   const t = useTranslations("nav");
@@ -10,7 +10,7 @@ export default function Navigation() {
 
   const navItems = [
     { href: "/" as const, icon: Home, label: t("home") },
-    { href: "/strains" as const, icon: Leaf, label: t("strains") },
+    { href: "/strains" as const, icon: BookOpen, label: t("book") },
     { href: "/scan" as const, icon: null, label: t("scan") },
     { href: "/map" as const, icon: MapPin, label: t("map") },
     { href: "/profile" as const, icon: User, label: t("profile") },

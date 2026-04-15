@@ -1,13 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { fetchStrains } from "@/lib/strains-db";
-import StrainCard from "@/components/StrainCard";
 import { WizlLogo, IconScan } from "@/components/icons";
-import { Camera, TrendingUp } from "lucide-react";
+import { BookOpen, MapPin, ScanLine } from "lucide-react";
 
 export default async function Home() {
-  const allStrains = await fetchStrains();
-  const topStrains = allStrains.slice(0, 5);
   const t = await getTranslations();
 
   return (
@@ -39,29 +35,9 @@ export default async function Home() {
 
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo-mark.png" alt="WIZL" className="w-48 h-48 mx-auto -mb-2 mix-blend-screen drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]" />
           <h1 className="text-5xl font-brand font-bold tracking-[0.25em]" style={{color: "#e8e4df"}}>WIZL</h1>
           <p className="text-sm gradient-love font-semibold mb-6 mt-1">{t("brand.tagline")}</p>
-
-          {/* Scan button -- the portal */}
-          <Link href="/scan" className="inline-block mb-6 group">
-            <div className="relative">
-              {/* Outer glow ring */}
-              <div className="absolute inset-0 rounded-full bg-accent-green/20 blur-xl group-hover:bg-accent-green/30 transition-all scale-125" />
-              {/* Ring */}
-              <div className="relative w-28 h-28 rounded-full border-2 border-accent-green/50 flex items-center justify-center group-hover:border-accent-green transition-all"
-                   style={{ boxShadow: "0 0 30px rgba(52,211,153,0.3), 0 0 60px rgba(52,211,153,0.1), inset 0 0 30px rgba(52,211,153,0.1)" }}>
-                {/* Inner circle */}
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent-green/20 to-accent-purple/20 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-purple/30 transition-all">
-                  <IconScan className="w-8 h-8 text-accent-green group-hover:scale-110 transition-transform" />
-                </div>
-              </div>
-            </div>
-            <p className="text-accent-green font-bold text-sm mt-3 uppercase tracking-wider">
-              {t("home.scanBtn")}
-            </p>
-          </Link>
 
           <p className="text-text-secondary text-sm max-w-xs mx-auto">
             {t("brand.description")}
@@ -69,75 +45,40 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="grid grid-cols-3 gap-3 mb-8">
-        {[
-          { value: allStrains.length.toString(), label: t("home.strains"), color: "text-accent-green" },
-        ].map((stat) => (
-          <div key={stat.label} className="glass-card rounded-2xl p-3 text-center">
-            <p className={`text-2xl font-black ${stat.color}`}>{stat.value}</p>
-            <p className="text-text-muted text-[10px] uppercase tracking-wider font-medium">{stat.label}</p>
+      {/* Quick Actions */}
+      <section className="flex flex-col gap-3">
+        <Link href="/strains" className="glass-card rounded-2xl p-5 flex items-center gap-4 hover:bg-bg-card-hover transition-all group">
+          <div className="w-12 h-12 rounded-xl bg-accent-green/10 flex items-center justify-center group-hover:bg-accent-green/20 transition-colors">
+            <BookOpen className="w-6 h-6 text-accent-green" />
           </div>
-        ))}
-      </section>
-
-      {/* AI Scanner Promo */}
-      <section className="mb-8 relative overflow-hidden rounded-2xl"
-               style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(167,139,250,0.15) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(52,211,153,0.1) 0%, transparent 50%), rgba(19,19,22,0.85)",
-                        border: "1px solid rgba(167,139,250,0.2)",
-                        boxShadow: "0 0 30px rgba(167,139,250,0.15)" }}>
-        <div className="p-5 relative z-10">
-          <div className="flex items-center gap-2 mb-2">
-            <Camera className="w-5 h-5 text-accent-purple" />
-            <span className="pro-badge px-2 py-0.5 rounded-full text-[10px] font-bold text-black">
-              {t("common.pro")}
-            </span>
+          <div className="flex-1">
+            <p className="font-bold text-sm">{t("home.bookTitle")}</p>
+            <p className="text-text-muted text-xs">{t("home.bookDesc")}</p>
           </div>
-          <h3 className="font-bold text-lg mb-1">{t("home.aiScanner")}</h3>
-          <p className="text-text-secondary text-sm mb-3">{t("home.aiScannerDesc")}</p>
-          <Link href="/scan" className="inline-flex items-center gap-1.5 text-accent-purple text-sm font-semibold hover:text-accent-purple/80 transition-colors">
-            {t("home.tryNow")} →
-          </Link>
-        </div>
-      </section>
-
-      {/* Trending */}
-      <section className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold uppercase tracking-wide flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-accent-orange" />
-            {t("home.trending")}
-          </h2>
-          <Link href="/strains" className="text-accent-green text-sm font-medium hover:text-accent-green/80 transition-colors">
-            {t("home.seeAll")} →
-          </Link>
-        </div>
-        <div className="flex flex-col gap-4">
-          {topStrains.map((strain) => (
-            <StrainCard key={strain.id} strain={strain} />
-          ))}
-        </div>
-      </section>
-
-      {/* PRO CTA */}
-      <section className="rounded-2xl p-6 mb-8 text-center relative overflow-hidden"
-               style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(52,211,153,0.12) 0%, transparent 60%), rgba(19,19,22,0.85)",
-                        border: "1px solid rgba(52,211,153,0.15)" }}>
-        <h3 className="text-xl font-bold mb-1">{t("home.unlockPro")}</h3>
-        <p className="text-sm gradient-love font-medium mb-3">{t("brand.tagline")}</p>
-        <p className="text-text-secondary text-sm mb-4">{t("home.proDesc")}</p>
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <span className="text-3xl font-black price-420">$4.20</span>
-          <span className="text-text-muted text-sm">/year</span>
-        </div>
-        <Link
-          href="/pro"
-          className="block w-full py-3.5 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all text-center"
-          style={{ boxShadow: "0 0 20px rgba(52,211,153,0.3)" }}
-        >
-          {t("home.startTrial")}
+          <span className="text-text-muted text-xs">→</span>
         </Link>
-        <p className="text-text-muted text-xs mt-2">{t("home.trialNote")}</p>
+
+        <Link href="/scan" className="glass-card rounded-2xl p-5 flex items-center gap-4 hover:bg-bg-card-hover transition-all group">
+          <div className="w-12 h-12 rounded-xl bg-accent-purple/10 flex items-center justify-center group-hover:bg-accent-purple/20 transition-colors">
+            <ScanLine className="w-6 h-6 text-accent-purple" />
+          </div>
+          <div className="flex-1">
+            <p className="font-bold text-sm">{t("home.scanTitle")}</p>
+            <p className="text-text-muted text-xs">{t("home.scanDesc")}</p>
+          </div>
+          <span className="text-text-muted text-xs">→</span>
+        </Link>
+
+        <Link href="/map" className="glass-card rounded-2xl p-5 flex items-center gap-4 hover:bg-bg-card-hover transition-all group">
+          <div className="w-12 h-12 rounded-xl bg-accent-orange/10 flex items-center justify-center group-hover:bg-accent-orange/20 transition-colors">
+            <MapPin className="w-6 h-6 text-accent-orange" />
+          </div>
+          <div className="flex-1">
+            <p className="font-bold text-sm">{t("home.mapTitle")}</p>
+            <p className="text-text-muted text-xs">{t("home.mapDesc")}</p>
+          </div>
+          <span className="text-text-muted text-xs">→</span>
+        </Link>
       </section>
     </div>
   );
