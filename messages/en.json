@@ -33,10 +33,10 @@
     "trending": "Trending",
     "seeAll": "See all",
     "recentCheckins": "Recent Check-ins",
-    "unlockPro": "Unlock WIZL PRO",
-    "proDesc": "Unlimited scans, AI insights, full history, exclusive badges.",
-    "startTrial": "Start Free Trial",
-    "trialNote": "7 days free. Cancel anytime. You know the vibe."
+    "unlockPro": "Join the Club",
+    "proDesc": "Unlimited scans, AI chat, full history, Club badge.",
+    "startTrial": "Join — $4.20/year",
+    "trialNote": "Pay what you want. Even rolling papers cost more."
   },
   "strains": {
     "title": "Strain Guide",
@@ -98,11 +98,11 @@
     "notifications": "Notifications",
     "language": "Language",
     "privacy": "Privacy",
-    "subscription": "Manage Subscription",
+    "subscription": "WIZL Club",
     "exportData": "Export Data"
   },
   "pro": {
-    "title": "WIZL PRO",
+    "title": "WIZL Club",
     "subtitle": "Your entry ticket. One price. Forever member.",
     "perMonth": "/ year — forever yours",
     "onPurpose": "Yes, $4.20. You know why.",
@@ -156,9 +156,19 @@
     "searchPlaceholder": "Type strain name...",
     "orScan": "or scan with camera"
   },
+  "auth": {
+    "saveAccount": "Save your progress",
+    "saveAccountDesc": "Enter your email to keep your data across devices.",
+    "emailPlaceholder": "your@email.com",
+    "sendLink": "Send link",
+    "checkEmail": "Check your email!",
+    "magicLinkSent": "We sent you a magic link. Click it to save your account.",
+    "noPassword": "No password needed — just a magic link to your inbox.",
+    "signOut": "Sign out"
+  },
   "common": {
     "pro": "PRO",
     "free": "Free",
-    "mo": "/mo"
+    "mo": "/year"
   }
 }

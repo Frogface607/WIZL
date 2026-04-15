@@ -110,7 +110,7 @@ export default function AboutPage() {
           href="/pro"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all glow-green"
         >
-          Join for $4.20/mo
+          Join the Club — $4.20/year
         </Link>
       </div>
 

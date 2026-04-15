@@ -94,9 +94,6 @@ export default function ProPage() {
       </div>
 
       <div className="glass-card rounded-3xl p-8 mb-8 text-center glow-green border border-accent-green/20">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <span className="text-text-muted line-through text-lg">$9.99</span>
-        </div>
         <div className="text-6xl font-black price-420 mb-1">$4.20</div>
         <p className="text-text-muted text-sm">{t("perMonth")}</p>
         <p className="text-text-muted text-xs mt-2">{t("onPurpose")}</p>

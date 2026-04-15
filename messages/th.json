@@ -33,10 +33,10 @@
     "trending": "กำลังมาแรง",
     "seeAll": "ดูทั้งหมด",
     "recentCheckins": "เช็คอินล่าสุด",
-    "unlockPro": "ปลดล็อค WIZL PRO",
-    "proDesc": "สแกนไม่จำกัด, AI insights, ประวัติทั้งหมด, เหรียญพิเศษ",
-    "startTrial": "เริ่มทดลองใช้ฟรี",
-    "trialNote": "ฟรี 7 วัน ยกเลิกได้ตลอด คุณรู้ไวบ์"
+    "unlockPro": "เข้าร่วม Club",
+    "proDesc": "สแกนไม่จำกัด, AI แชท, ประวัติทั้งหมด, เหรียญ Club",
+    "startTrial": "เข้าร่วม — $4.20/ปี",
+    "trialNote": "จ่ายเท่าไหร่ก็ได้ ค่ากระดาษม้วนยังแพงกว่า"
   },
   "strains": {
     "title": "คู่มือสายพันธุ์",
@@ -98,7 +98,7 @@
     "notifications": "การแจ้งเตือน",
     "language": "ภาษา",
     "privacy": "ความเป็นส่วนตัว",
-    "subscription": "จัดการการสมัครสมาชิก",
+    "subscription": "WIZL Club",
     "exportData": "ส่งออกข้อมูล"
   },
   "pro": {
@@ -156,9 +156,19 @@
     "searchPlaceholder": "พิมพ์ชื่อสายพันธุ์...",
     "orScan": "หรือสแกนด้วยกล้อง"
   },
+  "auth": {
+    "saveAccount": "บันทึกความคืบหน้า",
+    "saveAccountDesc": "กรอกอีเมลเพื่อเก็บข้อมูลข้ามอุปกรณ์",
+    "emailPlaceholder": "your@email.com",
+    "sendLink": "ส่งลิงก์",
+    "checkEmail": "เช็คอีเมลของคุณ!",
+    "magicLinkSent": "เราส่งลิงก์วิเศษให้คุณแล้ว คลิกเพื่อบันทึกบัญชี",
+    "noPassword": "ไม่ต้องใช้รหัสผ่าน — แค่ลิงก์วิเศษไปที่อีเมลของคุณ",
+    "signOut": "ออกจากระบบ"
+  },
   "common": {
     "pro": "PRO",
     "free": "ฟรี",
-    "mo": "/เดือน"
+    "mo": "/ปี"
   }
 }

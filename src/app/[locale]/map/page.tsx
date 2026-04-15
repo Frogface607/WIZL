@@ -207,7 +207,7 @@ export default function MapPage() {
                 Own a shop? Get featured
               </p>
               <p className="text-[10px] text-text-muted">
-                Gold marker + top placement for $4.20/mo
+                Gold marker + top placement — $4.20/year
               </p>
             </div>
             <button className="px-3 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold hover:bg-yellow-500/20 transition-all shrink-0">

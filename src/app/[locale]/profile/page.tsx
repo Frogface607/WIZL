@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { User, Bell, Globe, Shield, Crown, Download, ChevronRight, Star, Search, Trophy, Store, Heart, Leaf } from "lucide-react";
+import { User, Bell, Globe, Shield, Crown, Download, ChevronRight, Star, Search, Trophy, Store, Heart, Leaf, LogOut } from "lucide-react";
 import {
   getUserData,
   getUnlockedAchievements,
@@ -14,10 +14,14 @@ import {
   Achievement,
   TasteProfile,
 } from "@/lib/store";
+import { useAuth } from "@/lib/auth";
+import AuthPrompt from "@/components/AuthPrompt";
 import { strains } from "@/data/strains";
 
 export default function ProfilePage() {
   const t = useTranslations("profile");
+  const tAuth = useTranslations("auth");
+  const { user, isAnonymous, signOut } = useAuth();
   const [data, setData] = useState<UserData | null>(null);
   const [unlocked, setUnlocked] = useState<Achievement[]>([]);
   const [taste, setTaste] = useState<TasteProfile | null>(null);
@@ -71,7 +75,12 @@ export default function ProfilePage() {
         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-green/30 to-accent-purple/30 flex items-center justify-center mx-auto mb-3">
           <User className="w-8 h-8 text-accent-green" />
         </div>
-        <h1 className="text-xl font-black">WIZL Explorer</h1>
+        <h1 className="text-xl font-black">
+          {!isAnonymous && user?.email ? user.email.split("@")[0] : "WIZL Explorer"}
+        </h1>
+        {!isAnonymous && user?.email && (
+          <p className="text-text-muted text-xs mt-1">{user.email}</p>
+        )}
         {data.isPro && (
           <span className="inline-block mt-2 pro-badge px-3 py-1 rounded-full text-xs font-bold text-black">WIZL PRO</span>
         )}
@@ -79,6 +88,24 @@ export default function ProfilePage() {
           Joined {new Date(data.joinedAt).toLocaleDateString("en", { month: "short", year: "numeric" })}
         </p>
       </div>
+
+      {/* Auth CTA — show for anonymous users */}
+      {isAnonymous && (
+        <div className="mb-6">
+          <AuthPrompt />
+        </div>
+      )}
+
+      {/* Sign out — show for authenticated users */}
+      {!isAnonymous && (
+        <button
+          onClick={() => signOut()}
+          className="glass-card rounded-xl p-3 mb-6 flex items-center gap-3 w-full text-left hover:bg-bg-card-hover transition-all"
+        >
+          <LogOut className="w-4 h-4 text-text-muted" />
+          <span className="text-sm text-text-secondary">{tAuth("signOut")}</span>
+        </button>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-4 gap-2 mb-6">
@@ -212,7 +239,7 @@ export default function ProfilePage() {
         <Store className="w-6 h-6 text-accent-purple" />
         <div className="flex-1">
           <p className="font-bold text-sm">Own a shop?</p>
-          <p className="text-text-muted text-xs">Add your shop to the WIZL map — $4.20/mo</p>
+          <p className="text-text-muted text-xs">Add your shop to the WIZL map — $4.20/year</p>
         </div>
         <span className="text-text-muted text-xs">→</span>
       </Link>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Refund Policy — WIZL",
-  description: "Refund Policy for WIZL PRO subscription.",
+  description: "Refund Policy for WIZL Club membership.",
 };
 
 export default function RefundPage() {
@@ -15,28 +15,27 @@ export default function RefundPage() {
 
       <div className="glass-card rounded-3xl p-6 mb-6 space-y-6">
         <section>
-          <h2 className="text-lg font-bold text-text-primary mb-2">Free Trial</h2>
+          <h2 className="text-lg font-bold text-text-primary mb-2">WIZL Club</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
-            WIZL PRO comes with a 7-day free trial. During the trial, you get full access to all
-            PRO features. If you cancel before the trial ends, you won&apos;t be charged anything.
-            Simple as that.
+            WIZL Club is a yearly membership starting at $4.20/year (pay what you want).
+            Once purchased, you get immediate access to all Club features for the full year.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-bold text-text-primary mb-2">Cancellation</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
-            You can cancel your WIZL PRO subscription at any time. When you cancel, you&apos;ll
-            continue to have PRO access until the end of your current billing period. After that,
-            your account reverts to the free tier. We do not issue refunds for partial months.
+            You can cancel your WIZL Club membership at any time through Gumroad. When you cancel,
+            you&apos;ll keep Club access until your year expires. After that, your account
+            reverts to the free tier.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-bold text-text-primary mb-2">Accidental Charges</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
-            If you were charged by mistake (e.g., forgot to cancel your trial, double charge, or
-            technical error), contact us and we&apos;ll issue a full refund. We&apos;re humans too —
+            If you were charged by mistake (double charge or technical error),
+            contact us and we&apos;ll issue a full refund. We&apos;re humans too —
             we get it.
           </p>
         </section>
@@ -63,7 +62,7 @@ export default function RefundPage() {
         <section>
           <h2 className="text-lg font-bold text-text-primary mb-2">No Questions Asked</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
-            If you&apos;re within the first 7 days of a paid subscription and genuinely unhappy,
+            If you&apos;re genuinely unhappy with your Club membership,
             reach out. We&apos;d rather make it right than lose a fellow explorer.
           </p>
         </section>

@@ -72,7 +72,7 @@ export default function ShopRegisterPage() {
             <span className="pro-badge px-3 py-1 rounded-full text-xs font-bold text-black">WIZL PRO</span>
           </div>
           <div className="text-3xl font-black price-420 mb-1">$4.20</div>
-          <p className="text-text-muted text-xs">/month — same as everyone</p>
+          <p className="text-text-muted text-xs">/year — same as everyone</p>
         </div>
 
         <button

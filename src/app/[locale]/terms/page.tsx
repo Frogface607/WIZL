@@ -43,12 +43,11 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-text-primary mb-2">4. Subscription</h2>
+          <h2 className="text-lg font-bold text-text-primary mb-2">4. WIZL Club</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
-            WIZL PRO is available for $4.20/month. The subscription includes a 7-day free trial.
-            You can cancel anytime through your account settings or by contacting us. Cancellation
-            takes effect at the end of your current billing period. No partial refunds are issued
-            for unused portions of a billing cycle.
+            WIZL Club is available for $4.20/year (pay what you want, minimum $4.20).
+            This is a yearly membership that unlocks all premium features. You can cancel
+            anytime through Gumroad. No partial refunds are issued for the current year.
           </p>
         </section>
 
