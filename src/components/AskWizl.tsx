@@ -115,7 +115,10 @@ export default function AskWizl() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-bg-card/80">
             <div className="flex items-center gap-2">
-              <span className="text-base">🧙‍♂️</span>
+              <div className="w-6 h-6 rounded-full overflow-hidden border border-accent-purple/30">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
+              </div>
               <span className="font-semibold text-sm text-text-primary">
                 WIZL The Wizard
               </span>
@@ -174,8 +177,9 @@ export default function AskWizl() {
                 } gap-2`}
               >
                 {msg.role === "assistant" && (
-                  <div className="w-7 h-7 rounded-full bg-accent-purple/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-sm">🧙‍♂️</span>
+                  <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-accent-purple/30">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
                   </div>
                 )}
                 <div
@@ -209,7 +213,11 @@ export default function AskWizl() {
             ))}
 
             {isLoading && (
-              <div className="flex justify-start">
+              <div className="flex justify-start gap-2">
+                <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-accent-purple/30">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
+                </div>
                 <div className="bg-bg-card rounded-2xl rounded-bl-md px-4 py-3">
                   <Loader2 className="w-4 h-4 animate-spin text-accent-green" />
                 </div>
