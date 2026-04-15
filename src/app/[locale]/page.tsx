@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { recentCheckins } from "@/data/strains";
 import { fetchStrains } from "@/lib/strains-db";
@@ -10,7 +10,7 @@ import { Camera, TrendingUp, Zap } from "lucide-react";
 export default async function Home() {
   const allStrains = await fetchStrains();
   const topStrains = allStrains.slice(0, 5);
-  const t = useTranslations();
+  const t = await getTranslations();
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
