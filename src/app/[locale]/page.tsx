@@ -41,7 +41,7 @@ export default function Home() {
           <img
             src="/logo-mark.png"
             alt="WIZL The Wizard"
-            className="w-32 h-32 mx-auto mb-2 drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]"
+            className="w-64 h-64 mx-auto mb-2 drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]"
           />
           <h1 className="text-4xl font-brand font-bold tracking-[0.25em]" style={{ color: "#e8e4df" }}>
             WIZL
