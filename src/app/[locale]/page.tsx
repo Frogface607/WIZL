@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
       {/* Hero */}
-      <section className="pt-6 pb-4 text-center relative overflow-hidden">
+      <section className="pt-6 pb-4 text-center relative">
         {/* Background glow */}
         <div className="absolute inset-0 -top-20 bg-gradient-to-b from-accent-green/8 via-accent-purple/5 to-transparent pointer-events-none rounded-3xl" />
 
