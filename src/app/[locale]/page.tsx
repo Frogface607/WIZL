@@ -9,7 +9,7 @@ export default function Home() {
   const t = useTranslations();
 
   return (
-    <div className="max-w-lg mx-auto px-4 pb-24">
+    <div className="max-w-lg mx-auto px-4 pb-24 overflow-x-visible">
       {/* Hero */}
       <section className="pt-6 pb-4 text-center relative">
         {/* Background glow */}
@@ -41,7 +41,8 @@ export default function Home() {
           <img
             src="/logo-mark.png"
             alt="WIZL The Wizard"
-            className="w-64 h-64 mx-auto mb-2 drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]"
+            className="w-64 h-64 mx-auto mb-2"
+            style={{ filter: "drop-shadow(0 0 40px rgba(52,211,153,0.35)) drop-shadow(0 0 80px rgba(150,120,184,0.15))" }}
           />
           <h1 className="text-4xl font-brand font-bold tracking-[0.25em]" style={{ color: "#e8e4df" }}>
             WIZL

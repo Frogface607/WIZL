@@ -12,6 +12,16 @@ interface Message {
 
 const MAX_MESSAGES_PER_SESSION = 10;
 
+/** Strip markdown formatting and Perplexity citation refs from AI replies */
+function cleanReply(text: string): string {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, "$1")  // **bold** → bold
+    .replace(/\*(.*?)\*/g, "$1")       // *italic* → italic
+    .replace(/\[(\d+)\]/g, "")         // [1], [2] citation refs
+    .replace(/\n{3,}/g, "\n\n")        // collapse excess newlines
+    .trim();
+}
+
 export default function AskWizl() {
   const locale = useLocale();
   const [messages, setMessages] = useState<Message[]>([]);
@@ -64,7 +74,7 @@ export default function AskWizl() {
 
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.reply, sources: data.sources },
+        { role: "assistant", content: cleanReply(data.reply), sources: data.sources },
       ]);
     } catch (err) {
       setMessages((prev) => [
