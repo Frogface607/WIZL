@@ -39,10 +39,9 @@ export default function Home() {
           {/* Mascot logo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo-mark.png"
+            src="/logo-mark-transparent.png"
             alt="WIZL The Wizard"
-            className="w-64 h-64 mx-auto mb-2 mix-blend-screen"
-            style={{ filter: "drop-shadow(0 0 40px rgba(52,211,153,0.35)) drop-shadow(0 0 80px rgba(150,120,184,0.15))" }}
+            className="w-64 h-64 mx-auto mb-2"
           />
           <h1 className="text-4xl font-brand font-bold tracking-[0.25em]" style={{ color: "#e8e4df" }}>
             WIZL
