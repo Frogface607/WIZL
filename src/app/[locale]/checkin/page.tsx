@@ -15,6 +15,7 @@ export default function CheckinPage() {
   const tc = useTranslations("common");
   const searchParams = useSearchParams();
   const preselectedId = searchParams.get("strain");
+  const preselectedShopId = searchParams.get("shop");
   const [allStrains, setAllStrains] = useState<Strain[]>([]);
   // If we have a preselected strain from URL, go straight to "rate" step
   const [step, setStep] = useState<"select" | "rate" | "done">(
@@ -27,7 +28,14 @@ export default function CheckinPage() {
   const [selectedMood, setSelectedMood] = useState("");
   const [search, setSearch] = useState("");
   const [shopSearch, setShopSearch] = useState("");
-  const [selectedShop, setSelectedShop] = useState<{ id: string; name: string } | null>(null);
+  const [selectedShop, setSelectedShop] = useState<{ id: string; name: string } | null>(() => {
+    // Preselect shop if ?shop=ID in URL
+    if (preselectedShopId) {
+      const shop = shops.find((s) => s.id === preselectedShopId);
+      if (shop) return { id: shop.id, name: shop.name };
+    }
+    return null;
+  });
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
 
   // Fast path: fetch ONLY the preselected strain instantly (single query)

@@ -317,7 +317,13 @@ export default function ScanPage() {
         {/* Actions */}
         <div className="flex gap-3">
           <Link
-            href="/checkin"
+            href={(() => {
+              // If scan matched a known strain, preselect it in checkin
+              const matched = strains.find(
+                (s) => s.name.toLowerCase() === result.name.toLowerCase()
+              );
+              return matched ? `/checkin?strain=${matched.id}` : "/checkin";
+            })()}
             className="flex-1 py-3 rounded-2xl bg-accent-green text-black font-bold text-center hover:brightness-110 transition-all glow-green"
           >
             {t("saveCheckin")}

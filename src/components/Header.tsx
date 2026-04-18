@@ -23,8 +23,9 @@ export default function Header() {
           <Link href="/pro" className="pro-badge px-2.5 py-0.5 rounded-full text-[10px] font-bold text-black">
             {t("common.pro")}
           </Link>
-          <Link href="/profile" className="w-8 h-8 rounded-full bg-accent-green/20 flex items-center justify-center text-sm">
-            🔥
+          <Link href="/profile" className="w-8 h-8 rounded-full overflow-hidden border border-accent-purple/30" aria-label="Profile">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/mascot.png" alt="Profile" className="w-full h-full object-cover object-top" />
           </Link>
         </div>
       </div>

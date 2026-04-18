@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { User, Bell, Globe, Shield, Crown, Download, ChevronRight, Star, Search, Trophy, Store, Heart, Leaf, LogOut } from "lucide-react";
+import { User, Shield, Crown, ChevronRight, Star, Search, Trophy, Store, Heart, Leaf, LogOut } from "lucide-react";
 import {
   getUserData,
   getUnlockedAchievements,
@@ -60,29 +60,26 @@ export default function ProfilePage() {
     : "—";
 
   const settingsItems = [
-    { icon: User, label: t("editProfile"), href: "#" },
-    { icon: Bell, label: t("notifications"), href: "#" },
-    { icon: Globe, label: t("language"), href: "#" },
-    { icon: Shield, label: t("privacy"), href: "/privacy" },
     { icon: Crown, label: t("subscription"), href: "/pro" },
-    { icon: Download, label: t("exportData"), href: "#" },
+    { icon: Shield, label: t("privacy"), href: "/privacy" },
   ];
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
       {/* Profile Header */}
       <div className="glass-card rounded-3xl p-6 mt-6 mb-6 text-center">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-green/30 to-accent-purple/30 flex items-center justify-center mx-auto mb-3">
-          <User className="w-8 h-8 text-accent-green" />
+        <div className="w-20 h-20 rounded-full overflow-hidden border border-accent-purple/30 mx-auto mb-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/mascot.png" alt="Avatar" className="w-full h-full object-cover object-top" />
         </div>
         <h1 className="text-xl font-black">
-          {!isAnonymous && user?.email ? user.email.split("@")[0] : "WIZL Explorer"}
+          {!isAnonymous && user?.email ? user.email.split("@")[0] : "WIZL Traveler"}
         </h1>
         {!isAnonymous && user?.email && (
           <p className="text-text-muted text-xs mt-1">{user.email}</p>
         )}
         {data.isPro && (
-          <span className="inline-block mt-2 pro-badge px-3 py-1 rounded-full text-xs font-bold text-black">WIZL PRO</span>
+          <span className="inline-block mt-2 pro-badge px-3 py-1 rounded-full text-xs font-bold text-black">WIZL Club</span>
         )}
         <p className="text-text-muted text-xs mt-2">
           Joined {new Date(data.joinedAt).toLocaleDateString("en", { month: "short", year: "numeric" })}

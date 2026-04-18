@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
+import { useRouter } from "@/i18n/navigation";
 import { shops, Shop, RegionFilter, filterByRegion } from "@/data/shops";
 import { Search, MapPin, Star, Clock, Navigation, X, Sparkles } from "lucide-react";
 
@@ -38,9 +39,10 @@ export default function MapPage() {
     return result;
   }, [region, search]);
 
+  const router = useRouter();
   const handleCheckIn = (shop: Shop) => {
-    // TODO: integrate with auth + check-in API
-    setSelectedShop(shop);
+    // Navigate to checkin flow with shop preselected
+    router.push(`/checkin?shop=${shop.id}`);
   };
 
   return (
