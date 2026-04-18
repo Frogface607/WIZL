@@ -16,8 +16,12 @@ export default function CheckinPage() {
   const searchParams = useSearchParams();
   const preselectedId = searchParams.get("strain");
   const [allStrains, setAllStrains] = useState<Strain[]>([]);
-  const [step, setStep] = useState<"select" | "rate" | "done">("select");
+  // If we have a preselected strain from URL, go straight to "rate" step
+  const [step, setStep] = useState<"select" | "rate" | "done">(
+    preselectedId ? "rate" : "select"
+  );
   const [selectedStrain, setSelectedStrain] = useState<Strain | null>(null);
+  const [loadingStrain, setLoadingStrain] = useState(!!preselectedId);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [selectedMood, setSelectedMood] = useState("");
@@ -26,18 +30,26 @@ export default function CheckinPage() {
   const [selectedShop, setSelectedShop] = useState<{ id: string; name: string } | null>(null);
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
 
+  // Fast path: fetch ONLY the preselected strain instantly (single query)
   useEffect(() => {
-    fetchStrains().then((data) => {
-      setAllStrains(data);
-      if (preselectedId) {
-        const found = data.find((s) => s.id === preselectedId);
-        if (found) {
-          setSelectedStrain(found);
-          setStep("rate");
-        }
+    if (!preselectedId) return;
+    fetchStrainById(preselectedId).then((strain) => {
+      if (strain) {
+        setSelectedStrain(strain);
+      } else {
+        // Strain not found — fall back to select step
+        setStep("select");
       }
+      setLoadingStrain(false);
     });
   }, [preselectedId]);
+
+  // Lazy path: fetch all strains only when user lands on "select" step and needs to search
+  useEffect(() => {
+    if (step === "select" && allStrains.length === 0) {
+      fetchStrains().then(setAllStrains);
+    }
+  }, [step, allStrains.length]);
 
   const filteredStrains = allStrains.filter((s) =>
     s.name.toLowerCase().includes(search.toLowerCase())
@@ -114,6 +126,16 @@ export default function CheckinPage() {
             </Link>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  // Loading state while fetching preselected strain
+  if (step === "rate" && loadingStrain) {
+    return (
+      <div className="max-w-lg mx-auto px-4 pb-24 pt-20 text-center">
+        <div className="inline-block w-10 h-10 rounded-full border-2 border-accent-green border-t-transparent animate-spin mb-4" />
+        <p className="text-text-muted text-sm">Loading strain...</p>
       </div>
     );
   }
