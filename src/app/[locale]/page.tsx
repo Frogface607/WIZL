@@ -9,17 +9,17 @@ export default function Home() {
   const t = useTranslations();
 
   return (
-    <div className="max-w-lg mx-auto px-4 pb-24 overflow-x-visible">
-      {/* Hero */}
-      <section className="pt-6 pb-4 text-center relative">
-        {/* Background glow */}
-        <div className="absolute inset-0 -top-20 bg-gradient-to-b from-accent-green/8 via-accent-purple/5 to-transparent pointer-events-none rounded-3xl" />
-
-        {/* Fireflies */}
+    <div className="max-w-lg mx-auto pb-24 overflow-x-visible">
+      {/* Hero — full-width card with matching bg so PNG blends seamlessly */}
+      <section
+        className="relative text-center overflow-hidden"
+        style={{ background: "#10181f" }}
+      >
+        {/* Fireflies over the hero */}
         {[...Array(10)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full pointer-events-none"
+            className="absolute rounded-full pointer-events-none z-10"
             style={{
               width: `${2 + (i % 3) * 2}px`,
               height: `${2 + (i % 3) * 2}px`,
@@ -35,25 +35,20 @@ export default function Home() {
           />
         ))}
 
-        <div className="relative z-10">
-          {/* Mascot logo */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo-mark-transparent.png"
-            alt="WIZL The Wizard"
-            className="w-64 h-64 mx-auto mb-2"
-          />
-          <h1 className="text-4xl font-brand font-bold tracking-[0.25em]" style={{ color: "#e8e4df" }}>
-            WIZL
-          </h1>
-          <p className="text-sm gradient-love font-semibold mt-1 mb-4">
-            {t("brand.tagline")}
-          </p>
+        {/* Hero image (contains logo + WIZL text + with love) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/hero-wizl.png"
+          alt="WIZL The Wizard — with love"
+          className="w-full h-auto block select-none"
+          draggable={false}
+        />
 
-          {/* Scan button */}
+        {/* Scan button — floating over bottom of hero */}
+        <div className="px-4 pb-6 pt-2">
           <Link
             href="/scan"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-accent-green text-black font-bold text-sm hover:brightness-110 transition-all mb-2"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-accent-green text-black font-bold text-sm hover:brightness-110 transition-all"
             style={{ boxShadow: "0 0 20px rgba(52,211,153,0.25)" }}
           >
             <ScanLine className="w-5 h-5" />
@@ -63,7 +58,7 @@ export default function Home() {
       </section>
 
       {/* Chat — inline, right on homepage */}
-      <section>
+      <section className="px-4 pt-6">
         <AskWizl />
       </section>
     </div>
