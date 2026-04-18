@@ -318,11 +318,28 @@ export default function ScanPage() {
         <div className="flex gap-3">
           <Link
             href={(() => {
-              // If scan matched a known strain, preselect it in checkin
+              // Prefer preselect-by-id when a known strain matches
               const matched = strains.find(
                 (s) => s.name.toLowerCase() === result.name.toLowerCase()
               );
-              return matched ? `/checkin?strain=${matched.id}` : "/checkin";
+              if (matched) return `/checkin?strain=${matched.id}`;
+              // Unknown strain — stash the scan result so checkin can build a temp strain
+              if (typeof window !== "undefined") {
+                sessionStorage.setItem(
+                  "wizl-scan-pending",
+                  JSON.stringify({
+                    id: `scan-${Date.now()}`,
+                    name: result.name,
+                    type: result.type,
+                    thc_range: result.thc_range,
+                    cbd_range: result.cbd_range,
+                    effects: result.effects,
+                    flavors: result.flavors,
+                    description: result.description,
+                  }),
+                );
+              }
+              return `/checkin?scan=1`;
             })()}
             className="flex-1 py-3 rounded-2xl bg-accent-green text-black font-bold text-center hover:brightness-110 transition-all glow-green"
           >

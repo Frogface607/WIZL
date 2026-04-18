@@ -10,17 +10,61 @@ import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
 
+/** Build a temporary Strain object from a scan result stashed in sessionStorage */
+function scanPendingToStrain(): Strain | null {
+  if (typeof window === "undefined") return null;
+  const raw = sessionStorage.getItem("wizl-scan-pending");
+  if (!raw) return null;
+  try {
+    const p = JSON.parse(raw);
+    const parsePct = (s: string | undefined): number => {
+      if (!s) return 0;
+      const nums = s.match(/[\d.]+/g)?.map(Number) ?? [];
+      if (nums.length === 0) return 0;
+      return nums.reduce((a, b) => a + b, 0) / nums.length;
+    };
+    return {
+      id: p.id,
+      name: p.name,
+      type: p.type,
+      thc: Math.round(parsePct(p.thc_range) * 10) / 10,
+      cbd: Math.round(parsePct(p.cbd_range) * 10) / 10,
+      description: p.description || "",
+      effects: p.effects || [],
+      flavors: p.flavors || [],
+      rating: 0,
+      reviewCount: 0,
+      image: (p.name || "?").charAt(0).toUpperCase(),
+      color: "#8C6FB8",
+      genetics: "",
+      breeder: "",
+      floweringTime: "",
+      difficulty: "moderate",
+      bestFor: [],
+      terpenes: [],
+      origin: "",
+      aka: [],
+      funFact: "",
+    } as Strain;
+  } catch {
+    return null;
+  }
+}
+
 export default function CheckinPage() {
   const t = useTranslations("checkin");
   const searchParams = useSearchParams();
   const preselectedId = searchParams.get("strain");
   const preselectedShopId = searchParams.get("shop");
+  const fromScan = searchParams.get("scan") === "1";
   const [allStrains, setAllStrains] = useState<Strain[]>([]);
+  // Lazy-read the scan result once (browser only)
+  const [scanStrain] = useState<Strain | null>(() => (fromScan ? scanPendingToStrain() : null));
   // If we have a preselected strain from URL, go straight to "rate" step
   const [step, setStep] = useState<"select" | "rate" | "done">(
-    preselectedId ? "rate" : "select"
+    preselectedId || scanStrain ? "rate" : "select"
   );
-  const [selectedStrain, setSelectedStrain] = useState<Strain | null>(null);
+  const [selectedStrain, setSelectedStrain] = useState<Strain | null>(scanStrain);
   const [loadingStrain, setLoadingStrain] = useState(!!preselectedId);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
@@ -72,6 +116,10 @@ export default function CheckinPage() {
     const result = addCheckin(selectedStrain, rating, selectedMood, review, selectedShop || undefined);
     setNewAchievements(result.newAchievements);
     setStep("done");
+    // Clear scan-pending so next checkin flow starts fresh
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("wizl-scan-pending");
+    }
   };
 
   if (step === "done") {
