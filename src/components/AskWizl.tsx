@@ -28,6 +28,7 @@ export default function AskWizl() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
+  const [isFocused, setIsFocused] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -99,8 +100,25 @@ export default function AskWizl() {
     }
   };
 
+  const showWizard = messages.length === 0 && !isFocused && !input;
+
   return (
-    <div className="glass-card rounded-2xl overflow-hidden mb-4">
+    <div className="relative mb-4">
+      {/* Wizard with book — peeks from behind the chat, fades on interaction */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/wizl-book.png"
+        alt=""
+        aria-hidden="true"
+        className={`pointer-events-none absolute right-0 w-36 h-36 object-contain transition-all duration-500 ${
+          showWizard
+            ? "opacity-90 -top-24 translate-x-2"
+            : "opacity-0 -top-16 translate-x-6 scale-95"
+        }`}
+        style={{ filter: "drop-shadow(0 0 20px rgba(153,247,136,0.15))" }}
+      />
+
+      <div className="glass-card rounded-2xl overflow-hidden relative">
       {/* Header */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
         <div className="w-7 h-7 rounded-full overflow-hidden border border-accent-purple/30">
@@ -207,6 +225,8 @@ export default function AskWizl() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             placeholder="Ask about any strain..."
             maxLength={1000}
             disabled={isLoading}
@@ -221,6 +241,7 @@ export default function AskWizl() {
             <Send className="w-4 h-4" />
           </button>
         </div>
+      </div>
       </div>
     </div>
   );
