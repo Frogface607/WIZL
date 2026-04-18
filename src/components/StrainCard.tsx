@@ -84,7 +84,8 @@ export default function StrainCard({ strain }: { strain: Strain }) {
                 ))}
               </div>
               <span className="text-white/60 text-[10px] mt-0.5">
-                {strain.rating.toFixed(1)} ({strain.reviewCount.toLocaleString()})
+                {strain.rating > 0 ? strain.rating.toFixed(1) : "New"}
+                {strain.reviewCount > 0 && ` (${strain.reviewCount.toLocaleString()})`}
               </span>
             </div>
           </div>

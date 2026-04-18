@@ -1,9 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { recentCheckins } from "@/data/strains";
 import { fetchStrainById } from "@/lib/strains-db";
 import { shops } from "@/data/shops";
-import CheckinCard from "@/components/CheckinCard";
 import StrainActions from "@/components/StrainActions";
 import { notFound } from "next/navigation";
 import {
@@ -83,7 +81,6 @@ export default async function StrainPage({
   if (!strain) return notFound();
 
   const t = await getTranslations("strains");
-  const strainCheckins = recentCheckins.filter((c) => c.strainId === id);
   const availableAt = shops.filter((s) =>
     "topStrains" in s && Array.isArray((s as Record<string, unknown>).topStrains)
       ? ((s as Record<string, unknown>).topStrains as string[]).some(
@@ -166,10 +163,19 @@ export default async function StrainPage({
               </div>
             </div>
             <div className="flex-1 border-l border-border pl-3">
-              <p className="text-text-primary text-sm font-semibold">
-                {strain.reviewCount.toLocaleString()} {t("reviews")}
-              </p>
-              <p className="text-text-muted text-xs">{t("fromCommunity")}</p>
+              {strain.reviewCount > 0 ? (
+                <>
+                  <p className="text-text-primary text-sm font-semibold">
+                    {strain.reviewCount.toLocaleString()} {t("reviews")}
+                  </p>
+                  <p className="text-text-muted text-xs">{t("fromCommunity")}</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-accent-neon text-sm font-semibold">New</p>
+                  <p className="text-text-muted text-xs">Be the first to check in</p>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -471,31 +477,15 @@ export default async function StrainPage({
       )}
 
       {/* ============================================= */}
-      {/* REVIEWS */}
+      {/* REVIEWS — empty state, real reviews come from Supabase later */}
       {/* ============================================= */}
-      {strainCheckins.length > 0 && (
-        <section className="mb-5">
-          <h2 className="font-bold mb-4 text-sm uppercase tracking-wider text-text-muted flex items-center gap-2 px-1">
-            <Star className="w-4 h-4" />
-            {t("recentReviews")}
-          </h2>
-          <div className="flex flex-col gap-3">
-            {strainCheckins.map((checkin) => (
-              <CheckinCard key={checkin.id} checkin={checkin} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {strainCheckins.length === 0 && (
-        <div className="glass-card rounded-2xl text-center py-10 px-6 mb-5">
-          <Sparkles className="w-10 h-10 text-text-muted/30 mx-auto mb-3" />
-          <p className="text-text-secondary text-sm font-medium mb-1">{t("noReviews")}</p>
-          <Link href={`/checkin?strain=${strain.id}`} className="text-accent-green text-sm font-semibold hover:underline">
-            {t("writeReview")} &rarr;
-          </Link>
-        </div>
-      )}
+      <div className="glass-card rounded-2xl text-center py-10 px-6 mb-5">
+        <Sparkles className="w-10 h-10 text-text-muted/30 mx-auto mb-3" />
+        <p className="text-text-secondary text-sm font-medium mb-1">{t("noReviews")}</p>
+        <Link href={`/checkin?strain=${strain.id}`} className="text-accent-green text-sm font-semibold hover:underline">
+          {t("writeReview")} &rarr;
+        </Link>
+      </div>
     </div>
   );
 }
