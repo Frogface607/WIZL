@@ -15,6 +15,7 @@ import AgeGate from "@/components/AgeGate";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Providers from "@/components/Providers";
+import SmokeLayer from "@/components/SmokeLayer";
 
 export const metadata: Metadata = {
   title: "WIZL — Scan it. Know it. Track it.",
@@ -56,6 +57,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Providers>
             <AgeGate>
+              <SmokeLayer />
               <Header />
               <main className="flex-1">{children}</main>
               <Navigation />
