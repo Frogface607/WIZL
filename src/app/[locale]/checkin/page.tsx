@@ -12,7 +12,6 @@ import { addCheckin, Achievement } from "@/lib/store";
 
 export default function CheckinPage() {
   const t = useTranslations("checkin");
-  const tc = useTranslations("common");
   const searchParams = useSearchParams();
   const preselectedId = searchParams.get("strain");
   const preselectedShopId = searchParams.get("shop");
@@ -201,18 +200,6 @@ export default function CheckinPage() {
         </div>
 
         <div className="mb-6">
-          <h3 className="font-bold mb-3">
-            {t("addPhoto")} 📸{" "}
-            <span className="pro-badge px-2 py-0.5 rounded-full text-[10px] font-bold text-black">{tc("pro")}</span>
-          </h3>
-          <Link href="/scan" className="block glass-card rounded-2xl p-8 border-2 border-dashed border-border text-center hover:bg-bg-card-hover transition-all">
-            <div className="text-3xl mb-2">📷</div>
-            <p className="text-text-muted text-sm">{t("tapToScan")}</p>
-            <p className="text-text-muted text-xs mt-1">{t("aiRecognize")}</p>
-          </Link>
-        </div>
-
-        <div className="mb-6">
           <h3 className="font-bold mb-3">📍 Where are you?</h3>
           {selectedShop ? (
             <div className="glass-card rounded-2xl p-3 flex items-center gap-3">
@@ -275,15 +262,6 @@ export default function CheckinPage() {
           className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 pl-10 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors" />
         <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-sm">🔍</span>
       </div>
-
-      <Link href="/scan" className="glass-card rounded-2xl p-4 mb-6 flex items-center gap-3 glow-purple block">
-        <div className="text-2xl">📸</div>
-        <div className="flex-1">
-          <p className="font-semibold text-sm">{t("scanWithAi")}</p>
-          <p className="text-text-muted text-xs">{t("scanDesc")}</p>
-        </div>
-        <span className="pro-badge px-2 py-0.5 rounded-full text-[10px] font-bold text-black">{tc("pro")}</span>
-      </Link>
 
       <div className="flex flex-col gap-2">
         {filteredStrains.map((strain) => (
