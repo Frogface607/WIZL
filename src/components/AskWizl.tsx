@@ -104,35 +104,21 @@ export default function AskWizl() {
 
   return (
     <div className="relative mb-4">
-      {/* Wizard with book — peeks from behind the chat, fades on interaction */}
+      {/* Wizard with book — peeks from top-right, fades on interaction */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/wizl-book.png"
         alt=""
         aria-hidden="true"
-        className={`pointer-events-none absolute right-0 w-36 h-36 object-contain transition-all duration-500 ${
+        className={`pointer-events-none absolute right-0 w-32 h-32 object-contain z-20 transition-all duration-500 ${
           showWizard
-            ? "opacity-90 -top-24 translate-x-2"
-            : "opacity-0 -top-16 translate-x-6 scale-95"
+            ? "opacity-90 -top-20 translate-x-1"
+            : "opacity-0 -top-14 translate-x-4 scale-95"
         }`}
-        style={{ filter: "drop-shadow(0 0 20px rgba(153,247,136,0.15))" }}
+        style={{ filter: "drop-shadow(0 0 20px rgba(153,247,136,0.2))" }}
       />
 
       <div className="glass-card rounded-2xl overflow-hidden relative">
-      {/* Header */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
-        <div className="w-7 h-7 rounded-full overflow-hidden border border-accent-purple/30">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
-        </div>
-        <span className="font-semibold text-sm text-text-primary">
-          Ask WIZL
-        </span>
-        <span className="text-xs text-text-muted ml-auto">
-          {MAX_MESSAGES_PER_SESSION - messageCount} left
-        </span>
-      </div>
-
       {/* Messages area — only shows when there are messages */}
       {messages.length > 0 && (
         <div
@@ -241,6 +227,11 @@ export default function AskWizl() {
             <Send className="w-4 h-4" />
           </button>
         </div>
+        {messageCount > 0 && (
+          <p className="text-[10px] text-text-muted/60 text-center mt-1.5">
+            {MAX_MESSAGES_PER_SESSION - messageCount} / {MAX_MESSAGES_PER_SESSION} messages left
+          </p>
+        )}
       </div>
       </div>
     </div>

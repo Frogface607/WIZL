@@ -35,21 +35,21 @@ export default function Home() {
           />
         ))}
 
-        {/* Hero image (contains logo + WIZL text + with love) */}
+        {/* Hero image — smaller, centered, padded */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/hero-wizl.png"
           alt="WIZL The Wizard — with love"
-          className="w-full h-auto block select-none"
+          className="w-[70%] max-w-[340px] h-auto block mx-auto select-none relative z-0"
           draggable={false}
         />
 
-        {/* Scan button — floating over bottom of hero */}
-        <div className="px-4 pb-6 pt-2">
+        {/* Scan button */}
+        <div className="px-4 pb-4 pt-1 relative z-10">
           <Link
             href="/scan"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-accent-green text-black font-bold text-sm hover:brightness-110 transition-all"
-            style={{ boxShadow: "0 0 20px rgba(52,211,153,0.25)" }}
+            className="inline-flex items-center gap-2 px-7 py-2.5 rounded-2xl bg-accent-neon text-black font-bold text-sm hover:brightness-110 transition-all"
+            style={{ boxShadow: "0 0 24px rgba(153,247,136,0.3)" }}
           >
             <ScanLine className="w-5 h-5" />
             {t("brand.slogan")}
@@ -57,8 +57,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Chat — inline, right on homepage */}
-      <section className="px-4 pt-6">
+      {/* Chat — inline, right under hero */}
+      <section className="px-4 pt-4">
         <AskWizl />
       </section>
     </div>
