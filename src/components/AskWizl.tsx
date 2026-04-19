@@ -28,7 +28,6 @@ export default function AskWizl() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
-  const [isFocused, setIsFocused] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -100,25 +99,21 @@ export default function AskWizl() {
     }
   };
 
-  const showWizard = messages.length === 0 && !isFocused && !input;
-
   return (
     <div className="relative mb-4">
-      {/* Wizard with book — peeks from top-right, fades on interaction */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/wizl-book.png"
-        alt=""
-        aria-hidden="true"
-        className={`pointer-events-none absolute right-0 w-32 h-32 object-contain z-20 transition-all duration-500 ${
-          showWizard
-            ? "opacity-90 -top-20 translate-x-1"
-            : "opacity-0 -top-14 translate-x-4 scale-95"
-        }`}
-        style={{ filter: "drop-shadow(0 0 20px rgba(153,247,136,0.2))" }}
-      />
-
       <div className="glass-card rounded-2xl overflow-hidden relative">
+      {/* Header */}
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
+        <div className="w-9 h-9 rounded-full overflow-hidden border border-accent-purple/40 bg-bg-hero flex-shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
+        </div>
+        <div className="flex flex-col leading-tight">
+          <span className="font-bold text-sm text-text-primary">Ask WIZL The Wizard</span>
+          <span className="text-[10px] text-text-muted">your herbal guide</span>
+        </div>
+      </div>
+
       {/* Messages area — only shows when there are messages */}
       {messages.length > 0 && (
         <div
@@ -211,8 +206,6 @@ export default function AskWizl() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
             placeholder="Ask about any strain..."
             maxLength={1000}
             disabled={isLoading}

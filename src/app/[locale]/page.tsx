@@ -40,7 +40,7 @@ export default function Home() {
         <img
           src="/hero-wizl.png"
           alt="WIZL The Wizard — with love"
-          className="w-[70%] max-w-[340px] h-auto block mx-auto select-none relative z-0"
+          className="w-[91%] max-w-[442px] h-auto block mx-auto select-none relative z-0"
           draggable={false}
         />
 
@@ -48,7 +48,7 @@ export default function Home() {
         <div className="px-4 pb-4 pt-1 relative z-10">
           <Link
             href="/scan"
-            className="inline-flex items-center gap-2 px-7 py-2.5 rounded-2xl bg-accent-neon text-black font-bold text-sm hover:brightness-110 transition-all"
+            className="inline-flex items-center gap-2.5 px-9 py-3 rounded-2xl bg-accent-neon text-black font-bold text-base hover:brightness-110 transition-all"
             style={{ boxShadow: "0 0 24px rgba(153,247,136,0.3)" }}
           >
             <ScanLine className="w-5 h-5" />
