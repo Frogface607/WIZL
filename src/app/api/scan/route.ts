@@ -25,6 +25,8 @@ If you cannot identify the strain with certainty:
 - Set confidence to "low" or "medium"
 - Explain in the description what you're seeing and why you made this guess
 
+CRITICAL: Your final output MUST be clean JSON only. Do NOT include any citation markup like <cite index="...">...</cite>, footnote markers like [1] or [2], or any XML/HTML tags inside string values. Just plain prose inside every string.
+
 Be friendly, knowledgeable, and helpful. Like a budtender who really knows their stuff.`;
 
 const LANGUAGE_MAP: Record<string, string> = {
@@ -153,10 +155,29 @@ export async function POST(request: NextRequest) {
       .reverse()
       .find((b) => b.type === "text" && typeof b.text === "string")?.text ?? "";
 
+    // Strip Claude web_search citation markup (<cite index="...">...</cite>)
+    // and bare footnote markers so clean prose ends up in the UI.
+    const stripCitations = (s: string): string =>
+      s
+        .replace(/<cite\b[^>]*>/gi, "")
+        .replace(/<\/cite>/gi, "")
+        .replace(/\[\d+(?:[-,\s]\d+)*\]/g, "")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+
     const jsonMatch = finalText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       try {
         const result = JSON.parse(jsonMatch[0]);
+        for (const k of Object.keys(result)) {
+          if (typeof result[k] === "string") {
+            result[k] = stripCitations(result[k]);
+          } else if (Array.isArray(result[k])) {
+            result[k] = result[k].map((item: unknown) =>
+              typeof item === "string" ? stripCitations(item) : item
+            );
+          }
+        }
         return NextResponse.json(result);
       } catch (e) {
         console.error("JSON parse error:", e, finalText.slice(0, 500));
