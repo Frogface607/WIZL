@@ -170,12 +170,12 @@ export default function CheckinPage() {
           </div>
 
           <div className="flex gap-3">
-            <button
-              onClick={() => { setStep("select"); setSelectedStrain(null); setRating(0); setReview(""); setSelectedMood(""); setSearch(""); setNewAchievements([]); }}
-              className="flex-1 px-6 py-3 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all"
+            <Link
+              href="/scan"
+              className="flex-1 px-6 py-3 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all text-center"
             >
               {t("scanAnother")} 🔍
-            </button>
+            </Link>
             <Link href="/profile" className="flex-1 px-6 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium text-center hover:bg-bg-card-hover transition-all">
               👤 Profile
             </Link>
@@ -323,7 +323,9 @@ export default function CheckinPage() {
                 <span className="text-text-muted text-xs">THC {strain.thc}%</span>
               </div>
             </div>
-            <span className="text-accent-green text-sm font-bold">{strain.rating} ★</span>
+            <span className="text-accent-neon text-xs font-bold">
+              {strain.rating > 0 ? `${strain.rating} ★` : "New"}
+            </span>
           </button>
         ))}
       </div>

@@ -145,39 +145,40 @@ export default async function StrainPage({
             )}
           </div>
 
-          {/* Rating */}
-          <div className="flex items-center gap-3 mt-4 bg-bg-primary/60 rounded-2xl p-4">
-            <div className="text-center">
-              <p className="text-4xl font-black text-accent-green leading-none">{strain.rating}</p>
-              <div className="flex gap-0.5 mt-1.5 justify-center">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-4 h-4 ${
-                      i < Math.round(strain.rating)
-                        ? "text-accent-green fill-accent-green"
-                        : "text-text-muted/30"
-                    }`}
-                  />
-                ))}
+          {/* Rating — only shown when real WIZL check-ins exist */}
+          {strain.rating > 0 ? (
+            <div className="flex items-center gap-3 mt-4 bg-bg-primary/60 rounded-2xl p-4">
+              <div className="text-center">
+                <p className="text-4xl font-black text-accent-green leading-none">{strain.rating}</p>
+                <div className="flex gap-0.5 mt-1.5 justify-center">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-4 h-4 ${
+                        i < Math.round(strain.rating)
+                          ? "text-accent-green fill-accent-green"
+                          : "text-text-muted/30"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="flex-1 border-l border-border pl-3">
+                <p className="text-text-primary text-sm font-semibold">
+                  {strain.reviewCount.toLocaleString()} {t("reviews")}
+                </p>
+                <p className="text-text-muted text-xs">{t("fromCommunity")}</p>
               </div>
             </div>
-            <div className="flex-1 border-l border-border pl-3">
-              {strain.reviewCount > 0 ? (
-                <>
-                  <p className="text-text-primary text-sm font-semibold">
-                    {strain.reviewCount.toLocaleString()} {t("reviews")}
-                  </p>
-                  <p className="text-text-muted text-xs">{t("fromCommunity")}</p>
-                </>
-              ) : (
-                <>
-                  <p className="text-accent-neon text-sm font-semibold">New</p>
-                  <p className="text-text-muted text-xs">Be the first to check in</p>
-                </>
-              )}
+          ) : (
+            <div className="flex items-center gap-3 mt-4 bg-bg-primary/60 rounded-2xl p-4">
+              <Sparkles className="w-8 h-8 text-accent-neon" />
+              <div>
+                <p className="text-accent-neon text-sm font-semibold">New on WIZL</p>
+                <p className="text-text-muted text-xs">Be the first to check in</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

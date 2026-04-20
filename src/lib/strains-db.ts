@@ -57,8 +57,11 @@ function mapSupabaseToStrain(s: SupabaseStrain): Strain {
     description: s.description || "",
     effects: s.effects || [],
     flavors: s.flavors || [],
-    rating: s.rating ? Math.round(s.rating * 10) / 10 : 4.0,
-    reviewCount: s.rating_count || 0,
+    // Ratings only reflect real WIZL check-ins. Until the app has its own
+    // aggregated ratings, show everything as unrated ("New") instead of
+    // surfacing scraped/seeded numbers as if they were community scores.
+    rating: 0,
+    reviewCount: 0,
     image: s.name ? s.name.charAt(0) : "?",
     color: typeColors[type] || "#34d399",
     genetics: s.genetics || "",
