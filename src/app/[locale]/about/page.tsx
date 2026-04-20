@@ -34,8 +34,8 @@ export default function AboutPage() {
         </p>
         <p className="text-text-secondary text-sm leading-relaxed">
           I&apos;m building this while walking through Bangkok — one shop at a time,
-          one sticker at a time, one conversation at a time. If you see me on
-          the street — say hi. I probably have stickers.
+          one check-in at a time, one conversation at a time. If you see me on
+          the street — say hi. I&apos;d love to hear what you&apos;re smoking.
         </p>
       </div>
 

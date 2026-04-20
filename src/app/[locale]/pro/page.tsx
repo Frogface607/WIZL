@@ -84,8 +84,22 @@ export default function ProPage() {
     );
   }
 
+  const claimFree = () => {
+    const userData = getUserData();
+    userData.isPro = true;
+    saveUserData(userData);
+    setSubscribed(true);
+  };
+
   return (
     <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
+      {/* Founders banner — first 420 get free */}
+      <div className="glass-card rounded-2xl p-4 mb-6 text-center border border-accent-neon/30"
+           style={{ boxShadow: "0 0 24px rgba(153,247,136,0.15)" }}>
+        <p className="text-accent-neon font-bold text-sm mb-1">{t("foundersBanner")}</p>
+        <p className="text-text-muted text-xs">{t("foundersDesc")}</p>
+      </div>
+
       <div className="text-center mb-8">
         <div className="text-5xl mb-3 animate-float">🔍</div>
         <h1 className="text-3xl font-black gradient-text mb-1">{t("title")}</h1>
@@ -152,9 +166,18 @@ export default function ProPage() {
       </div>
 
       <button
+        onClick={claimFree}
+        disabled={loading}
+        className="w-full py-4 rounded-2xl bg-accent-neon text-black font-bold text-lg hover:brightness-110 transition-all mb-2 disabled:opacity-50"
+        style={{ boxShadow: "0 0 24px rgba(153,247,136,0.3)" }}
+      >
+        🌿 {t("claimFree")}
+      </button>
+      <p className="text-text-muted text-xs text-center mb-3">{t("orSupport")}</p>
+      <button
         onClick={handleSubscribe}
         disabled={loading}
-        className="w-full py-4 rounded-2xl bg-accent-green text-black font-bold text-lg hover:brightness-110 transition-all glow-green mb-3 disabled:opacity-50"
+        className="w-full py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium text-sm hover:bg-bg-card-hover transition-all mb-3 disabled:opacity-50"
       >
         {loading ? "Loading..." : t("startTrial")}
       </button>
