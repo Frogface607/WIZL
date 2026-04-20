@@ -4,7 +4,9 @@ const SYSTEM_PROMPT = `You are WIZL — a friendly, knowledgeable cannabis strai
 
 When given an image of cannabis (jar, package, bud, label) or a text description, identify the strain and provide detailed information.
 
-ALWAYS respond in this exact JSON format:
+You have a web_search tool — USE IT for every request to ground your answer in real strain data (Leafly, Weedmaps, SeedFinder, breeder sites). Search for the strain name + "strain" to pull genetics, THC/CBD ranges, effects, flavors, and terpenes. Do not guess numbers when you can look them up.
+
+Respond ONLY with a single JSON object in this exact format (no prose before or after):
 {
   "name": "Strain Name",
   "confidence": "high" | "medium" | "low",
@@ -19,7 +21,7 @@ ALWAYS respond in this exact JSON format:
 }
 
 If you cannot identify the strain with certainty:
-- Make your best educated guess
+- Make your best educated guess based on search results
 - Set confidence to "low" or "medium"
 - Explain in the description what you're seeing and why you made this guess
 
@@ -115,11 +117,18 @@ export async function POST(request: NextRequest) {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1024,
+        model: "claude-sonnet-4-5",
+        max_tokens: 2048,
         system: SYSTEM_PROMPT + (locale && locale !== "en"
           ? `\n\nIMPORTANT: Respond with ALL text values (description, effects, flavors, best_for) in ${LANGUAGE_MAP[locale] || locale}. Keep strain names and type in English, but translate everything else.`
           : ""),
+        tools: [
+          {
+            type: "web_search_20250305",
+            name: "web_search",
+            max_uses: 3,
+          },
+        ],
         messages: [{ role: "user", content }],
       }),
     });
@@ -134,14 +143,24 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
-    const text =
-      data.content?.[0]?.type === "text" ? data.content[0].text : "";
 
-    // Parse JSON from response
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    // With web_search enabled, the response has multiple content blocks:
+    // server_tool_use → web_search_tool_result → ... → text. Take the last
+    // text block, which holds Claude's final JSON answer.
+    type ContentBlock = { type: string; text?: string };
+    const blocks: ContentBlock[] = Array.isArray(data.content) ? data.content : [];
+    const finalText = [...blocks]
+      .reverse()
+      .find((b) => b.type === "text" && typeof b.text === "string")?.text ?? "";
+
+    const jsonMatch = finalText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
-      const result = JSON.parse(jsonMatch[0]);
-      return NextResponse.json(result);
+      try {
+        const result = JSON.parse(jsonMatch[0]);
+        return NextResponse.json(result);
+      } catch (e) {
+        console.error("JSON parse error:", e, finalText.slice(0, 500));
+      }
     }
 
     return NextResponse.json(
