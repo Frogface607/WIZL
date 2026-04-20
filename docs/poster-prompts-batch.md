@@ -1,4 +1,4 @@
-# WIZL Poster Prompts — "Untold Stories" Series
+# WIZL Adventures — Poster Prompts ("Untold Stories" Series)
 
 A4 portrait posters for printing and dropping off at shops. Each poster is a **still from the middle of an untold story** — a moment from WIZL's adventure built around a famous strain name. Movie/book-cover composition. Strain name as the title.
 
@@ -150,3 +150,73 @@ Movie-poster illustration. A sunlit citrus orchard on a floating sky-island, ora
 ## Series identity
 
 Each poster is numbered (`№ 01`, `№ 02`...) like a print series. Over time builds a collection — some shops will start displaying multiples. Rare posters become collectibles (hand-signed "SK" initial in corner).
+
+---
+
+## Credits Footer — Canva Template
+
+Every poster gets the same "movie credits" strip at the bottom. Keep it consistent across all 20+ so the series reads as one universe. Fits in the bottom ~15% of the A4.
+
+### Layout (left → right, three columns)
+
+**LEFT — episode tag**
+```
+WIZL ADVENTURES
+№ 01 · ICE CREAM CAKE
+A WIZL untold story
+```
+- Line 1: Montserrat Black 900, tracking 0.25em, cream `#F2E8D4`, 11pt
+- Line 2: Montserrat SemiBold 600, 9pt, cream
+- Line 3: Montserrat Light 300, tracking 0.3em, muted cream `#C9BCA4`, 7pt italic
+
+**CENTER — the pitch**
+```
+Scan it · Know it · Track it
+3000+ strains · AI Wizard · map of shops
+```
+- Line 1: Montserrat Bold 700, tracking 0.2em, neon green `#99F788`, 10pt
+- Line 2: Montserrat Regular 400, muted cream `#C9BCA4`, 8pt
+
+**RIGHT — QR + URL**
+```
+[QR CODE]  wizl.space
+           with love
+```
+- QR: 120×120px, dark on transparent, generated from `https://wizl.space/strains/{slug}?utm_source=poster&utm_campaign=adventures&utm_content={episode}`
+- `wizl.space`: Montserrat Black 900, 11pt, cream
+- `with love`: Montserrat Light 300, tracking 0.3em, love pink `#D48AB5`, 8pt italic
+
+### Separator
+
+Thin 1px horizontal rule above the footer in muted purple-grey `rgba(242,232,212,0.15)`. Breathing room: 24px padding top + bottom.
+
+### Optional — micro-instruction strip
+
+Above the separator, single centered line in 7pt muted grey:
+```
+Point your camera at the QR · open the app · scan what you got · with love
+```
+
+Use this on the first drops when you want first-time users to get the whole flow in one glance. Drop it once the brand is recognizable.
+
+---
+
+## Episode naming convention
+
+- `№ 01` through `№ 99` — canonical series, one strain each
+- Use the order they're generated/posted, not alphabetical
+- City suffix optional for later drops: `№ 07 · Pineapple Express · Bangkok`
+- Signed originals: add `SK` initial in bottom-right corner (handwritten marker)
+
+## Content loop (the walk)
+
+Every shop visit = one content unit:
+1. Walk in, give poster (or leave it), say hi
+2. Selfie with the shop owner or poster on wall
+3. Scan a strain they have — get AI result on camera
+4. Short timelapse clip of the interaction (no talking needed, music carries it)
+5. Post same day: TikTok + IG Reels + YT Shorts, caption = the episode title
+   - e.g. *"№ 07 · Pineapple Express — dropped at Green Door Sukhumvit · with love"*
+
+The posters become the physical index. The content becomes the digital index. Both point to `wizl.space`.
+
