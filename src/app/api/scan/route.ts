@@ -157,6 +157,9 @@ export async function POST(request: NextRequest) {
     if (jsonMatch) {
       try {
         const result = JSON.parse(jsonMatch[0]);
+        // Strip <cite> / <source> / other XML-ish tags that Claude's
+        // web_search tool leaves inside the text — show clean prose.
+        cleanCitations(result);
         return NextResponse.json(result);
       } catch (e) {
         console.error("JSON parse error:", e, finalText.slice(0, 500));
@@ -173,6 +176,38 @@ export async function POST(request: NextRequest) {
       { error: "Something went wrong. Please try again." },
       { status: 500 }
     );
+  }
+}
+
+/** Remove XML-ish citation markup that Claude web_search embeds in prose. */
+function stripCiteTags(input: string): string {
+  return input
+    // <cite index="...">inner</cite> → inner
+    .replace(/<cite[^>]*>([\s\S]*?)<\/cite>/gi, "$1")
+    // Drop any other stray tags Claude might add (source, search, etc.)
+    .replace(/<\/?[a-z][^>]*>/gi, "")
+    // Numeric inline refs like [1] [2-5]
+    .replace(/\[\d+(?:[-,\s]\d+)*\]/g, "")
+    // Collapse double spaces and stray whitespace
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+/** Deep-clean string fields in the scan result object in place. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function cleanCitations(obj: any): void {
+  if (!obj || typeof obj !== "object") return;
+  for (const key of Object.keys(obj)) {
+    const v = obj[key];
+    if (typeof v === "string") {
+      obj[key] = stripCiteTags(v);
+    } else if (Array.isArray(v)) {
+      obj[key] = v.map((item) =>
+        typeof item === "string" ? stripCiteTags(item) : item,
+      );
+    } else if (v && typeof v === "object") {
+      cleanCitations(v);
+    }
   }
 }
 
