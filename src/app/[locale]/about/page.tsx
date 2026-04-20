@@ -10,7 +10,8 @@ export default function AboutPage() {
     <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
       {/* Hero */}
       <div className="text-center mb-8">
-        <div className="text-6xl mb-4">👋</div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/mascot.png" alt="WIZL" className="w-24 h-24 mx-auto mb-4 rounded-2xl" />
         <h1 className="text-2xl font-black gradient-text mb-1">The Story</h1>
         <p className="text-sm gradient-love font-medium">{tb("tagline")}</p>
       </div>
@@ -18,24 +19,50 @@ export default function AboutPage() {
       {/* Story */}
       <div className="glass-card rounded-3xl p-6 mb-6">
         <p className="text-text-secondary text-sm leading-relaxed mb-4">
-          Hey, I&apos;m Sergey. A businessman from Russia who believes in peace,
-          love, and good vibes.
+          Hey. I&apos;m Sergey. You can call me Serge.
         </p>
+
         <p className="text-text-secondary text-sm leading-relaxed mb-4">
-          I came to Bangkok and fell in love with the culture — the openness,
-          the warmth, the freedom. I started visiting coffee shops, trying
-          different strains, and realized there&apos;s no good way to track what
-          you&apos;ve tried or discover what&apos;s worth trying.
+          My bar in Russia is closing after 10 years.
         </p>
+
         <p className="text-text-secondary text-sm leading-relaxed mb-4">
-          So I built <span className="text-text-primary font-semibold">WIZL</span>.
-          An AI-powered guide that helps you scan, discover, and remember every strain
-          you&apos;ve ever tried. Like Untappd, but for cannabis. With love.
+          But instead of whining and blaming everything around me,
+          I decided to do what I actually love.
+          Something simple. But mine.
         </p>
-        <p className="text-text-secondary text-sm leading-relaxed">
-          I&apos;m building this while walking through Bangkok — one shop at a time,
-          one check-in at a time, one conversation at a time. If you see me on
-          the street — say hi. I&apos;d love to hear what you&apos;re smoking.
+
+        <p className="text-text-secondary text-sm leading-relaxed mb-4">
+          And here — on the streets of Bangkok,
+          a city that gave me back the feeling of freedom —
+          <span className="text-text-primary font-semibold"> WIZL</span> was born.
+        </p>
+
+        <div className="my-5 border-t border-border" />
+
+        <p className="text-text-secondary text-sm leading-relaxed mb-4">
+          Meet him 👇
+        </p>
+
+        <p className="text-text-secondary text-sm leading-relaxed mb-4">
+          <span className="text-text-primary font-semibold">WIZL — the Weasel Wizard of Weed Wisdom.</span>
+          A kind wizard who travels with his cat, meets curious creatures,
+          and searches for rare strains across the world.
+        </p>
+
+        <p className="text-text-secondary text-sm leading-relaxed mb-4">
+          Every strain he finds goes into his magical book.
+          There are already <span className="text-accent-neon font-semibold">3,000+ strains</span> inside.
+          New ones every day.
+        </p>
+
+        <p className="text-text-secondary text-sm leading-relaxed mb-4">
+          And you? You can scan your own strains, save them in your own book,
+          and check in at the shops where you found them.
+        </p>
+
+        <p className="text-text-primary text-sm leading-relaxed font-medium">
+          Shall we walk together? 🌿
         </p>
       </div>
 
