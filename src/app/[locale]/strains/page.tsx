@@ -10,13 +10,14 @@ import { BookOpen } from "lucide-react";
 
 type FilterType = "all" | StrainType;
 
-const sortKeys = ["rating", "reviews", "thc", "name"] as const;
+// Note: "rating" / "reviews" sorts are hidden until real check-in data exists.
+const sortKeys = ["thc", "name"] as const;
 type SortValue = (typeof sortKeys)[number];
 
 export default function StrainsPage() {
   const t = useTranslations("strains");
   const [filter, setFilter] = useState<FilterType>("all");
-  const [sort, setSort] = useState<SortValue>("rating");
+  const [sort, setSort] = useState<SortValue>("thc");
   const [search, setSearch] = useState("");
   const [strains, setStrains] = useState<Strain[]>(staticStrains);
   const [loading, setLoading] = useState(true);
@@ -40,8 +41,6 @@ export default function StrainsPage() {
   ];
 
   const sortOptions: { label: string; value: SortValue }[] = [
-    { label: t("topRated"), value: "rating" },
-    { label: t("mostReviews"), value: "reviews" },
     { label: t("highestThc"), value: "thc" },
     { label: t("nameAz"), value: "name" },
   ];
@@ -56,8 +55,6 @@ export default function StrainsPage() {
     )
     .sort((a, b) => {
       switch (sort) {
-        case "rating": return b.rating - a.rating;
-        case "reviews": return b.reviewCount - a.reviewCount;
         case "thc": return b.thc - a.thc;
         case "name": return a.name.localeCompare(b.name);
       }

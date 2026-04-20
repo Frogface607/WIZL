@@ -1,264 +1,218 @@
 # WIZL — Project Bible
-## Everything you need to know to continue building
+
+> **Last updated:** 2026-04-20
+>
+> Everything you need to continue building WIZL. Shift happens fast — update this whenever the vision moves.
 
 ---
 
 ## 🔍 What is WIZL?
 
-**WIZL** (wizl.space) — AI-powered cannabis strain scanner, check-in platform & community.
-Think **Untappd + Shazam + ChatGPT** for cannabis. With love.
+**WIZL** ([wizl.space](https://wizl.space)) — a cannabis strain explorer with 3,000+ strains, AI-powered budtender chat, check-ins, favorites, wishlist, shop map. Free forever. Club for $4.20/year (pay what you want, first 420 explorers free).
 
-**Tagline:** "with love"
-**Slogan:** "Scan it. Know it. Track it."
-**Positioning:** Cannabis education & discovery tool (NOT a marketplace, NOT selling anything)
+**Tagline:** `with love`
+**Slogan:** `Scan it. Know it. Track it.`
+**Positioning:** Education & discovery tool for the cannabis-curious. Not a marketplace. Not a dealer app.
+
+**Brand formula:** `WIZL = Weasel + Wizard + Weed Wisdom + With Love`
 
 ---
 
-## 👤 Who is building this?
+## 👤 Who is building this
 
-Sergey (Frogface607) — a businessman from Russia, currently in Bangkok for a month.
-He loves walking, exploring, and building products. This is his "evening project" —
-morning is for other work (Edison, MyReply), evenings are for WIZL.
+Sergey (Frogface607) — former owner of a 10-year music bar in Siberia (Edison Bar, closing May 2026). Currently in Bangkok (Vit38 Rent — cannabis-friendly hotel). Building WIZL on the streets — GoPro, Volta mic, peace-sign pendant, no team, no VC.
 
-**His vibe:** honest, friendly, peaceful, creative. Like the Thais he admires.
-**His superpower:** he IS the marketing channel — walking through Bangkok with GoPro and stickers.
+**Superpower:** he IS the distribution. Walks into real Bangkok shops, tests live with owners, films it, posts it.
+
+**Tone:** honest, warm, slightly mystical, never corporate. Russian accent intact as a feature not a bug.
+
+---
+
+## 🧙‍♂️ The Character — WIZL The Wizard
+
+An anthropomorphic weasel in a purple patched cloak, wizard hat with cannabis leaf pin, gnarled staff topped with a glowing emerald crystal. Leather satchel with potion vials and a sleeping orange cat. Travels the world, meets curious creatures, finds rare strains, records them in his magical book.
+
+**Assets:**
+- `public/mascot.png` — head close-up, transparent
+- `public/logo-mark-transparent.png` — mascot with neon-green glow
+- `public/hero-wizl.png` — full hero (2048×2048, mascot + wordmark + tagline on navy)
+- `public/wizl-book.png` — wizard with magical book
+
+**Style universe:** *Mystic Street Futurism* — Miyazaki warmth × Moomin linework × Adventure Time playfulness × street-culture neon. See `design/system.md` for full brand system.
 
 ---
 
 ## 💰 Business Model
 
-### Revenue Streams:
-1. **PRO Subscription — $4.20/mo** (the meme price, on purpose)
-   - For users: unlimited scans, full history, AI insights, exclusive badges
-   - For shop owners: add your shop to the map, manage menu — same $4.20
-   - 7-day free trial
-   - Free tier: 5 scans/day, basic check-ins
+### Revenue
+- **WIZL Club** — $4.20/year, pay-what-you-want (min $4.20, suggested $20)
+- **Processor:** Gumroad ([wizlspace.gumroad.com/l/wizlpro](https://wizlspace.gumroad.com/l/wizlpro))
+- **First 420 explorers:** free Club forever (founder offer, honour system via `isPro` local flag)
+- **Future:** sponsored shop placements on map, merch, Pinterest/Reddit affiliate, creator collabs
 
-2. **Future (not now):**
-   - Premium/featured placement for shops
-   - Merch (stickers, characters, collectibles)
-   - Donations ("Send me to the next city")
+### Cost structure (low)
+- Supabase — free tier
+- Vercel — free tier (hobby)
+- OpenRouter (Perplexity Sonar for AI chat) — ~$1/1000 requests
+- Anthropic (Claude Sonnet 4.5 for scan) + web search — ~$0.03/scan
+- ElevenLabs (Wizl voice) — $22/mo
+- HeyGen (character avatar video) — $24/mo when subscribed
+- Freepik Premium Plus — already owned, 84K credits
 
-### Payments: LemonSqueezy
-- No company needed to start
-- Payouts to Wise/Payoneer
-- Later: open company in Thailand/Georgia/Armenia → switch to Stripe
-- There's a contact in Bangkok (bar regular, 25 years with work permit) who may help with Thai company/work permit
-
----
-
-## 🎯 Growth Strategy
-
-### The Walking Marketing Machine:
-1. **Sticker packs** — daily unique monster characters (dessert/berry themed, NO actual cannabis imagery)
-   - Numbered (#001, #002...), with rarity system (Common/Uncommon/Rare/Epic/Legendary)
-   - QR code linking to wizl.space
-   - Texts like "What are you smoking? Scan & find out" or "Bro... this ain't 20%"
-   - Distributed to coffee shops in person
-
-2. **GoPro content** — daily timelapse walks through Bangkok
-   - POV from chest mount, one continuous shot
-   - Slows down at shops, speeds up while walking
-   - Minimal talking needed — music + timelapse is the main format
-   - Selfie in each shop from iPhone
-
-3. **Social media** — all global, English-first:
-   - TikTok (main channel, short videos)
-   - Instagram (reels + stories + shop photos)
-   - YouTube (shorts + later long vlogs)
-   - Username: @wizlspace or similar
-   - Unified posting via Buffer/Later
-
-4. **Building in public** — the story IS the product
-   - "Day 1 building WIZL in Bangkok"
-   - "I gave stickers to 10 shops today"
-   - "Can AI identify what I'm smoking?"
-
-5. **Shop onboarding:**
-   - Walk in, friendly intro: "Hey, I'm Sergey, building a fun app for tourists, can I leave stickers?"
-   - Show them the app scanning their products
-   - Offer to add their shop to the map ($4.20/mo or free during launch)
-
-### Realistic targets:
-- 10-20 shops per walk (not 100, sustainable pace)
-- 50-100 shops in a month = solid base
-- Content may go viral at any point (one TikTok can change everything)
-- First $100-500/mo in 1-2 months is realistic
+Break-even at 10 paying members.
 
 ---
 
-## 🎨 Brand & Design
+## 🏗️ Tech Stack
 
-### Colors (current in app):
-- Background: #08080a (deep dark)
-- Accent Green: #34d399 (main CTA, positive)
-- Accent Purple: #a78bfa (secondary, indica type)
-- Accent Orange: #fb923c (sativa type)
-- Accent Love: #f472b6 (pink, "with love" gradient)
-- Text: #f4f4f5 / #a1a1aa / #71717a
-
-### Potential addition (from Bangkok inspiration):
-- Cherry Blossom: #F9A8BB — great for stickers, merch, warm accents
-- Cream: #FAFFC7 — for special/rare elements
-
-### Visual style:
-- Dark theme, glass morphism, glow effects
-- Mobile-first always
-- Dessert/candy/berry aesthetic for characters (NOT cannabis leaves/buds)
-- Clean, friendly, not "druggy"
-
-### Monster Characters (sticker concept):
-- Each cannabis strain = a unique monster character
-- Named after the strain but visually dessert/fruit/candy themed
-- Examples: "Blueberry Frost Monster", "Cherry Devil", "Gelato Beast", "Oreo Zushi Creature"
-- Generated via AI art in consistent style
-- Prompt formula: `[strain] + monster + dessert style + cute but trippy + sticker illustration + vibrant colors`
-- Collectible, numbered, with rarity tiers
+- **Next.js 16** (App Router) + React 19 + TypeScript + Tailwind CSS 4
+- **Supabase** (Postgres + Auth + Storage) — project `qbhyrhvpmavsrpasxnoz`
+- **Vercel** — prod deploy, auto on push to main
+- **next-intl** — EN / RU / TH
+- **PWA** — manifest + icons + installable
+- **Auth** — anonymous sessions + magic-link email upgrade (via Supabase Auth)
+- **AI chat** — OpenRouter → Perplexity Sonar (web-grounded)
+- **AI scan** — Anthropic Claude Sonnet 4.5 + `web_search_20250305` tool
+- **Content gen** — Freepik (Nano Banana Pro, Flux Kontext Max, Kling 2.5, Seedance 2.0), ElevenLabs (voice), HeyGen (character video)
 
 ---
 
-## 🏗️ Tech Stack & Architecture
+## 🗺️ App Map
 
-### Stack:
-- **Framework:** Next.js 16 (App Router, Turbopack)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS 4
-- **i18n:** next-intl (EN/TH/RU)
-- **Maps:** Leaflet with dark CartoDB tiles
-- **AI:** Anthropic Claude API (Vision for scanning)
-- **Payments:** LemonSqueezy
-- **Storage:** localStorage (MVP), Supabase later
-- **Deployment:** Vercel (wizl.space)
-
-### Current pages (13):
-| Route | Description |
-|-------|-------------|
-| `/` | Home — hero, trending strains, recent check-ins, PRO CTA |
-| `/scan` | AI Scanner — photo upload + text description → strain card |
-| `/strains` | Catalog — filters, search, sorting, 12 strains |
-| `/strains/[id]` | Strain detail — effects, flavors, reviews, "available at" shops |
-| `/checkin` | Manual check-in — pick strain, rate, mood, review → saves to localStorage |
-| `/map` | Leaflet map — 10 Bangkok shops, search, directions |
-| `/profile` | User profile — stats, 18 achievements, top strains, history |
-| `/pro` | PRO paywall — $4.20, features comparison, LemonSqueezy checkout |
-| `/about` | Story page — personal story, mission, journey, values |
-| `/shop` | Shop registration — benefits, pricing, district picker |
-| `/shop/dashboard` | Shop owner panel — profile edit, menu CRUD, stock toggle |
-
-### APIs:
-| Route | Description |
-|-------|-------------|
-| `/api/scan` | POST — image (base64) or text → Claude Vision → strain JSON |
-| `/api/checkout` | POST — creates LemonSqueezy checkout session |
-| `/api/webhooks/lemonsqueezy` | POST — subscription lifecycle events |
-
-### Key libraries (lib/):
-- `store.ts` — user data: check-ins, favorites, scans, achievements (localStorage)
-- `shop-store.ts` — shop profile & menu CRUD (localStorage)
-- `lemonsqueezy.ts` — checkout creation, webhook verification
-
-### Achievements system (18 badges):
-- Checkins: First Scan, Five Alive, Double Digits, Quarter Century, Centurion
-- Strains: Strain Hunter (5), Connoisseur (15), Encyclopedia (30)
-- Types: Sativa Lover, Indica Lover, Hybrid Master
-- Special: Night Owl, Early Bird, Perfect Score, Tough Critic
-- Social: Top Reviewer, Collector, Scanner Pro
+| Route | What |
+|---|---|
+| `/` | Hero (mascot + WIZL + tagline) + scan CTA + inline AI chat |
+| `/strains` | **The Book** — 3,000+ strains, filters (type), sort (THC / name), search |
+| `/strains/[id]` | Strain detail — hero, terpenes, effects, flavors, check-in CTA, empty-state reviews |
+| `/checkin` | 3-step flow (select → rate → done). Accepts `?strain=ID`, `?shop=ID`, `?scan=1` (from scan page) |
+| `/scan` | AI scanner — photo or description → strain identification via Claude + web_search |
+| `/map` | Leaflet shop map with region filter, 1594 shops, check-in per shop |
+| `/profile` | Stats, checkins, achievements, taste profile. Shows AuthPrompt if anonymous |
+| `/pro` | WIZL Club — founders banner (first 420 free), Gumroad fallback, features comparison |
+| `/about` | Serge's story — fully i18n (EN/RU/TH) |
+| `/shop` | For shop owners — how to join the map |
+| `/shop/dashboard` | Shop owner dashboard (placeholder) |
+| `/privacy`, `/terms`, `/refund` | Legal |
+| `/auth/callback` | Supabase magic-link exchange |
 
 ---
 
-## 📋 What's done vs what's next
+## 🗄️ Database (Supabase)
 
-### ✅ DONE:
-- Full Next.js app with all 13 pages
-- i18n (EN/TH/RU) with language switcher
-- AI scan API (Claude Vision) with demo mode
-- LemonSqueezy payment integration
-- Scan limits (5/day free, unlimited PRO)
-- Check-in system with localStorage persistence
-- 18 achievements with real-time unlock
-- Leaflet map with 10 Bangkok shops
-- Shop owner registration & dashboard
-- Strain ↔ shop linking ("Available at")
-- About/Story page
-- Age gate (20+)
-- Dark theme with glass morphism
+**Key tables:**
+- `strains` — 3,123 rows. `id`, `name`, `type`, `thc_min/max`, `cbd_min/max`, `description`, `effects[]`, `flavors[]`, `terpenes` (JSONB), `genetics`, `difficulty`, `rating` (0 now — real ratings later), `rating_count`, `fts` (search index)
+- `checkins` — user checkins, `user_id`, `strain_id`, `rating`, `mood`, `review`, `shop_id`
 
-### 🔜 NEXT (priority order):
-1. **Deploy to Vercel** — connect repo, add env vars, point wizl.space
-2. **Create social media accounts** — @wizlspace on TikTok, Instagram, YouTube
-3. **Generate first sticker pack** — 10 monsters in consistent style
-4. **Logo/visual identity** — simple, clean, works on dark and light
-5. **Supabase** — real database for users, check-ins, shops (replace localStorage)
-6. **Auth** — email/social login
-7. **Real shop data** — start adding actual Bangkok shops from walks
-8. **PWA** — installable on mobile
-9. **First walk** — GoPro, stickers, go!
+**Client-side:**
+- `localStorage` key `wizl-user-data` — anonymous cache of checkins, favorites, wishlist, isPro flag
+- Eventually migrates to Supabase when user does magic-link upgrade
+
+**Ratings policy (critical):**
+- `mapSupabaseToStrain` in `src/lib/strains-db.ts` forces `rating: 0, reviewCount: 0` regardless of seeded DB values
+- UI shows "New on WIZL / Be the first to check in" until real community data exists
+- Sort-by-rating / sort-by-reviews options hidden in catalog
+- When check-ins accumulate — aggregate job will compute real values
 
 ---
 
-## 🗂️ Repository Info
+## 🔑 API Routes
 
-### Old repo: `frogface607/task-management-bot`
-- Branch: `claude/cleanup-repo-P2fQi` has all the code
-- Has messy history from old bot project
+| Route | Purpose |
+|---|---|
+| `POST /api/chat` | AI chat via OpenRouter + Perplexity Sonar |
+| `POST /api/scan` | AI scan via Anthropic + web_search_20250305 |
+| `POST /api/checkout` | Gumroad redirect (returns the product URL) |
+| `GET /auth/callback` | Supabase magic-link handler |
 
-### New repo: `frogface607/WIZL`
-- Created fresh, empty
-- Needs code pushed from the old repo (clean first commit)
-- The old session couldn't push due to access restrictions
-- **FIRST TASK in new session: push all code to WIZL repo**
+---
 
-### How to get the code:
-All source files are in the old repo branch. In the new session with WIZL access:
-1. Either re-create from the old repo
-2. Or rebuild (all files are documented above, and the old repo has everything)
+## 🌍 i18n
 
-### Env vars needed for Vercel:
+- `messages/en.json` — English (primary)
+- `messages/ru.json` — Russian (личное, для понимания)
+- `messages/th.json` — Thai (local market)
+
+Locale in URL: `/en/...`, `/ru/...`, `/th/...`
+
+**Rule:** all user-facing strings via `useTranslations("namespace")`. No hardcoded English.
+
+---
+
+## ♻️ Env Variables
+
 ```
-ANTHROPIC_API_KEY=sk-ant-...
-LEMONSQUEEZY_API_KEY=
-LEMONSQUEEZY_STORE_ID=
-LEMONSQUEEZY_PRODUCT_ID=
-LEMONSQUEEZY_VARIANT_ID=
-LEMONSQUEEZY_WEBHOOK_SECRET=
+NEXT_PUBLIC_SUPABASE_URL=https://qbhyrhvpmavsrpasxnoz.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<in .env.local>
+OPENROUTER_API_KEY=<in .env.local>
+ANTHROPIC_API_KEY=<in Vercel>
+MUAPI_API_KEY=<optional, for image gen via MuAPI>
 NEXT_PUBLIC_APP_URL=https://wizl.space
 ```
 
----
-
-## 🧠 Key Decisions Made
-
-1. **Name:** WIZL (What's In ZipLock → simplified to just WIZL)
-2. **Domain:** wizl.space (purchased)
-3. **Price:** $4.20/mo (meme, on purpose, for both users and shops)
-4. **Payments:** LemonSqueezy (no company needed, works for Russian residents)
-5. **Target audience:** Tourists in Thailand first, then global
-6. **Language:** English-first, Thai for local shops, Russian because founder
-7. **No cannabis imagery:** Characters are desserts/fruits/monsters, not leaves/buds
-8. **Legal positioning:** Education & discovery tool, never selling/distributing
-9. **Content strategy:** GoPro timelapse walks, minimal talking, daily posting
-10. **Sticker marketing:** Physical stickers in shops = offline viral loop
+Gumroad is configured by redirect URL on their side: `https://wizl.space/en/pro?success=true`.
 
 ---
 
-## 💬 The Vibe (important!)
+## 📱 Social
 
-This project is NOT:
-- A "startup that needs to scale to 10M users"
-- A grind
-- Stressful
+- **Instagram:** [@wizl.space](https://instagram.com/wizl.space) — primary, carousel+reels
+- **TikTok:** [@wizl.space](https://tiktok.com/@wizl.space) — virality engine
+- **YouTube:** `@wizl.space` — long-form shop visits, Puff & Walk
+- **Twitter/X:** `@wizlspace` — builder-in-public, celebrity tags via Wizl
 
-This project IS:
-- A fun adventure
-- Walking and exploring
-- Building in public
-- Making friends
-- Maybe making money
-- Definitely making memories
+**Audience rule:** EN/TH only. No Russian cannabis content. Russia = legal risk.
 
-**The motto:** "Доброе крутое приключение" (A kind, cool adventure)
+Launch playbook: `D:\PROJECTS\knowledge\wizl-launch\` (Obsidian-ready, 9 files).
 
 ---
 
-*Last updated: 2026-04-06*
-*From the original build session with Claude*
+## 🎯 Current Focus (Apr 20)
+
+1. ✅ Socials set up (IG / TikTok / YouTube / Twitter)
+2. ✅ Mascot + voice + hero + palette
+3. ✅ 3,000+ strains, zero fake ratings
+4. ✅ First 420 founders offer
+5. 🎬 **Tomorrow:** shoot intro video (Script 1 in playbook) + first shop visit
+6. 🎬 **Tomorrow:** create 5 Freepik backgrounds for HeyGen Wizl videos
+7. 📖 Grow strain DB toward 5,000+ via background agents
+
+---
+
+## 🛑 What NOT to do
+
+- Don't auto-generate fake check-in data — integrity > engagement theater
+- Don't post cannabis content on Serge's personal (Russian) accounts
+- Don't use perfectly-American voice-cloning for Serge — accent is feature
+- Don't add "Sign up to see results" dark patterns
+- Don't overdesign — `done > perfect`, especially during launch week
+- Don't break the mascot style — every Wizl image passes through brand style node
+- Don't replace Serge in video with AI avatar. HeyGen is for **Wizl** the character, not the human
+
+---
+
+## 🧭 Key Files to Know
+
+- `design/system.md` — full brand bible (palette, typography, character, world, motion)
+- `content/content-plan.md` — 14-post content pipeline
+- `D:\PROJECTS\knowledge\wizl-launch\` — 9-file launch playbook (IG, TikTok, YT, Twitter, Reddit, Freepik prompts, video scripts, 7-day queue, ElevenLabs voice)
+- `src/lib/strains-db.ts` — Supabase data layer (rating forced to 0)
+- `src/lib/auth.tsx` — Supabase anonymous + magic-link auth
+- `src/app/api/chat/route.ts` — AI chat system prompt (Wizl persona, cannabis-only)
+- `src/app/api/scan/route.ts` — Claude Sonnet 4.5 + web_search scanner
+
+---
+
+## 📞 Contact / Links
+
+- Domain: [wizl.space](https://wizl.space)
+- Gumroad: [wizlspace.gumroad.com/l/wizlpro](https://wizlspace.gumroad.com/l/wizlpro)
+- Git: [github.com/Frogface607/WIZL](https://github.com/Frogface607/WIZL)
+- Email: `hello@wizl.space`
+
+---
+
+## 🌿 Closing note
+
+> WIZL is Serge's dream project — all the things he loves (walking, cannabis, building, stories, Bangkok) collapsed into one point. Treat every decision through that lens. If it doesn't fit the spirit — don't ship.
+>
+> *With love.*
