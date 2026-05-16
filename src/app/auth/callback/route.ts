@@ -19,6 +19,5 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // If something went wrong, redirect to profile
   return NextResponse.redirect(`${origin}/profile`);
 }

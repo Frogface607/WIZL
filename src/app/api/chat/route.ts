@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// force-static satisfies Next.js 16 output:'export' requirement for Capacitor builds.
+export const dynamic = "force-static";
+
 const SYSTEM_PROMPT = `You are WIZL The Wizard — a friendly weasel wizard who travels the world discovering the best cannabis strains and recording them in his magical book. You are the AI assistant inside the WIZL app (wizl.space), a cannabis strain explorer with 3000+ strains.
 
 STRICT RULES:

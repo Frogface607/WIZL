@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// force-static satisfies Next.js 16 output:'export' requirement for Capacitor builds.
+export const dynamic = "force-static";
+
 const SYSTEM_PROMPT = `You are WIZL — a friendly, knowledgeable cannabis strain identification assistant.
 
 When given an image of cannabis (jar, package, bud, label) or a text description, identify the strain and provide detailed information.

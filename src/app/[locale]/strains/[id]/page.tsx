@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { fetchStrainById } from "@/lib/strains-db";
 import { shops } from "@/data/shops";
@@ -25,8 +25,44 @@ import {
   Wind,
   Store,
 } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+import { routing } from "@/i18n/routing";
+import { strains as staticStrains } from "@/data/strains";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  let ids: string[] = [];
+
+  if (supabaseUrl && supabaseAnonKey) {
+    const client = createClient(supabaseUrl, supabaseAnonKey);
+    // Fetch all IDs in pages of 1000 to bypass the default row limit.
+    let page = 0;
+    const pageSize = 1000;
+    while (true) {
+      const { data, error } = await client
+        .from("strains")
+        .select("id")
+        .range(page * pageSize, (page + 1) * pageSize - 1);
+      if (error) {
+        throw new Error(`generateStaticParams: Supabase error: ${error.message}`);
+      }
+      if (!data || data.length === 0) break;
+      ids.push(...data.map((row: { id: string }) => row.id));
+      if (data.length < pageSize) break;
+      page++;
+    }
+  }
+
+  if (ids.length === 0) {
+    ids = staticStrains.map((s) => s.id);
+  }
+
+  return routing.locales.flatMap((locale) =>
+    ids.map((id) => ({ locale, id }))
+  );
+}
 
 const typeGradients: Record<string, string> = {
   sativa: "from-yellow-500/80 to-orange-500/80",
@@ -74,9 +110,11 @@ const TerpeneIcon = ({ terpene, className, style }: { terpene: string; className
 export default async function StrainPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
-  const { id } = await params;
+  const { locale, id } = await params;
+  // Required for static export: use URL segment instead of headers() for locale.
+  setRequestLocale(locale);
   const strain = await fetchStrainById(id);
   if (!strain) return notFound();
 
@@ -172,10 +210,13 @@ export default async function StrainPage({
             </div>
           ) : (
             <div className="flex items-center gap-3 mt-4 bg-bg-primary/60 rounded-2xl p-4">
-              <Sparkles className="w-8 h-8 text-accent-neon" />
+              <div className="w-10 h-10 flex-shrink-0 animate-float">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/wizl-avatar.png" alt="WIZL" className="w-full h-full object-cover rounded-full border border-accent-purple/40" />
+              </div>
               <div>
-                <p className="text-accent-neon text-sm font-semibold">New on WIZL</p>
-                <p className="text-text-muted text-xs">Be the first to check in</p>
+                <p className="text-accent-neon text-sm font-semibold">Wizl hasn&apos;t tried this one yet</p>
+                <p className="text-text-muted text-xs italic">Be the first to write in the book.</p>
               </div>
             </div>
           )}
@@ -481,10 +522,14 @@ export default async function StrainPage({
       {/* REVIEWS — empty state, real reviews come from Supabase later */}
       {/* ============================================= */}
       <div className="glass-card rounded-2xl text-center py-10 px-6 mb-5">
-        <Sparkles className="w-10 h-10 text-text-muted/30 mx-auto mb-3" />
-        <p className="text-text-secondary text-sm font-medium mb-1">{t("noReviews")}</p>
+        <div className="w-14 h-14 mx-auto mb-3 animate-float">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/wizl-book.png" alt="WIZL" className="w-full h-full object-contain" />
+        </div>
+        <p className="text-text-secondary text-sm font-medium mb-1 italic">The Wizard&apos;s book has an empty page here.</p>
+        <p className="text-text-muted text-xs mb-3">Will you fill it?</p>
         <Link href={`/checkin?strain=${strain.id}`} className="text-accent-green text-sm font-semibold hover:underline">
-          {t("writeReview")} &rarr;
+          Write the first entry &rarr;
         </Link>
       </div>
     </div>
