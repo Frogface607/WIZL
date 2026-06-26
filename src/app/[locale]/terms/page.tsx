@@ -83,7 +83,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-lg font-bold text-text-primary mb-2">8. Changes to Terms</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
-            We may update these terms from time to time. We&apos;ll notify you of significant changes
+            We may update these terms from time to time. We will notify you of significant changes
             via email or in-app notification. Continued use of WIZL after changes constitutes
             acceptance of the updated terms.
           </p>

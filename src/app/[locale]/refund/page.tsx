@@ -35,7 +35,7 @@ export default function RefundPage() {
           <h2 className="text-lg font-bold text-text-primary mb-2">Accidental Charges</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
             If you were charged by mistake (double charge or technical error),
-            contact us and we&apos;ll issue a full refund. We&apos;re humans too —
+            contact us and we will issue a full refund. We are humans too -
             we get it.
           </p>
         </section>
@@ -63,7 +63,7 @@ export default function RefundPage() {
           <h2 className="text-lg font-bold text-text-primary mb-2">No Questions Asked</h2>
           <p className="text-text-secondary text-sm leading-relaxed">
             If you&apos;re genuinely unhappy with your Club membership,
-            reach out. We&apos;d rather make it right than lose a fellow explorer.
+            reach out. We would rather make it right than lose a fellow explorer.
           </p>
         </section>
       </div>

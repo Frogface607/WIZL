@@ -3,19 +3,17 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import AskWizl from "@/components/AskWizl";
-import { ScanLine } from "lucide-react";
+import { BookOpen, MapPin, ScanLine } from "lucide-react";
 
 export default function Home() {
   const t = useTranslations();
 
   return (
     <div className="max-w-lg mx-auto pb-24 overflow-x-visible">
-      {/* Hero — full-width card with matching bg so PNG blends seamlessly */}
       <section
         className="relative text-center overflow-hidden"
         style={{ background: "#10181f" }}
       >
-        {/* Fireflies over the hero */}
         {[...Array(10)].map((_, i) => (
           <div
             key={i}
@@ -35,17 +33,24 @@ export default function Home() {
           />
         ))}
 
-        {/* Hero image — smaller, centered, padded */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/hero-wizl.png"
-          alt="WIZL The Wizard — with love"
+          alt="WIZL The Wizard - with love"
           className="w-[91%] max-w-[442px] h-auto block mx-auto select-none relative z-0"
           draggable={false}
         />
 
-        {/* Scan button */}
-        <div className="px-4 pb-4 pt-1 relative z-10">
+        <div className="px-5 -mt-2 relative z-10">
+          <h1 className="text-2xl font-black text-text-primary">
+            Scan what you got. Keep what you learn.
+          </h1>
+          <p className="text-text-secondary text-sm mt-2 max-w-[320px] mx-auto">
+            WIZL identifies strains, explains effects, and saves your finds in a personal herb book.
+          </p>
+        </div>
+
+        <div className="px-4 pb-4 pt-4 relative z-10">
           <Link
             href="/scan"
             className="inline-flex items-center gap-2.5 px-9 py-3 rounded-2xl bg-accent-neon text-black font-bold text-base hover:brightness-110 transition-all"
@@ -57,7 +62,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Chat — inline, right under hero */}
+      <section className="grid grid-cols-3 gap-2 px-4 pt-3">
+        {[
+          { href: "/scan" as const, icon: ScanLine, label: "Scan", sub: "AI ID" },
+          { href: "/strains" as const, icon: BookOpen, label: "Book", sub: "3,000+" },
+          { href: "/map" as const, icon: MapPin, label: "Map", sub: "shops" },
+        ].map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="glass-card rounded-2xl p-3 text-left hover:bg-bg-card-hover transition-all"
+          >
+            <item.icon className="w-4 h-4 text-accent-green mb-2" />
+            <p className="text-sm font-bold text-text-primary">{item.label}</p>
+            <p className="text-[10px] text-text-muted">{item.sub}</p>
+          </Link>
+        ))}
+      </section>
+
       <section className="px-4 pt-4">
         <AskWizl />
       </section>

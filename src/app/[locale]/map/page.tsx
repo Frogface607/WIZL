@@ -50,6 +50,12 @@ export default function MapPage() {
     >
       {/* Search bar */}
       <div className="px-4 pt-4 pb-2">
+        <div className="mb-3">
+          <h1 className="text-2xl font-black gradient-text">Shop Map</h1>
+          <p className="text-text-secondary text-xs mt-1">
+            Find places from WIZL&apos;s travel log, then check in where you found your strain.
+          </p>
+        </div>
         <div className="relative">
           <Search
             size={16}
@@ -225,7 +231,10 @@ export default function MapPage() {
                 Join the Wizard&apos;s circuit — $4.20/year
               </p>
             </div>
-            <button className="px-3 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold hover:bg-yellow-500/20 transition-all shrink-0">
+            <button
+              onClick={() => router.push("/shop")}
+              className="px-3 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold hover:bg-yellow-500/20 transition-all shrink-0"
+            >
               Learn more
             </button>
           </div>

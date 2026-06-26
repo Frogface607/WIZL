@@ -6,7 +6,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { getUserData, incrementScans, getScansRemaining } from "@/lib/store";
 import { fetchStrains } from "@/lib/strains-db";
 import { Strain } from "@/types";
-import { Search, Camera, Zap, Droplets, Link2, ScanLine } from "lucide-react";
+import { Search, Camera, Zap, Droplets, Link2, ScanLine, ShieldCheck } from "lucide-react";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 
 interface ScanResult {
@@ -278,12 +278,19 @@ export default function ScanPage() {
             {result.description}
           </p>
 
+          <div className="bg-accent-green/5 border border-accent-green/15 rounded-xl p-3 mb-3 flex gap-2">
+            <ShieldCheck className="w-4 h-4 text-accent-green shrink-0 mt-0.5" />
+            <p className="text-[11px] leading-relaxed text-text-muted">
+              AI estimate for education and tracking. Verify labels, lab results, and local laws before making decisions.
+            </p>
+          </div>
+
           <div className="bg-bg-primary/50 rounded-xl p-3">
             <p className="text-xs text-text-muted mb-1">Best for</p>
             <p className="text-sm text-text-primary">{result.best_for}</p>
           </div>
 
-          {result._demo && process.env.NODE_ENV === "development" && (
+          {result._demo && (
             <div className="mt-3 bg-accent-orange/10 rounded-xl p-3 border border-accent-orange/20">
               <p className="text-accent-orange text-xs font-medium">
                 Demo mode - add OPENAI_API_KEY for real AI scans
@@ -389,6 +396,9 @@ export default function ScanPage() {
         <ScanLine className="w-12 h-12 text-accent-green mx-auto mb-3 animate-float" />
         <h1 className="text-2xl font-black gradient-text mb-1">{t("title")}</h1>
         <p className="text-text-secondary text-sm">{t("subtitle")}</p>
+        <p className="text-text-muted text-xs mt-2 max-w-[310px] mx-auto">
+          Best with a package label or clear strain name. WIZL is an educational guide, not a lab test.
+        </p>
       </div>
 
       {error && (

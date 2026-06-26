@@ -84,15 +84,26 @@ function mapSupabaseToStrain(s: SupabaseStrain): Strain {
 export async function fetchStrains(): Promise<Strain[]> {
   if (!supabase) return staticStrains;
   try {
-    const { data, error } = await supabase
-      .from("strains")
-      .select("*")
-      .order("rating", { ascending: false });
+    const pageSize = 1000;
+    const rows: SupabaseStrain[] = [];
 
-    if (error) throw error;
-    if (!data || data.length === 0) return staticStrains;
+    for (let from = 0; ; from += pageSize) {
+      const { data, error } = await supabase
+        .from("strains")
+        .select("*")
+        .order("rating", { ascending: false })
+        .range(from, from + pageSize - 1);
 
-    return data.map(mapSupabaseToStrain);
+      if (error) throw error;
+      if (!data || data.length === 0) break;
+
+      rows.push(...data);
+      if (data.length < pageSize) break;
+    }
+
+    if (rows.length === 0) return staticStrains;
+
+    return rows.map(mapSupabaseToStrain);
   } catch (e) {
     console.error("Failed to fetch strains from Supabase, using static data:", e);
     return staticStrains;

@@ -107,6 +107,10 @@ export default function CheckinPage() {
   const filteredStrains = allStrains.filter((s) =>
     s.name.toLowerCase().includes(search.toLowerCase())
   );
+  const showPopular = search.trim().length === 0;
+  const displayStrains = showPopular
+    ? allStrains.slice(0, 12)
+    : filteredStrains.slice(0, 30);
 
   const filteredShops = shops.filter((s) =>
     s.name.toLowerCase().includes(shopSearch.toLowerCase()) ||
@@ -339,14 +343,32 @@ export default function CheckinPage() {
       <h1 className="text-2xl font-black mb-1">🔍 {t("title")}</h1>
       <p className="text-text-secondary text-sm mb-6">{t("subtitle")}</p>
 
+      <Link
+        href="/scan"
+        className="glass-card rounded-2xl p-4 mb-4 flex items-center gap-3 border border-accent-green/20 hover:bg-bg-card-hover transition-all"
+      >
+        <span className="w-10 h-10 rounded-xl bg-accent-green text-black flex items-center justify-center font-black">
+          AI
+        </span>
+        <div className="flex-1">
+          <p className="font-bold text-sm">{t("scanWithAi")}</p>
+          <p className="text-text-muted text-xs">{t("scanDesc")}</p>
+        </div>
+        <span className="text-accent-green text-sm font-bold">Go</span>
+      </Link>
+
       <div className="relative mb-4">
         <input type="text" placeholder={t("searchStrains")} value={search} onChange={(e) => setSearch(e.target.value)}
           className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 pl-10 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors" />
         <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-sm">🔍</span>
       </div>
 
+      <p className="text-text-muted text-xs mb-3">
+        {showPopular ? "Popular starting points" : `${filteredStrains.length} matches - showing the closest 30`}
+      </p>
+
       <div className="flex flex-col gap-2">
-        {filteredStrains.map((strain) => (
+        {displayStrains.map((strain) => (
           <button key={strain.id} onClick={() => { setSelectedStrain(strain); setStep("rate"); }}
             className="glass-card rounded-2xl p-3 flex items-center gap-3 text-left hover:bg-bg-card-hover transition-all">
             <span className="text-2xl w-10 h-10 flex items-center justify-center bg-bg-primary rounded-xl">{strain.image}</span>
