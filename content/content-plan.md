@@ -2,6 +2,8 @@
 
 Updated: 2026-06-21
 
+Launch sprint update: 2026-06-26
+
 Brand source of truth: `docs/wizl-brand-kit.md`
 
 ## Production Reality
@@ -20,6 +22,118 @@ Make WIZL feel like a living cannabis folklore character, not just an app accoun
 The feed should answer one question every day:
 
 > What did WIZL discover today?
+
+## Launch Sprint - First 7 Days
+
+Assumptions:
+
+- Team: solo founder + AI content factory.
+- Real footage: Hero video only.
+- Founder on camera: no.
+- Core platforms: Instagram, TikTok, YouTube Shorts, X.
+- Objective: make people understand WIZL in 10 seconds, follow the character, and try one scan.
+
+### Launch Week Calendar
+
+| Day | Platform | Format | Topic | Pillar | CTA | Status |
+|---|---|---|---|---|---|---|
+| Day 1 | IG Reels / TikTok / Shorts | Hero cut | "I built WIZL because Bangkok gave me freedom back" | Founder Story | Follow WIZL | script |
+| Day 2 | IG Carousel / X thread | 5 slides | "Meet WIZL: the weasel wizard of weed wisdom" | WIZL Adventures | Open The Book | outline |
+| Day 3 | IG Reel / TikTok | Generated adventure | "The Lost Page at the Night Market" | WIZL Adventures | Comment next city | queued |
+| Day 4 | IG Carousel | Educational | "THC is not the whole story" | Strain & Terpene Education | Save this | outline |
+| Day 5 | IG Reel / TikTok | Product demo edit | "Scan a label. Save the strain. Build your book." | Product Hook | Try scan | outline |
+| Day 6 | IG Carousel / X | Strain card | "Blue Dream field note" | Strain Education | Search The Book | idea |
+| Day 7 | Stories + Carousel | Community | "Where should WIZL travel next?" | Community | Vote / follow | idea |
+
+### Daily Story Stack
+
+Use 3 frames on each posting day:
+
+1. Hook frame: one sentence, WIZL visual.
+2. Proof/value frame: strain note, app screen, or lore clue.
+3. CTA frame: "Try WIZL", "Vote next city", or "Save this field note".
+
+### First Scripts
+
+#### Day 1 - Founder Story Reel
+
+Voiceover:
+
+```text
+Hello world. My name is Sergey.
+My English is not perfect, but this story is real.
+
+I came to Bangkok this April and fell in love with Thailand:
+kind people, open minds, and a cannabis culture that felt alive.
+
+So I built WIZL.
+Not a boring encyclopedia. Not a marketplace.
+A whole little world for weed lovers.
+
+WIZL is a weasel wizard who travels with his cat,
+finds strains, and writes them into his magic book.
+
+You can scan what you got, learn the vibe,
+save your favorites, and check in where you found them.
+
+It is free.
+And if you want to support the road, join the Club for $4.20 a year.
+
+Follow WIZL. The adventure starts now.
+One love.
+```
+
+Caption:
+
+```text
+I built WIZL for people who love the plant, the culture, and the adventure around it.
+
+Scan it. Know it. Track it.
+
+wizl.space
+```
+
+#### Day 2 - Meet WIZL Carousel
+
+Slides:
+
+1. Meet WIZL.
+2. A weasel wizard of weed wisdom.
+3. He travels with his cat, searching for rare strains.
+4. Every strain goes into The Book.
+5. Now you can scan yours and start your own book.
+
+Caption:
+
+```text
+Not just an app.
+A field guide from a tiny wizard with a very serious book.
+
+Start with one scan.
+wizl.space
+```
+
+#### Day 5 - Product Hook Reel
+
+Beat list:
+
+1. Show WIZL holding The Book.
+2. Cut to label / jar style generated frame.
+3. Overlay: "Scan what you got."
+4. Result card animation: name, type, effects, flavors.
+5. Overlay: "Save it in your book."
+6. End card: WIZL - Scan it. Know it. Track it.
+
+Caption:
+
+```text
+When the label is confusing, ask the wizard.
+
+AI estimates are for education and tracking.
+Know your local laws.
+
+wizl.space
+```
 
 ## Content Pillars
 
