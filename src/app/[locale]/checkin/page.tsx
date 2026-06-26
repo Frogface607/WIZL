@@ -10,6 +10,7 @@ import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
+import { Search, Wand2 } from "lucide-react";
 
 /** Build a temporary Strain object from a scan result stashed in sessionStorage */
 function scanPendingToStrain(): Strain | null {
@@ -340,7 +341,10 @@ export default function CheckinPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
-      <h1 className="text-2xl font-black mb-1">🔍 {t("title")}</h1>
+      <h1 className="text-2xl font-black mb-1 flex items-center gap-2">
+        <Search className="w-6 h-6 text-accent-green" aria-hidden="true" />
+        {t("title")}
+      </h1>
       <p className="text-text-secondary text-sm mb-6">{t("subtitle")}</p>
 
       <Link
@@ -348,7 +352,7 @@ export default function CheckinPage() {
         className="glass-card rounded-2xl p-4 mb-4 flex items-center gap-3 border border-accent-green/20 hover:bg-bg-card-hover transition-all"
       >
         <span className="w-10 h-10 rounded-xl bg-accent-green text-black flex items-center justify-center font-black">
-          AI
+          <Wand2 className="w-5 h-5" aria-hidden="true" />
         </span>
         <div className="flex-1">
           <p className="font-bold text-sm">{t("scanWithAi")}</p>
@@ -360,7 +364,7 @@ export default function CheckinPage() {
       <div className="relative mb-4">
         <input type="text" placeholder={t("searchStrains")} value={search} onChange={(e) => setSearch(e.target.value)}
           className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 pl-10 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors" />
-        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-sm">🔍</span>
+        <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" aria-hidden="true" />
       </div>
 
       <p className="text-text-muted text-xs mb-3">

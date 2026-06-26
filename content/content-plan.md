@@ -135,6 +135,240 @@ Know your local laws.
 wizl.space
 ```
 
+## Launch Production Pack
+
+Source pillar: Sergey founder story + one Hero video.
+
+Production rule: the founder appears through voice, captions, and footage that already exists. Regular posts are WIZL-led.
+
+### Asset 1 - Founder Story Reel
+
+Primary platform: Instagram Reels, TikTok, YouTube Shorts.
+
+Length: 45-60 seconds.
+
+Goal: make people trust the human behind WIZL before asking them to try the app.
+
+Hook options:
+
+- "I came to Bangkok and accidentally built a tiny wizard."
+- "My English is not perfect, but this story is real."
+- "I built WIZL because cannabis felt human again in Thailand."
+
+Edit structure:
+
+1. 0-3s: Hero video, text: "Hello world. My name is Sergey."
+2. 3-9s: Bangkok / WIZL visual, text: "Bangkok changed the plan."
+3. 9-17s: App or WIZL book visual, text: "Not an encyclopedia. A world."
+4. 17-29s: WIZL + cat visual, text: "A weasel wizard of weed wisdom."
+5. 29-43s: Product beats, text: "Scan. Learn. Save. Check in."
+6. 43-55s: Founder/support beat, text: "Free to use. $4.20/year to support."
+7. End card: "Follow WIZL. The adventure starts now."
+
+Caption:
+
+```text
+I built WIZL after a strange, beautiful season in Bangkok.
+
+It is a cannabis strain companion, but also a little world:
+a wizard, a cat, a magic book, and 3,000+ strains to discover.
+
+Scan it. Know it. Track it.
+
+Free to use. Support the road for $4.20/year if you want.
+
+wizl.space
+```
+
+Story stack:
+
+1. "I built this after Bangkok."
+2. "WIZL is live: scan, Book, map, check-ins."
+3. Poll: "Should WIZL go to Bangkok, Amsterdam, LA, or Barcelona next?"
+
+### Asset 2 - Meet WIZL Carousel
+
+Primary platform: Instagram carousel. Secondary: X thread.
+
+Format: 6 slides, 4:5.
+
+Goal: explain the IP and product in one saveable post.
+
+Slides:
+
+1. Meet WIZL.
+   Subtext: The weasel wizard of weed wisdom.
+2. He travels with his orange cat.
+   Subtext: Following scent clues through strange little cities.
+3. Every strain goes into The Book.
+   Subtext: 3,000+ strain notes and growing.
+4. You can scan what you got.
+   Subtext: WIZL gives an educational estimate, not a lab test.
+5. Save your finds.
+   Subtext: Build your own taste trail.
+6. Follow the road.
+   Subtext: Start with one scan at wizl.space.
+
+Caption:
+
+```text
+WIZL is not just a strain list.
+
+It is a tiny field guide from a wizard who takes cannabis culture seriously, but never makes it boring.
+
+Open The Book. Start with one scan.
+
+wizl.space
+```
+
+X thread:
+
+```text
+1/ Meet WIZL: a weasel wizard of weed wisdom.
+
+2/ He travels with his orange cat, following scent clues and writing strain notes into The Book.
+
+3/ The Book already has 3,000+ strains.
+
+4/ You can search it, scan what you got, save favorites, and check in where you found them.
+
+5/ WIZL is educational. It is not a marketplace, dealer app, or lab test.
+
+6/ Every strain has a story. Start yours here: wizl.space
+```
+
+### Asset 3 - The Lost Page at the Night Market
+
+Primary platform: Instagram Reels, TikTok, Shorts.
+
+Factory command:
+
+```powershell
+npm run factory:plan -- --recipe adventure-reel --title "The Lost Page at the Night Market" --world night-market --episode 01 --hook "Every strain has a story. Every story leaves a trace."
+```
+
+Generation direction:
+
+- Keep WIZL illustrated, warm, and non-photorealistic.
+- Show WIZL small against the world.
+- Keep The Book and orange cat visible.
+- No joints, bongs, smoke clouds, or generic cannabis-leaf wallpaper.
+
+Voiceover:
+
+```text
+The first lost page appeared after midnight.
+
+It slipped through the night market,
+past lanterns, rain, citrus, and warm streetlight.
+
+WIZL opened The Book.
+The page glowed green.
+The cat pretended not to care.
+
+Every strain has a story.
+Every story leaves a trace.
+```
+
+Overlay text:
+
+1. "The Lost Pages #01"
+2. "Night Market"
+3. "Citrus. Rain. Trouble."
+4. "The Book remembers."
+5. "Follow WIZL"
+
+Caption:
+
+```text
+The first missing page was hiding in the night market.
+
+It smelled like citrus, rain, and trouble.
+
+Every strain has a story.
+Every story leaves a trace.
+
+Where should WIZL go next?
+```
+
+### Asset 4 - THC Is Not The Whole Story
+
+Primary platform: Instagram carousel.
+
+Goal: saveable education that makes WIZL useful, not just cute.
+
+Slides:
+
+1. THC is not the whole story.
+2. Aroma matters because terpenes shape the experience.
+3. Your moment matters: work, sleep, food, people, music.
+4. Same strain name can feel different across batches.
+5. Use labels as clues, not final truth.
+6. WIZL rule: scan, smell, start low, take notes.
+
+Caption:
+
+```text
+High THC does not automatically mean "better."
+
+Aroma, terpenes, freshness, dose, and your own body all matter.
+
+The Book is a guide. Your notes make it personal.
+
+Save this before your next shop visit.
+```
+
+### Asset 5 - Product Hook Reel
+
+Primary platform: Reels, TikTok, Shorts.
+
+Goal: convert attention into first scan.
+
+Beat list:
+
+1. WIZL opens The Book.
+2. Cut to jar/label frame.
+3. Overlay: "Not sure what you got?"
+4. Scan result card.
+5. Effects and flavors appear.
+6. Save/check-in moment.
+7. End card: "Scan it. Know it. Track it."
+
+Prompt for start frame:
+
+```text
+Illustrated WIZL brand scene, mystic street futurism, vertical 9:16.
+WIZL the small brown weasel wizard stands beside a glowing cannabis package label on a wooden table, holding The Book open. Orange cat peeks from the satchel. Deep navy background, emerald crystal light, warm amber highlights, clean space for text overlay. Not photorealistic, not a generic fantasy wizard, no smoking, no bong.
+```
+
+Caption:
+
+```text
+When the label is confusing, ask the wizard.
+
+WIZL gives an educational strain estimate, then helps you save the note in your own Book.
+
+Try one scan: wizl.space
+```
+
+### Week 1 Repurposing Map
+
+| Source | Reels/TikTok/Shorts | Instagram | X | Stories |
+|---|---|---|---|---|
+| Founder story | 45-60s Hero cut | Founder caption post | 6-tweet origin thread | 3-frame poll stack |
+| Meet WIZL | 10s slide video cut | 6-slide carousel | Intro thread | "Which city next?" |
+| Night Market | 10-12s adventure reel | Cover + caption | Lore micro-story | Vote next location |
+| THC education | 20s text motion | 6-slide carousel | 5-point mini thread | Quiz sticker |
+| Product hook | 15-25s demo reel | Feature card | "Try one scan" post | Link sticker |
+
+### Posting Order
+
+1. Pin Founder Story after posting.
+2. Pin Meet WIZL after posting.
+3. Pin Product Hook after posting.
+4. Use Night Market as the first repeatable series episode.
+5. Use THC education as the first save/share utility post.
+
 ## Content Pillars
 
 | Pillar | Share | Role |

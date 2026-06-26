@@ -55,11 +55,11 @@
     "rateIt": "Rate it"
   },
   "checkin": {
-    "title": "What you got?",
-    "subtitle": "Scan, search, or pick a strain to check in.",
+    "title": "Check in a strain",
+    "subtitle": "Scan with WIZL AI, search The Book, then save the moment.",
     "searchStrains": "Search strains...",
     "scanWithAi": "Scan with WIZL AI",
-    "scanDesc": "Photo the jar — we'll do the rest",
+    "scanDesc": "Photo the jar or label - WIZL will read it",
     "changeStrain": "Change strain",
     "rateIt": "Rate it",
     "howFeeling": "How you feelin'?",
