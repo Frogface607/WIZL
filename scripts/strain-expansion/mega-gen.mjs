@@ -5,8 +5,6 @@ function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-
 function esc(s){return String(s).replace(/'/g,"''");}
 function pgArr(list){return '{'+list.map(x=>`"${esc(x)}"`).join(',')+'}';}
 function terp(arr){return JSON.stringify(arr.map(([name,pct])=>({name,percentage:pct})));}
-function pick(a){return a[Math.floor(Math.random()*a.length)];}
-function rand(min,max){return Math.round((min+Math.random()*(max-min))*10)/10;}
 
 // Curated strain seed list (name, type, source, parents, effects tier, flavor tier, description sketch)
 // Tier: 'dessert','fuel','fruit','citrus','earthy','floral','candy','chem','og','haze','cheese','animal','color','hype'

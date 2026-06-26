@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import {
   getShopData,
@@ -13,7 +12,6 @@ import {
 } from "@/lib/shop-store";
 
 export default function ShopDashboard() {
-  const t = useTranslations();
   const router = useRouter();
   const [shop, setShop] = useState<ShopProfile | null>(null);
   const [editing, setEditing] = useState(false);
@@ -40,28 +38,33 @@ export default function ShopDashboard() {
       router.replace("/shop");
       return;
     }
-    setShop(data);
-    setEditName(data.name);
-    setEditDesc(data.description);
-    setEditHours(data.hours);
-    setEditVibe(data.vibe);
-    setEditAddress(data.address);
-    setEditPhone(data.phone);
-    setEditInsta(data.instagram);
+    Promise.resolve().then(() => {
+      setShop(data);
+      setEditName(data.name);
+      setEditDesc(data.description);
+      setEditHours(data.hours);
+      setEditVibe(data.vibe);
+      setEditAddress(data.address);
+      setEditPhone(data.phone);
+      setEditInsta(data.instagram);
+    });
   }, [router]);
 
   if (!shop) return null;
 
   const handleSaveProfile = () => {
-    shop.name = editName;
-    shop.description = editDesc;
-    shop.hours = editHours;
-    shop.vibe = editVibe;
-    shop.address = editAddress;
-    shop.phone = editPhone;
-    shop.instagram = editInsta;
-    saveShopData(shop);
-    setShop({ ...shop });
+    const updated: ShopProfile = {
+      ...shop,
+      name: editName,
+      description: editDesc,
+      hours: editHours,
+      vibe: editVibe,
+      address: editAddress,
+      phone: editPhone,
+      instagram: editInsta,
+    };
+    saveShopData(updated);
+    setShop(updated);
     setEditing(false);
   };
 
@@ -89,15 +92,25 @@ export default function ShopDashboard() {
   };
 
   const handleToggleStock = (index: number) => {
-    shop.menu[index].inStock = !shop.menu[index].inStock;
-    saveShopData(shop);
-    setShop({ ...shop });
+    const updated: ShopProfile = {
+      ...shop,
+      menu: shop.menu.map((item, i) =>
+        i === index ? { ...item, inStock: !item.inStock } : item
+      ),
+    };
+    saveShopData(updated);
+    setShop(updated);
   };
 
   const handleToggleFeatured = (index: number) => {
-    shop.menu[index].featured = !shop.menu[index].featured;
-    saveShopData(shop);
-    setShop({ ...shop });
+    const updated: ShopProfile = {
+      ...shop,
+      menu: shop.menu.map((item, i) =>
+        i === index ? { ...item, featured: !item.featured } : item
+      ),
+    };
+    saveShopData(updated);
+    setShop(updated);
   };
 
   return (

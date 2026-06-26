@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocale } from "next-intl";
-import { Send, Loader2 } from "lucide-react";
+import { Send } from "lucide-react";
+import { getAllWisdoms, getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 
 interface Message {
   role: "user" | "assistant";
@@ -11,25 +12,78 @@ interface Message {
 }
 
 const MAX_MESSAGES_PER_SESSION = 10;
+const AVATAR_SRC = "/logo-mark-transparent.png";
+const AVATAR_CLASS = "w-full h-full object-contain object-center";
+
+const QUICK_SUGGESTIONS = [
+  "What grows under Bangkok moonlight?",
+  "Something for the wanderer's path?",
+  "Wizl's personal favorite?",
+];
+
+const INPUT_PLACEHOLDERS = [
+  "What does the wizard know about…",
+  "Ask me anything, traveler…",
+  "The book holds many secrets…",
+];
 
 /** Strip markdown formatting and Perplexity citation refs from AI replies */
 function cleanReply(text: string): string {
   return text
-    .replace(/\*\*(.*?)\*\*/g, "$1")  // **bold** → bold
-    .replace(/\*(.*?)\*/g, "$1")       // *italic* → italic
-    .replace(/\[(\d+)\]/g, "")         // [1], [2] citation refs
-    .replace(/\n{3,}/g, "\n\n")        // collapse excess newlines
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/\[(\d+)\]/g, "")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
+/** Rotating thinking-wisdom while the model responds */
+function ThinkingBubble({ locale }: { locale: WisdomLocale }) {
+  const wisdoms = getAllWisdoms("thinking", locale);
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIdx((i) => (i + 1) % wisdoms.length);
+    }, 1800);
+    return () => clearInterval(id);
+  }, [wisdoms.length]);
+
+  return (
+    <div className="flex justify-start gap-2">
+      <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-accent-purple/30">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={AVATAR_SRC}
+          alt="WIZL"
+          className={`${AVATAR_CLASS} animate-float`}
+        />
+      </div>
+      <div className="bg-bg-primary rounded-2xl rounded-bl-md px-3.5 py-2.5 text-sm">
+        <span className="text-text-secondary italic">{wisdoms[idx]}</span>
+        <span className="inline-flex gap-0.5 ml-2 align-middle">
+          <span className="w-1 h-1 rounded-full bg-accent-green animate-pulse-soft" style={{ animationDelay: "0ms" }} />
+          <span className="w-1 h-1 rounded-full bg-accent-green animate-pulse-soft" style={{ animationDelay: "200ms" }} />
+          <span className="w-1 h-1 rounded-full bg-accent-green animate-pulse-soft" style={{ animationDelay: "400ms" }} />
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function AskWizl() {
-  const locale = useLocale();
+  const locale = useLocale() as WisdomLocale;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Stable placeholder seeded by first paint — avoids hydration flicker
+  const [placeholder] = useState(
+    () => INPUT_PLACEHOLDERS[Math.floor(Math.random() * INPUT_PLACEHOLDERS.length)]
+  );
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -46,8 +100,7 @@ export default function AskWizl() {
         ...prev,
         {
           role: "assistant",
-          content:
-            "You've reached the message limit for this session. Refresh the page to start a new conversation!",
+          content: getRandomWisdom("farewell", { locale }),
         },
       ]);
       return;
@@ -76,16 +129,10 @@ export default function AskWizl() {
         ...prev,
         { role: "assistant", content: cleanReply(data.reply), sources: data.sources },
       ]);
-    } catch (err) {
+    } catch {
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content:
-            err instanceof Error
-              ? `Oops: ${err.message}`
-              : "Something went wrong. Try again!",
-        },
+        { role: "assistant", content: getRandomWisdom("error", { locale }) },
       ]);
     } finally {
       setIsLoading(false);
@@ -104,9 +151,9 @@ export default function AskWizl() {
       <div className="glass-card rounded-2xl overflow-hidden relative">
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
-        <div className="w-9 h-9 rounded-full overflow-hidden border border-accent-purple/40 bg-bg-hero flex-shrink-0">
+        <div className="w-9 h-9 rounded-full overflow-hidden border border-accent-purple/40 bg-bg-primary flex-shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
+          <img src={AVATAR_SRC} alt="WIZL" className={AVATAR_CLASS} />
         </div>
         <div className="flex flex-col leading-tight">
           <span className="font-bold text-sm text-text-primary">Ask WIZL The Wizard</span>
@@ -128,9 +175,9 @@ export default function AskWizl() {
               } gap-2`}
             >
               {msg.role === "assistant" && (
-                <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-accent-purple/30">
+                <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-accent-purple/30 bg-bg-primary">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
+                  <img src={AVATAR_SRC} alt="WIZL" className={AVATAR_CLASS} />
                 </div>
               )}
               <div
@@ -161,28 +208,14 @@ export default function AskWizl() {
             </div>
           ))}
 
-          {isLoading && (
-            <div className="flex justify-start gap-2">
-              <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-accent-purple/30">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/mascot.png" alt="WIZL" className="w-full h-full object-cover object-top" />
-              </div>
-              <div className="bg-bg-primary rounded-2xl rounded-bl-md px-4 py-3">
-                <Loader2 className="w-4 h-4 animate-spin text-accent-green" />
-              </div>
-            </div>
-          )}
+          {isLoading && <ThinkingBubble locale={locale} />}
         </div>
       )}
 
       {/* Quick suggestions — only when no messages */}
       {messages.length === 0 && (
         <div className="flex flex-wrap gap-2 px-4 py-3">
-          {[
-            "Best for sleep?",
-            "Tell me about OG Kush",
-            "Sativa vs Indica?",
-          ].map((q) => (
+          {QUICK_SUGGESTIONS.map((q) => (
             <button
               key={q}
               onClick={() => {
@@ -206,7 +239,7 @@ export default function AskWizl() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about any strain..."
+            placeholder={placeholder}
             maxLength={1000}
             disabled={isLoading}
             className="flex-1 bg-bg-primary border border-border rounded-xl px-3.5 py-2.5 text-sm text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent-green/50 transition-colors disabled:opacity-50"
@@ -222,7 +255,7 @@ export default function AskWizl() {
         </div>
         {messageCount > 0 && (
           <p className="text-[10px] text-text-muted/60 text-center mt-1.5">
-            {MAX_MESSAGES_PER_SESSION - messageCount} / {MAX_MESSAGES_PER_SESSION} messages left
+            {MAX_MESSAGES_PER_SESSION - messageCount} scrolls remain in this session
           </p>
         )}
       </div>

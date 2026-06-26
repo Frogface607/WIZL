@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { moods } from "@/data/strains";
@@ -9,6 +9,7 @@ import { fetchStrains, fetchStrainById } from "@/lib/strains-db";
 import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
+import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 
 /** Build a temporary Strain object from a scan result stashed in sessionStorage */
 function scanPendingToStrain(): Strain | null {
@@ -53,6 +54,7 @@ function scanPendingToStrain(): Strain | null {
 
 export default function CheckinPage() {
   const t = useTranslations("checkin");
+  const locale = useLocale() as WisdomLocale;
   const searchParams = useSearchParams();
   const preselectedId = searchParams.get("strain");
   const preselectedShopId = searchParams.get("shop");
@@ -123,21 +125,38 @@ export default function CheckinPage() {
   };
 
   if (step === "done") {
+    const successWisdom = getRandomWisdom("success", { locale });
     return (
       <div className="max-w-lg mx-auto px-4 pb-24 pt-8">
         <div className="text-center py-12">
-          <div className="text-7xl mb-4 animate-float">🔍</div>
+          <div className="relative w-32 h-32 mx-auto mb-5 animate-float">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/wizl-book.png"
+              alt="WIZL"
+              className="w-full h-full object-contain"
+            />
+            <span
+              className="absolute -top-2 right-3 w-1.5 h-1.5 rounded-full bg-accent-green animate-firefly"
+              style={{ animationDelay: "0.3s" }}
+            />
+            <span
+              className="absolute bottom-2 -left-2 w-1 h-1 rounded-full bg-accent-green animate-firefly"
+              style={{ animationDelay: "1.1s" }}
+            />
+          </div>
           <h2 className="text-2xl font-black gradient-text mb-1">{t("logged")}</h2>
           <p className="text-sm gradient-love font-medium mb-3">with love</p>
           <p className="text-text-secondary mb-2">
             {t("checkinRecorded")}{" "}
             <span className="text-text-primary font-semibold">{selectedStrain?.name}</span>
           </p>
-          <div className="flex justify-center gap-1 mb-6">
+          <div className="flex justify-center gap-1 mb-3">
             {Array.from({ length: rating }).map((_, i) => (
               <span key={i} className="text-2xl">🌿</span>
             ))}
           </div>
+          <p className="text-text-muted italic text-xs mb-6">— {successWisdom}</p>
 
           {/* New achievements */}
           {newAchievements.length > 0 && (
@@ -161,9 +180,17 @@ export default function CheckinPage() {
           <div className="glass-card rounded-2xl p-5 mb-6 text-left">
             <p className="text-xs text-text-muted mb-2">{t("shareCheckin")}</p>
             <div className="flex gap-3">
-              {["📱", "📋", "💬"].map((icon) => (
-                <button key={icon} className="flex-1 py-3 rounded-xl bg-bg-primary border border-border text-xl hover:bg-bg-card-hover transition-colors">
-                  {icon}
+              {[
+                { icon: "📱", label: "Share" },
+                { icon: "📋", label: "Copy" },
+                { icon: "💬", label: "Message" },
+              ].map((b) => (
+                <button
+                  key={b.label}
+                  className="flex-1 py-3 rounded-xl bg-bg-primary border border-border text-xs hover:bg-bg-card-hover transition-colors flex flex-col items-center gap-1"
+                >
+                  <span className="text-xl">{b.icon}</span>
+                  <span className="text-text-muted">{b.label}</span>
                 </button>
               ))}
             </div>
@@ -189,8 +216,15 @@ export default function CheckinPage() {
   if (step === "rate" && loadingStrain) {
     return (
       <div className="max-w-lg mx-auto px-4 pb-24 pt-20 text-center">
-        <div className="inline-block w-10 h-10 rounded-full border-2 border-accent-green border-t-transparent animate-spin mb-4" />
-        <p className="text-text-muted text-sm">Loading strain...</p>
+        <div className="w-20 h-20 mx-auto mb-4 animate-float">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/wizl-book.png"
+            alt="WIZL"
+            className="w-full h-full object-contain"
+          />
+        </div>
+        <p className="text-text-muted text-sm italic">Wizl is finding the scroll…</p>
       </div>
     );
   }
@@ -284,7 +318,7 @@ export default function CheckinPage() {
                 </div>
               )}
               {shopSearch.length === 0 && (
-                <p className="text-text-muted text-xs text-center py-2">Optional — tag the shop you&apos;re at</p>
+                <p className="text-text-muted text-xs text-center py-2 italic">Tell the Wizard where you found this treasure 🗺</p>
               )}
             </>
           )}

@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getUserData, toggleFavorite, toggleWishlist } from "@/lib/store";
 import { Heart, BookmarkPlus, Check } from "lucide-react";
 
 export default function StrainActions({ strainId }: { strainId: string }) {
-  const [isFav, setIsFav] = useState(false);
-  const [isWish, setIsWish] = useState(false);
-
-  useEffect(() => {
+  const [isFav, setIsFav] = useState(() => {
     const d = getUserData();
-    setIsFav(d.favorites.includes(strainId));
-    setIsWish(d.wishlist.includes(strainId));
-  }, [strainId]);
+    return d.favorites.includes(strainId);
+  });
+  const [isWish, setIsWish] = useState(() => {
+    const d = getUserData();
+    return d.wishlist.includes(strainId);
+  });
 
   const handleFav = () => {
     const d = toggleFavorite(strainId);

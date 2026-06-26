@@ -7,7 +7,6 @@ import { routing } from "@/i18n/routing";
 const flags: Record<string, string> = {
   en: "🇬🇧",
   th: "🇹🇭",
-  ru: "🇷🇺",
 };
 
 export default function LanguageSwitcher() {
@@ -16,7 +15,7 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
 
   const nextLocale = () => {
-    const idx = routing.locales.indexOf(locale as "en" | "th" | "ru");
+    const idx = routing.locales.indexOf(locale as "en" | "th");
     return routing.locales[(idx + 1) % routing.locales.length];
   };
 

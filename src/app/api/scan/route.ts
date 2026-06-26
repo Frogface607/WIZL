@@ -7,7 +7,7 @@ const SYSTEM_PROMPT = `You are WIZL — a friendly, knowledgeable cannabis strai
 
 When given an image of cannabis (jar, package, bud, label) or a text description, identify the strain and provide detailed information.
 
-You have a web_search tool — USE IT for every request to ground your answer in real strain data (Leafly, Weedmaps, SeedFinder, breeder sites). Search for the strain name + "strain" to pull genetics, THC/CBD ranges, effects, flavors, and terpenes. Do not guess numbers when you can look them up.
+Use the web_search tool for every request to ground your answer in real strain data where possible (Leafly, Weedmaps, SeedFinder, breeder sites). Search for the strain name + "strain" to pull genetics, THC/CBD ranges, effects, flavors, and terpenes. If the input is ambiguous, say so through the confidence field and avoid inventing exact numbers.
 
 Respond ONLY with a single JSON object in this exact format (no prose before or after):
 {
@@ -32,7 +32,6 @@ Be friendly, knowledgeable, and helpful. Like a budtender who really knows their
 
 const LANGUAGE_MAP: Record<string, string> = {
   en: "English",
-  ru: "Russian",
   th: "Thai (ภาษาไทย)",
   es: "Spanish",
   de: "German",
@@ -58,7 +57,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
 
     // If no API key, return mock data for demo
     if (!apiKey) {
@@ -80,65 +79,49 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Build messages for Claude API
+    // Build input for OpenAI Responses API.
     const content: Array<
-      | { type: "text"; text: string }
-      | { type: "image"; source: { type: "base64"; media_type: string; data: string } }
+      | { type: "input_text"; text: string }
+      | { type: "input_image"; image_url: string }
     > = [];
 
     if (image) {
-      // Extract base64 data and media type from data URL
-      const match = image.match(
-        /^data:(image\/[a-zA-Z+]+);base64,(.+)$/
-      );
-      if (match) {
-        content.push({
-          type: "image",
-          source: {
-            type: "base64",
-            media_type: match[1],
-            data: match[2],
-          },
-        });
-      }
+      content.push({ type: "input_image", image_url: image });
       content.push({
-        type: "text",
+        type: "input_text",
         text: "Identify this cannabis strain from the image. Respond in the JSON format specified.",
       });
     } else if (description) {
       content.push({
-        type: "text",
+        type: "input_text",
         text: `Identify this cannabis strain based on the following description: "${description}". Respond in the JSON format specified.`,
       });
     }
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
+        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
-        max_tokens: 2048,
-        system: SYSTEM_PROMPT + (locale && locale !== "en"
+        model: process.env.OPENAI_SCAN_MODEL || "gpt-4.1-mini",
+        max_output_tokens: 2048,
+        instructions: SYSTEM_PROMPT + (locale && locale !== "en"
           ? `\n\nIMPORTANT: Respond with ALL text values (description, effects, flavors, best_for) in ${LANGUAGE_MAP[locale] || locale}. Keep strain names and type in English, but translate everything else.`
           : ""),
         tools: [
           {
-            type: "web_search_20250305",
-            name: "web_search",
-            max_uses: 3,
+            type: "web_search_preview",
           },
         ],
-        messages: [{ role: "user", content }],
+        input: [{ role: "user", content }],
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
-      console.error("Anthropic API error:", error);
+      console.error("OpenAI scan API error:", error);
       return NextResponse.json(
         { error: "AI scan failed. Please try again." },
         { status: 500 }
@@ -147,21 +130,13 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
 
-    // With web_search enabled, the response has multiple content blocks:
-    // server_tool_use → web_search_tool_result → ... → text. Take the last
-    // text block, which holds Claude's final JSON answer.
-    type ContentBlock = { type: string; text?: string };
-    const blocks: ContentBlock[] = Array.isArray(data.content) ? data.content : [];
-    const finalText = [...blocks]
-      .reverse()
-      .find((b) => b.type === "text" && typeof b.text === "string")?.text ?? "";
+    const finalText = extractOpenAIText(data);
 
     const jsonMatch = finalText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       try {
         const result = JSON.parse(jsonMatch[0]);
-        // Strip <cite> / <source> / other XML-ish tags that Claude's
-        // web_search tool leaves inside the text — show clean prose.
+        // Strip citations or source tags that search tools may leave in prose.
         cleanCitations(result);
         return NextResponse.json(result);
       } catch (e) {
@@ -182,12 +157,35 @@ export async function POST(request: NextRequest) {
   }
 }
 
-/** Remove XML-ish citation markup that Claude web_search embeds in prose. */
+function extractOpenAIText(data: unknown): string {
+  if (!data || typeof data !== "object") return "";
+  const root = data as Record<string, unknown>;
+  if (typeof root.output_text === "string") return root.output_text.trim();
+
+  const chunks: string[] = [];
+  const output = root.output;
+  if (Array.isArray(output)) {
+    for (const item of output) {
+      if (!item || typeof item !== "object") continue;
+      const content = (item as Record<string, unknown>).content;
+      if (!Array.isArray(content)) continue;
+      for (const block of content) {
+        if (!block || typeof block !== "object") continue;
+        const text = (block as Record<string, unknown>).text;
+        if (typeof text === "string") chunks.push(text);
+      }
+    }
+  }
+
+  return chunks.join("\n").trim();
+}
+
+/** Remove citation markup that search-enabled AI responses may embed in prose. */
 function stripCiteTags(input: string): string {
   return input
     // <cite index="...">inner</cite> → inner
     .replace(/<cite[^>]*>([\s\S]*?)<\/cite>/gi, "$1")
-    // Drop any other stray tags Claude might add (source, search, etc.)
+    // Drop any other stray search/source tags.
     .replace(/<\/?[a-z][^>]*>/gi, "")
     // Numeric inline refs like [1] [2-5]
     .replace(/\[\d+(?:[-,\s]\d+)*\]/g, "")

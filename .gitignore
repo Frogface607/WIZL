@@ -33,6 +33,12 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# generated content outputs
+/content/posts/*
+!/content/posts/README.md
+!/content/posts/_template/
+!/content/posts/_template/**
+
 # vercel
 .vercel
 

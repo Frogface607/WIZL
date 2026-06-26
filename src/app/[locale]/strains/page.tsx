@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 import { fetchStrains } from "@/lib/strains-db";
 import { strains as staticStrains } from "@/data/strains";
 import StrainCard from "@/components/StrainCard";
@@ -11,11 +12,13 @@ import { BookOpen } from "lucide-react";
 type FilterType = "all" | StrainType;
 
 // Note: "rating" / "reviews" sorts are hidden until real check-in data exists.
-const sortKeys = ["thc", "name"] as const;
-type SortValue = (typeof sortKeys)[number];
+type SortValue = "thc" | "name";
 
 export default function StrainsPage() {
   const t = useTranslations("strains");
+  const locale = useLocale() as WisdomLocale;
+  const [loadingWisdom] = useState(() => getRandomWisdom("loading", { locale }));
+  const [emptyWisdom] = useState(() => getRandomWisdom("empty", { locale }));
   const [filter, setFilter] = useState<FilterType>("all");
   const [sort, setSort] = useState<SortValue>("thc");
   const [search, setSearch] = useState("");
@@ -124,6 +127,13 @@ export default function StrainsPage() {
 
       {loading ? (
         <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-center gap-2 py-2">
+            <div className="w-6 h-6 animate-float">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/wizl-book.png" alt="" className="w-full h-full object-contain" />
+            </div>
+            <p className="text-text-muted text-xs italic">{loadingWisdom}</p>
+          </div>
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="glass-card rounded-2xl p-4 animate-pulse">
               <div className="flex items-center gap-3">
@@ -146,8 +156,11 @@ export default function StrainsPage() {
 
       {!loading && filtered.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-text-secondary text-lg font-medium mb-1">{t("nothingFound")}</p>
-          <p className="text-text-muted text-sm">{t("tryDifferent")}</p>
+          <div className="w-16 h-16 mx-auto mb-3 animate-float">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/wizl-book.png" alt="WIZL" className="w-full h-full object-contain" />
+          </div>
+          <p className="text-text-secondary text-sm font-medium italic">{emptyWisdom}</p>
         </div>
       )}
     </div>

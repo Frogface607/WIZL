@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Link, useRouter } from "@/i18n/navigation";
-import { getShopData, createShop, isShopOwner } from "@/lib/shop-store";
+import { useRouter } from "@/i18n/navigation";
+import { createShop, isShopOwner } from "@/lib/shop-store";
 
 const districts = [
   "Sukhumvit", "Silom", "Sathorn", "Thonglor", "Ari",
@@ -14,19 +14,16 @@ const districts = [
 export default function ShopRegisterPage() {
   const t = useTranslations();
   const router = useRouter();
-  const [hasShop, setHasShop] = useState(false);
+  const [hasShop] = useState(() => isShopOwner());
   const [step, setStep] = useState<"intro" | "form">("intro");
   const [name, setName] = useState("");
   const [district, setDistrict] = useState("");
 
   useEffect(() => {
-    setHasShop(isShopOwner());
-  }, []);
+    if (hasShop) router.replace("/shop/dashboard");
+  }, [hasShop, router]);
 
-  if (hasShop) {
-    router.replace("/shop/dashboard");
-    return null;
-  }
+  if (hasShop) return null;
 
   const handleCreate = () => {
     if (!name.trim() || !district) return;

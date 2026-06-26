@@ -2,11 +2,12 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { getUserData, incrementScans, getScansRemaining } from "@/lib/store";
 import { fetchStrains } from "@/lib/strains-db";
 import { Strain } from "@/types";
 import { Search, Camera, Zap, Droplets, Link2, ScanLine } from "lucide-react";
+import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 
 interface ScanResult {
   name: string;
@@ -36,8 +37,8 @@ const confidenceLabels = {
 
 export default function ScanPage() {
   const t = useTranslations("scan");
-  const tc = useTranslations("common");
-  const locale = useLocale();
+  const locale = useLocale() as WisdomLocale;
+  const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
   const [mode, setMode] = useState<"idle" | "loading" | "result">("idle");
   const [result, setResult] = useState<ScanResult | null>(null);
@@ -45,14 +46,11 @@ export default function ScanPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [scansLeft, setScansLeft] = useState(5);
-  const [isPro, setIsPro] = useState(false);
+  const [scansLeft, setScansLeft] = useState(() => getScansRemaining(getUserData()));
+  const [isPro] = useState(() => getUserData().isPro);
   const [strains, setStrains] = useState<Strain[]>([]);
 
   useEffect(() => {
-    const data = getUserData();
-    setScansLeft(getScansRemaining(data));
-    setIsPro(data.isPro);
     fetchStrains().then(setStrains);
   }, []);
 
@@ -151,15 +149,61 @@ export default function ScanPage() {
     setError(null);
   };
 
+  const handleSaveCheckin = () => {
+    if (!result) return;
+
+    const matched = strains.find(
+      (s) => s.name.toLowerCase() === result.name.toLowerCase()
+    );
+
+    if (matched) {
+      router.push(`/checkin?strain=${matched.id}`);
+      return;
+    }
+
+    sessionStorage.setItem(
+      "wizl-scan-pending",
+      JSON.stringify({
+        id: `scan-${Date.now()}`,
+        name: result.name,
+        type: result.type,
+        thc_range: result.thc_range,
+        cbd_range: result.cbd_range,
+        effects: result.effects,
+        flavors: result.flavors,
+        description: result.description,
+      }),
+    );
+    router.push("/checkin?scan=1");
+  };
+
   // Loading state
   if (mode === "loading") {
     return (
       <div className="max-w-lg mx-auto px-4 pb-24 pt-8">
         <div className="text-center py-20">
-          <ScanLine className="w-14 h-14 text-accent-green mx-auto mb-6 animate-float" />
+          <div className="relative w-24 h-24 mx-auto mb-6 animate-float">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/wizl-book.png"
+              alt="WIZL"
+              className="w-full h-full object-contain"
+            />
+            <span
+              className="absolute -top-1 right-2 w-1.5 h-1.5 rounded-full bg-accent-green animate-firefly"
+              style={{ animationDelay: "0.3s" }}
+            />
+            <span
+              className="absolute bottom-2 -left-1 w-1 h-1 rounded-full bg-accent-green animate-firefly"
+              style={{ animationDelay: "1.1s" }}
+            />
+          </div>
           <h2 className="text-xl font-black gradient-text mb-2">
             {t("analyzing")}
           </h2>
+          <p className="text-text-muted text-sm italic max-w-[260px] mx-auto">
+            {getRandomWisdom("scanning", { locale })}
+          </p>
           <div className="flex justify-center gap-1 mt-4">
             {[0, 1, 2].map((i) => (
               <div
@@ -234,10 +278,10 @@ export default function ScanPage() {
             <p className="text-sm text-text-primary">{result.best_for}</p>
           </div>
 
-          {result._demo && (
+          {result._demo && process.env.NODE_ENV === "development" && (
             <div className="mt-3 bg-accent-orange/10 rounded-xl p-3 border border-accent-orange/20">
               <p className="text-accent-orange text-xs font-medium">
-                Demo mode — add ANTHROPIC_API_KEY for real AI scans
+                Demo mode - add OPENAI_API_KEY for real AI scans
               </p>
             </div>
           )}
@@ -316,35 +360,12 @@ export default function ScanPage() {
 
         {/* Actions */}
         <div className="flex gap-3">
-          <Link
-            href={(() => {
-              // Prefer preselect-by-id when a known strain matches
-              const matched = strains.find(
-                (s) => s.name.toLowerCase() === result.name.toLowerCase()
-              );
-              if (matched) return `/checkin?strain=${matched.id}`;
-              // Unknown strain — stash the scan result so checkin can build a temp strain
-              if (typeof window !== "undefined") {
-                sessionStorage.setItem(
-                  "wizl-scan-pending",
-                  JSON.stringify({
-                    id: `scan-${Date.now()}`,
-                    name: result.name,
-                    type: result.type,
-                    thc_range: result.thc_range,
-                    cbd_range: result.cbd_range,
-                    effects: result.effects,
-                    flavors: result.flavors,
-                    description: result.description,
-                  }),
-                );
-              }
-              return `/checkin?scan=1`;
-            })()}
+          <button
+            onClick={handleSaveCheckin}
             className="flex-1 py-3 rounded-2xl bg-accent-green text-black font-bold text-center hover:brightness-110 transition-all glow-green"
           >
             {t("saveCheckin")}
-          </Link>
+          </button>
           <button
             onClick={reset}
             className="flex-1 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium hover:bg-bg-card-hover transition-all flex items-center justify-center gap-2"

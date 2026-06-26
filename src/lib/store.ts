@@ -1,5 +1,4 @@
 import { Strain } from "@/types";
-import { supabase } from "./supabase";
 
 // ── Auth-aware user ID ──
 let _cachedUserId: string | null = null;

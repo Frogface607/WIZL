@@ -7,7 +7,7 @@
 
 ## Brand Soul
 
-**WIZL** is a cannabis strain explorer built on the streets of Bangkok by one Russian dude with a GoPro. The product is **serious** (3,000+ strains, AI chat, strain tracking) but the brand is **warm** — a kind weasel wizard who travels the world, discovers the best herbs, and writes them in his magical book.
+**WIZL** is a cannabis strain explorer built on the streets of Bangkok by one independent founder with a GoPro. The product is **serious** (3,000+ strains, AI chat, strain tracking) but the brand is **warm** — a kind weasel wizard who travels the world, discovers the best herbs, and writes them in his magical book.
 
 **Aesthetic movement:** *Mystic Street Futurism.* Miyazaki warmth meets Moomin linework meets Adventure Time playfulness meets street-culture neon. Cozy proportions. Hand-drawn feel. Deep navy skies lit by neon crystals and bioluminescent plants. Every frame feels like twilight in an enchanted Asian metropolis.
 

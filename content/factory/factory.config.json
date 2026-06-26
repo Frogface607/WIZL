@@ -1,0 +1,45 @@
+{
+  "schema": "wizl.factory.config.v1",
+  "models": {
+    "image": "gpt_image_2",
+    "motion": "seedance_2_0",
+    "fallbackImage": "seedream_v4_5"
+  },
+  "paths": {
+    "posts": "content/posts",
+    "factory": "content/factory",
+    "cleanReference": "public/wizl-avatar.png",
+    "fallbackReference": "public/mascot.png",
+    "legacyReference": "public/mascot.png"
+  },
+  "formats": {
+    "reel": {
+      "aspectRatio": "9:16",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "durationSeconds": 12
+    },
+    "carouselPortrait": {
+      "aspectRatio": "3:4",
+      "width": 1080,
+      "height": 1440
+    },
+    "square": {
+      "aspectRatio": "1:1",
+      "width": 1080,
+      "height": 1080
+    }
+  },
+  "brand": {
+    "name": "WIZL",
+    "site": "wizl.space",
+    "palette": {
+      "navy": "#0B1218",
+      "cream": "#F2E8D4",
+      "green": "#99F788",
+      "purple": "#8C6FB8",
+      "gold": "#CE8E58"
+    }
+  }
+}

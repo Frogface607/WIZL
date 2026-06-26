@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useRouter } from "@/i18n/navigation";
 import { shops, Shop, RegionFilter, filterByRegion } from "@/data/shops";
@@ -19,7 +18,6 @@ const REGION_TABS: { key: RegionFilter; label: string }[] = [
 ];
 
 export default function MapPage() {
-  const t = useTranslations();
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState<RegionFilter>("all");
@@ -101,8 +99,8 @@ export default function MapPage() {
           <p className="text-text-muted text-xs">
             <span className="text-text-primary font-bold">{filteredShops.length}</span>{" "}
             {filteredShops.length === shops.length
-              ? "shops worldwide"
-              : `shops found`}
+              ? "shops in Wizl's travel log"
+              : `shops on the path`}
             {search && (
               <span className="text-text-muted">
                 {" "}for &ldquo;{search}&rdquo;
@@ -120,6 +118,20 @@ export default function MapPage() {
           onSelectShop={setSelectedShop}
           onCheckIn={handleCheckIn}
         />
+        {filteredShops.length === 0 && (
+          <div className="absolute inset-0 bg-bg-hero/85 backdrop-blur-sm flex flex-col items-center justify-center text-center px-6 z-[400]">
+            <div className="w-16 h-16 mb-3 animate-float">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/wizl-book.png" alt="WIZL" className="w-full h-full object-contain" />
+            </div>
+            <p className="text-text-secondary text-sm italic mb-1">
+              No shops on this path yet.
+            </p>
+            <p className="text-text-muted text-xs">
+              The Wizard hasn&apos;t explored here.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Shop detail card (slides up when selected) */}
@@ -201,15 +213,16 @@ export default function MapPage() {
       {!selectedShop && (
         <div className="px-4 pt-2">
           <div className="glass-card rounded-2xl p-3 flex items-center gap-3 border border-yellow-500/20">
-            <div className="w-9 h-9 rounded-xl bg-yellow-500/10 flex items-center justify-center shrink-0">
-              <Sparkles size={18} className="text-yellow-400" />
+            <div className="w-9 h-9 rounded-full overflow-hidden border border-yellow-500/30 bg-bg-hero shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/wizl-avatar.png" alt="WIZL" className="w-full h-full object-cover object-top" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-text-primary">
-                Own a shop? Get featured
+                Your shop belongs on Wizl&apos;s map
               </p>
               <p className="text-[10px] text-text-muted">
-                Gold marker + top placement — $4.20/year
+                Join the Wizard&apos;s circuit — $4.20/year
               </p>
             </div>
             <button className="px-3 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold hover:bg-yellow-500/20 transition-all shrink-0">

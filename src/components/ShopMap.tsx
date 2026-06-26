@@ -97,8 +97,6 @@ function createPopupContent(shop: Shop): string {
           ? "Delivery"
           : "Dispensary";
 
-  const stars = "&#9733;".repeat(Math.floor(shop.rating));
-
   return `
     <div style="
       background: #131316;

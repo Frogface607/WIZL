@@ -24,7 +24,7 @@ Sergey (Frogface607) — former owner of a 10-year music bar in Siberia (Edison 
 
 **Superpower:** he IS the distribution. Walks into real Bangkok shops, tests live with owners, films it, posts it.
 
-**Tone:** honest, warm, slightly mystical, never corporate. Russian accent intact as a feature not a bug.
+**Tone:** honest, warm, slightly mystical, never corporate. Sergey's natural voice and street-level presence are part of the brand.
 
 ---
 
@@ -54,7 +54,7 @@ An anthropomorphic weasel in a purple patched cloak, wizard hat with cannabis le
 - Supabase — free tier
 - Vercel — free tier (hobby)
 - OpenRouter (Perplexity Sonar for AI chat) — ~$1/1000 requests
-- Anthropic (Claude Sonnet 4.5 for scan) + web search — ~$0.03/scan
+- OpenAI Responses API for scan + web search — usage-based per scan
 - ElevenLabs (Wizl voice) — $22/mo
 - HeyGen (character avatar video) — $24/mo when subscribed
 - Freepik Premium Plus — already owned, 84K credits
@@ -72,7 +72,7 @@ Break-even at 10 paying members.
 - **PWA** — manifest + icons + installable
 - **Auth** — anonymous sessions + magic-link email upgrade (via Supabase Auth)
 - **AI chat** — OpenRouter → Perplexity Sonar (web-grounded)
-- **AI scan** — Anthropic Claude Sonnet 4.5 + `web_search_20250305` tool
+- **AI scan** — OpenAI Responses API + `web_search_preview` tool
 - **Content gen** — Freepik (Nano Banana Pro, Flux Kontext Max, Kling 2.5, Seedance 2.0), ElevenLabs (voice), HeyGen (character video)
 
 ---
@@ -85,7 +85,7 @@ Break-even at 10 paying members.
 | `/strains` | **The Book** — 3,000+ strains, filters (type), sort (THC / name), search |
 | `/strains/[id]` | Strain detail — hero, terpenes, effects, flavors, check-in CTA, empty-state reviews |
 | `/checkin` | 3-step flow (select → rate → done). Accepts `?strain=ID`, `?shop=ID`, `?scan=1` (from scan page) |
-| `/scan` | AI scanner — photo or description → strain identification via Claude + web_search |
+| `/scan` | AI scanner — photo or description → strain identification via OpenAI + web_search |
 | `/map` | Leaflet shop map with region filter, 1594 shops, check-in per shop |
 | `/profile` | Stats, checkins, achievements, taste profile. Shows AuthPrompt if anonymous |
 | `/pro` | WIZL Club — founders banner (first 420 free), Gumroad fallback, features comparison |
@@ -120,7 +120,7 @@ Break-even at 10 paying members.
 | Route | Purpose |
 |---|---|
 | `POST /api/chat` | AI chat via OpenRouter + Perplexity Sonar |
-| `POST /api/scan` | AI scan via Anthropic + web_search_20250305 |
+| `POST /api/scan` | AI scan via OpenAI Responses API + web_search_preview |
 | `POST /api/checkout` | Gumroad redirect (returns the product URL) |
 | `GET /auth/callback` | Supabase magic-link handler |
 
@@ -129,10 +129,9 @@ Break-even at 10 paying members.
 ## 🌍 i18n
 
 - `messages/en.json` — English (primary)
-- `messages/ru.json` — Russian (личное, для понимания)
 - `messages/th.json` — Thai (local market)
 
-Locale in URL: `/en/...`, `/ru/...`, `/th/...`
+Locale in URL: `/en/...`, `/th/...`
 
 **Rule:** all user-facing strings via `useTranslations("namespace")`. No hardcoded English.
 
@@ -144,7 +143,8 @@ Locale in URL: `/en/...`, `/ru/...`, `/th/...`
 NEXT_PUBLIC_SUPABASE_URL=https://qbhyrhvpmavsrpasxnoz.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<in .env.local>
 OPENROUTER_API_KEY=<in .env.local>
-ANTHROPIC_API_KEY=<in Vercel>
+OPENAI_API_KEY=<in .env.local / Vercel>
+OPENAI_SCAN_MODEL=<optional, defaults to gpt-4.1-mini>
 MUAPI_API_KEY=<optional, for image gen via MuAPI>
 NEXT_PUBLIC_APP_URL=https://wizl.space
 ```
@@ -160,7 +160,7 @@ Gumroad is configured by redirect URL on their side: `https://wizl.space/en/pro?
 - **YouTube:** `@wizl.space` — long-form shop visits, Puff & Walk
 - **Twitter/X:** `@wizlspace` — builder-in-public, celebrity tags via Wizl
 
-**Audience rule:** EN/TH only. No Russian cannabis content. Russia = legal risk.
+**Audience rule:** EN/TH only. No restricted-market cannabis content.
 
 Launch playbook: `D:\PROJECTS\knowledge\wizl-launch\` (Obsidian-ready, 9 files).
 
@@ -181,7 +181,7 @@ Launch playbook: `D:\PROJECTS\knowledge\wizl-launch\` (Obsidian-ready, 9 files).
 ## 🛑 What NOT to do
 
 - Don't auto-generate fake check-in data — integrity > engagement theater
-- Don't post cannabis content on Serge's personal (Russian) accounts
+- Don't post cannabis content on Sergey's personal accounts
 - Don't use perfectly-American voice-cloning for Serge — accent is feature
 - Don't add "Sign up to see results" dark patterns
 - Don't overdesign — `done > perfect`, especially during launch week
@@ -198,7 +198,7 @@ Launch playbook: `D:\PROJECTS\knowledge\wizl-launch\` (Obsidian-ready, 9 files).
 - `src/lib/strains-db.ts` — Supabase data layer (rating forced to 0)
 - `src/lib/auth.tsx` — Supabase anonymous + magic-link auth
 - `src/app/api/chat/route.ts` — AI chat system prompt (Wizl persona, cannabis-only)
-- `src/app/api/scan/route.ts` — Claude Sonnet 4.5 + web_search scanner
+- `src/app/api/scan/route.ts` — OpenAI Responses API + web_search scanner
 
 ---
 

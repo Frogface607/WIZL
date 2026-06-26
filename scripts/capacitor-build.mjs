@@ -23,7 +23,7 @@ try {
   swap(stub, real);
 
   // Run the build
-  execSync("cross-env BUILD_TARGET=capacitor next build", {
+  execSync("cross-env BUILD_TARGET=capacitor next build --webpack", {
     stdio: "inherit",
     cwd: root,
   });

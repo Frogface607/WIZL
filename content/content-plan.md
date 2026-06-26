@@ -1,359 +1,304 @@
-# WIZL Content Plan — April 2026
+# WIZL Content Plan - Season 1
 
-## Instagram Strategy
+Updated: 2026-06-21
 
-**Posting rhythm:** 1 post/day + 2-3 stories
-**Mix:** 40% Wizl art/wisdom, 30% app/strains, 30% Serge/real life
+Brand source of truth: `docs/wizl-brand-kit.md`
 
----
+## Production Reality
 
-## WEEK 1: Launch (Posts 1-7)
+- Real footage available: one existing Hero video.
+- Founder is not filming himself for regular content.
+- Regular content is generated around WIZL as the main character.
+- Formats: carousels, illustrated reels, Seedance loops, Remotion edits.
+- Languages: English first, Thai adaptation later.
+- Public geography: Bangkok / Thailand / WIZL world. No restricted-market angle.
 
-### Post 1 — INTRO (Carousel, 5 slides)
-**Slide 1:** Wizl mascot on Bangkok rooftop (already generated)
-**Slide 2:** App screenshot — strain search
-**Slide 3:** App screenshot — AI chat with Wizl
-**Slide 4:** Bangkok street scene with Wizl
-**Slide 5:** "wizl.space — free" + CTA
+## Goal
 
-**Caption:**
-```
-Meet WIZL 🧙‍♂️
+Make WIZL feel like a living cannabis folklore character, not just an app account.
 
-A friendly weasel wizard who travels the world, discovering the best cannabis strains and writing them in his magical book.
+The feed should answer one question every day:
 
-2,400+ strains. AI-powered. Free.
+> What did WIZL discover today?
 
-Built by one guy walking the streets of Bangkok.
+## Content Pillars
 
-Welcome to Space.
+| Pillar | Share | Role |
+|---|---:|---|
+| WIZL Adventures | 35% | Character IP, saves, shares, emotional attachment |
+| Strain & Terpene Education | 30% | Utility, authority, app relevance |
+| WIZL Wisdom | 20% | Quote cards, community identity, repeatable format |
+| Product Hooks | 10% | Scan, Book, Ask WIZL, map, profile |
+| Community Prompts | 5% | Comments, tags, polls, questions |
 
-#wizl #cannabis #bangkok #cannabisapp #strains #weedapp #thailand #buildinpublic
-```
+Value vs promo mix: 80/20. The app is present as WIZL's Book, not as a constant sales pitch.
 
----
+## Weekly Cadence
 
-### Post 2 — THE STORY (Single image or Reel)
-Serge talking to camera. Raw, honest, one take.
+| Day | Feed Post | Format | Story Support |
+|---|---|---|---|
+| Monday | WIZL Adventure | 9:16 Reel | Poll: "Where should he go next?" |
+| Tuesday | Strain Card | 3:4 Carousel | Quiz sticker |
+| Wednesday | WIZL Wisdom | 1:1 Card + 9:16 Story | Question sticker |
+| Thursday | Terpene School | 3:4 Carousel | Mini quiz |
+| Friday | WIZL Adventure | 9:16 Reel | Behind-the-spell prompt |
+| Saturday | Product Hook | Reel or carousel | Link sticker / feature demo |
+| Sunday | Recap / Community | Carousel or story stack | Vote for next week |
 
-**Script (60 sec max):**
-```
-Hey. I'm Serge.
+Minimum sustainable output:
 
-I'm a bar owner from Russia. My bar is shutting down after almost 10 years.
+- 3 feed posts/week: Monday adventure, Wednesday wisdom, Saturday product/strain.
+- Ideal output: 5 feed posts/week.
+- Stories: 3 simple story frames on posting days.
 
-Instead of going home and feeling sorry for myself, I came to Bangkok and built a cannabis app.
+## Season 1 Narrative
 
-It's called WIZL. It has 2,400 strains, an AI that knows everything about weed, and it's completely free.
+Season name: **The Lost Pages**
 
-Why? Because I love walking, I love weed, and I love building things.
+Premise:
 
-This little wizard weasel is WIZL. He travels the world, finds the best strains, and writes them in his book.
+WIZL finds that several pages are missing from The Book. Each post is a tiny field note from his search: rooftops, night markets, secret gardens, apothecaries, portal rooms, and hidden study corners.
 
-That's literally what I do every day now.
+Recurring objects:
 
-If you're into cannabis — check it out. wizl.space. It's free.
+- The Book
+- Emerald crystal staff
+- Orange cat in the satchel
+- Missing page fragments
+- Small jars, scent notes, maps, lanterns
 
-Peace and love from Bangkok. ✌️
-```
+Tone:
 
----
+- Mystical, useful, kind.
+- Street folklore, not corporate education.
+- No fake reviews, no fake shop claims.
 
-### Post 3 — WIZL WISDOM #1 (Single image)
-Wizl sitting with book, text overlay:
+## First 14 Feed Posts
 
-```
-"The best strain is the one that matches your moment, not someone else's review."
-— WIZL The Wizard 🧙‍♂️
-```
+| # | Topic | Format | Pillar | Factory Recipe | Status |
+|---:|---|---|---|---|---|
+| 1 | The Lost Page at the Night Market | Reel | WIZL Adventures | `adventure-reel` | queued |
+| 2 | Blue Dream Field Card | Carousel | Strain Education | `strain-of-day` | idea |
+| 3 | The Nose Knows | Wisdom Card | WIZL Wisdom | `wisdom-card` | idea |
+| 4 | Myrcene: The Earthy Signal | Carousel | Terpene School | `terpene-school` | idea |
+| 5 | The Rooftop Map | Reel | WIZL Adventures | `adventure-reel` | queued |
+| 6 | Ask WIZL Anything | Carousel/Reel | Product Hook | `product-hook` | idea |
+| 7 | Choose the Next Door | Carousel | Community | `adventure-poll` | idea |
+| 8 | The Secret Garden Test | Reel | WIZL Adventures | `adventure-reel` | queued |
+| 9 | Gelato Field Card | Carousel | Strain Education | `strain-of-day` | idea |
+| 10 | Low and Slow | Wisdom Card | WIZL Wisdom | `wisdom-card` | idea |
+| 11 | Limonene: The Citrus Spark | Carousel | Terpene School | `terpene-school` | idea |
+| 12 | The Apothecary After Midnight | Reel | WIZL Adventures | `adventure-reel` | queued |
+| 13 | Scan a Label With WIZL | Reel | Product Hook | `product-hook` | idea |
+| 14 | Week 2 Field Notes | Carousel | Community | `weekly-recap` | idea |
 
----
+## First Adventure Batch
 
-### Post 4 — STRAIN OF THE DAY (Carousel, 3 slides)
-**Slide 1:** Strain name + type badge (e.g. "Blue Dream — Hybrid")
-**Slide 2:** Effects, flavors, THC% — clean infographic style
-**Slide 3:** "Found in WIZL Book — 2,400+ strains" + link
+### 1. The Lost Page at the Night Market
 
-**Caption:**
-```
-Strain of the Day: Blue Dream 💙
+Hook:
+WIZL follows a glowing page through a neon night market.
 
-The Toyota Camry of weed — reliable, loved by everyone, impossible to hate.
+Visual:
+Lanterns, wet pavement, tuk-tuks, dried herbs, floating page fragment, cat peeking from satchel.
 
-THC: 21% | Hybrid
-Effects: Creative, Happy, Relaxed
-Flavors: Blueberry, Vanilla, Herbal
+Caption:
 
-Find it in The Book → wizl.space
+```markdown
+WIZL found the first missing page at the night market.
 
-#bluedream #cannabisstrains #strainoftheday #wizl
-```
+It smelled like citrus, rain, and trouble.
 
----
-
-### Post 5 — BEHIND THE SCENES (Reel/Story)
-Walking through Bangkok, showing shops, casual vibe.
-
-**Script (30 sec):**
-```
-Day 5 of building a cannabis app on the streets of Bangkok.
-
-Today I'm visiting Space Herbs — one of my favorite shops on Huai Khwang.
-
-Let's see what they've got.
-
-[enters shop, shows products, talks to staff]
-
-This is what I do. Walk, discover, record. WIZL does the same — digitally.
-```
-
----
-
-### Post 6 — WIZL WISDOM #2 (Single image)
-Wizl examining herbs at a stall:
-
-```
-"Terpenes tell you more than THC ever will. Learn to smell before you buy."
-— WIZL 🌿
-```
-
----
-
-### Post 7 — APP FEATURE (Reel, screen recording + face)
-Show the AI chat in action.
-
-**Script (45 sec):**
-```
-Watch this. I'm gonna ask WIZL about the best strain for creativity.
-
-[screen recording of typing "best strain for creativity" and getting response]
-
-He just gave me three recommendations with reasons. For free. No signup.
-
-This little wizard knows 2,400 strains. Ask him anything.
+Every strain has a story.
+Every story leaves a trace.
 
 wizl.space
 ```
 
----
+### 2. The Rooftop Map
 
-## WEEK 2: Community (Posts 8-14)
+Hook:
+The Book projects a green map over Bangkok rooftops.
 
-### Post 8 — TERPENE GUIDE (Carousel, 6 slides)
-**Slide 1:** "The Terpene Guide — by WIZL" 
-**Slide 2:** Myrcene — Earthy, relaxing, found in: OG Kush, Blue Dream
-**Slide 3:** Limonene — Citrus, uplifting, found in: Lemon Haze, Super Lemon
-**Slide 4:** Caryophyllene — Spicy, anti-anxiety, found in: GSC, Gelato
-**Slide 5:** Pinene — Pine, focus, found in: Jack Herer, Pineapple Express
-**Slide 6:** "Full guide in The Book — wizl.space"
+Visual:
+Golden-hour rooftop, skyline, open book, emerald route line, cat watching from satchel.
 
----
+Caption:
 
-### Post 9 — CITY EDITION: BANGKOK (Art post)
-Wizl walking through enchanted Bangkok — use the art we already generated.
+```markdown
+The map did not show streets.
+It showed scents.
 
-**Caption:**
-```
-WIZL in Bangkok 🇹🇭
+WIZL followed the green line.
 
-Where ancient temples meet neon dispensaries, and a little wizard walks the streets with his book of strains.
-
-This is where it all started.
-
-#bangkok #cannabisthailand #wizl #illustration
+wizl.space
 ```
 
----
+### 3. The Secret Garden Test
 
-### Post 10 — SATIVA vs INDICA vs HYBRID (Carousel)
-Simple, clean, educational.
+Hook:
+WIZL enters a hidden garden where each plant hums a different note.
 
----
+Visual:
+Crystal-leaf plants, koi pond, stone lanterns, mushroom folk in background, page fragment near water.
 
-### Post 11 — WIZL WISDOM #3
-```
-"Don't chase the highest THC. Chase the right terpene profile. Your endocannabinoid system will thank you."
-— WIZL 🧪
-```
+Caption:
 
----
+```markdown
+Some gardens do not open for keys.
+They open for patience.
 
-### Post 12 — SHOP VISIT (Reel)
-Visit a real shop, show products, ask staff about favorite strain.
+WIZL waited.
+The page appeared.
 
----
-
-### Post 13 — HOW TO READ A LABEL (Carousel, educational)
-What to look for: THC%, terpenes, grow method, test date.
-
----
-
-### Post 14 — WEEK RECAP (Story series)
-Best moments of the week, numbers, fun behind-the-scenes.
-
----
-
-## WIZL WISDOM — Quotes Bank (for ongoing use)
-
-1. "The best strain is the one that matches your moment, not someone else's review."
-2. "Terpenes tell you more than THC ever will. Learn to smell before you buy."
-3. "Don't chase the highest THC. Chase the right terpene profile."
-4. "Every strain has a story. Every smoker has a chapter."
-5. "Indica, Sativa, Hybrid — labels are guides, not rules. Your body knows best."
-6. "The difference between a good experience and a bad one is often just 5mg."
-7. "Cannabis is not a competition. There's no trophy for the highest tolerance."
-8. "A 15% strain with perfect terpenes will outperform a 30% strain with none."
-9. "The best budtender is a curious one. Never stop asking questions."
-10. "Respect the plant. It's been here longer than any of us."
-11. "Low and slow. The mantra of every wise smoker."
-12. "Your first strain shapes your relationship with cannabis forever. Choose wisely."
-13. "The nose knows. If it doesn't smell right, it probably isn't."
-14. "Hydrate. Seriously. The wizard has spoken."
-15. "There are over 100 cannabinoids. THC and CBD are just the beginning."
-
----
-
-## VIDEO SCRIPTS — Serge to Camera
-
-### Script: First Video (Mistal Garage Rooftop)
-```
-[Serge on rooftop, sunset, Bangkok skyline behind]
-
-Hey everyone. I'm Serge, and I'm from Russia.
-
-For the past almost 10 years I've been running a bar in Siberia. And right now... it's shutting down.
-
-But instead of going back and panicking — I'm here. In Bangkok. Building something I actually love.
-
-It's called WIZL. It's a cannabis strain explorer.
-
-[shows phone with app]
-
-2,400 strains. An AI wizard that answers any question about weed. Completely free.
-
-Why am I doing this? Because I love three things: walking, building apps, and cannabis.
-
-So I'm literally building this app while walking the streets of Bangkok. Every day I visit shops, discover new strains, and add them to WIZL's book.
-
-[shows Wizl mascot]
-
-This little guy is WIZL The Wizard. He's a weasel. In a wizard hat. With a cat in his bag. Don't ask — just trust me, it works.
-
-If you're into cannabis — or just into weird weasel wizards — follow along.
-
-wizl.space. Free forever. With love.
-
-[peace sign, walks away]
+wizl.space
 ```
 
-### Script: Shop Visit Template
-```
-[walking, GoPro chest mount]
+### 4. The Apothecary After Midnight
 
-Day [X] in Bangkok. Today I'm checking out [SHOP NAME] in [AREA].
+Hook:
+At midnight, the shelves rearrange themselves.
 
-[enters shop]
+Visual:
+Wooden shelves, glowing jars, hand labels, staff light, page fragment hiding behind a jar.
 
-Hey! Sawadee krap! I'm Serge, I'm building a cannabis app — can I check out what you've got?
+Caption:
 
-[shows products, asks about favorite strain]
+```markdown
+At midnight, the jars started whispering.
 
-What's your best seller right now?
+WIZL listened.
+The cat pretended not to.
 
-[staff responds]
-
-Nice! Let me look that up in WIZL real quick...
-
-[shows app, finds strain]
-
-There it is — [STRAIN], [THC]%, [EFFECTS]. 
-
-That's what WIZL does. You find a strain, you look it up, you know exactly what you're getting.
-
-Thanks guys! 
-
-[to camera outside]
-
-Solid shop. Good vibes. Link to WIZL in bio if you wanna explore strains yourself.
-
-Peace! ✌️
+wizl.space
 ```
 
----
+### 5. The Portal Chamber
 
-## NEW IDEAS (from 17 April voice stream)
+Hook:
+The missing pages form a doorway.
 
-### Celebrity Tag Strategy (1x per week)
-Use WIZL character, NOT Serge directly. Wizl "wonders" about celebs:
+Visual:
+Circular stone room, emerald runes, floating crystals, multiple moons.
 
-**Format:** Art of Wizl watching/thinking + caption
+Caption:
 
-**Example posts:**
-- Wizl watching TV: "Hmm... I wonder what @snoopdogg's top 3 strains are? If you know him, ask! 🌿"
-- Wizl reading book: "Hey @baboreal, what's the most unusual strain you've ever tried? WIZL is curious 🧙‍♂️"
-- Wizl with headphones: "WIZL the Weasel Wizard sharing Weed Wisdom With Love — sounds like @eminem wrote it, no? 😄"
-- Wizl thinking: "I bet @joerogan has strong opinions on terpenes. Someone tag him 🧪"
-- Wizl cooking: "What would @sethrogenbe smoking while making pottery? WIZL needs to know"
+```markdown
+Five pages.
+One door.
+No instructions.
 
-**Target list:** Snoop Dogg, Berner, Wiz Khalifa, B-Real, Joe Rogan, Seth Rogen, Action Bronson, Method Man, Tommy Chong, Willie Nelson, Eminem (just the alliteration joke)
+WIZL stepped through anyway.
 
-### "Puff & Walk" — Atmospheric Stream/Video
-- GoPro chest mount, evening Bangkok
-- Puff, put on chill playlist, walk
-- No talking, just vibes, music, city
-- YouTube long format: "Puff & Walk with WIZL — Bangkok Night Vol.1"
-- Can also be cut into IG Reels (30sec atmospheric clips)
-
-### Reddit Launch Post
-**Subreddit:** r/trees, r/cannabis, r/Thailand, r/digitalnomad, r/indiehackers
-**Title:** "I'm a Russian bar owner whose business is closing after 10 years. Instead of going home, I built a free cannabis strain app on the streets of Bangkok. Meet WIZL."
-**Content:** Story + screenshots + link. Authentic, not salesy.
-
-### Music Element
-- Track "Исчезая" — find a Bangkok recording studio, record it
-- Content from studio session = Reel material
-- Links cannabis/music/personal story together
-- Not core WIZL content, but personal brand layer
-
-### Updated First Video Script (v2)
-```
-[Serge on Mistal Garage rooftop, sunset, Bangkok skyline]
-
-Hey. I'm Serge. I'm from Russia.
-
-For almost 10 years I ran a music bar in Siberia. Craft beer, live bands, the whole thing.
-
-Right now — it's shutting down. A chapter is closing.
-
-[CLOSE-UP: puts on peace sign pendant, slow, intentional]
-
-But I'm not crying about it. I'm here. In Bangkok. A city I fell in love with.
-
-And I built something I actually care about.
-
-[shows phone]
-
-It's called WIZL. A cannabis strain explorer. 2,400 strains, an AI wizard that knows everything about weed, and it's completely free.
-
-Why? Because I love walking, I love building things, and I love this plant.
-
-[shows Wizl mascot]
-
-This is WIZL — a little weasel wizard who travels the world discovering strains and writing them in his magical book.
-
-That's literally what I do now. Walk the streets, visit shops, discover strains.
-
-WIZL the Weasel Wizard sharing Weed Wisdom With Love. Yeah, it sounds like Eminem wrote it.
-
-Join the journey. wizl.space. Free. With love. ✌️
+wizl.space
 ```
 
-### Platforms to Create
-- [x] Instagram: @wizl.space (done)
-- [ ] TikTok: @wizl.space
-- [ ] YouTube: WIZL
-- [ ] Pinterest: WIZL (art/illustrations)
-- [ ] Reddit: post in r/trees, r/cannabis
+## Carousel Templates
 
-### Geo-blocking
-Block Russian access on all platforms (IG, TikTok) — legal safety for cannabis content.
+### Strain Field Card
+
+Slide 1: Strain name, type, WIZL finding it in The Book.
+
+Slide 2: Effects and aroma notes.
+
+Slide 3: "Best for the moment when..." scenario.
+
+Slide 4: CTA: "Find it in The Book - wizl.space"
+
+### Terpene School
+
+Slide 1: Terpene name + sensory hook.
+
+Slide 2: What it smells like.
+
+Slide 3: How it may feel.
+
+Slide 4: Common strains.
+
+Slide 5: WIZL rule of thumb.
+
+### WIZL Wisdom
+
+One square card plus one vertical story version.
+
+Rules:
+
+- One quote only.
+- Short enough to read in 3 seconds.
+- WIZL visible but not fighting the typography.
+- Always end with `- WIZL` or `wizl.space`.
+
+## Content Bank
+
+### Adventure Ideas
+
+- The Lost Page at the Night Market
+- The Rooftop Map
+- The Secret Garden Test
+- The Apothecary After Midnight
+- The Portal Chamber
+- The Cat Steals the Map
+- The Jar That Changed Color
+- The Tuk-Tuk Oracle
+- The Scent Compass
+- The Library Under the Stairs
+
+### Education Ideas
+
+- Myrcene is the couch signal
+- Limonene is the citrus spark
+- Caryophyllene is the pepper note
+- Why THC is not the whole story
+- What "hybrid" actually means
+- How to read a strain card
+- Why the same strain can feel different
+- Low and slow for edibles
+- Terpenes vs effects
+- The nose knows
+
+### Product Hooks
+
+- Ask WIZL for a mood
+- Scan a jar or label
+- Save a favorite strain
+- Check in after trying something
+- Find shops nearby
+- Build your taste profile
+- The Book has thousands of entries
+
+## Batch Workflow
+
+Weekly batch:
+
+1. Monday: plan 5 posts and generate manifests.
+2. Tuesday: generate stills with GPT Image 2.
+3. Wednesday: animate selected stills with Seedance 2.
+4. Thursday: render Remotion edits and carousels.
+5. Friday: captions, hashtags, scheduling.
+6. Weekend: review metrics and choose next adventure.
+
+## Posting Times
+
+Use Thailand-friendly global windows until real analytics exist:
+
+- Instagram Reels: 19:00-21:00 Bangkok time.
+- Instagram carousels: 12:00-13:00 or 19:00-21:00 Bangkok time.
+- TikTok: 20:00-22:00 Bangkok time.
+- YouTube Shorts: 18:00-21:00 Bangkok time.
+
+## Metrics
+
+Track weekly:
+
+- Saves per carousel.
+- Reel watch-through rate.
+- Comments per adventure.
+- Profile visits.
+- Clicks to `wizl.space`.
+- Follows per post.
+
+Decision rule:
+
+- If adventures drive follows, make more lore.
+- If carousels drive saves, make more education.
+- If product hooks drive clicks, turn them into pinned posts.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
@@ -11,34 +11,20 @@ export default function ProPage() {
   const tb = useTranslations("brand");
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
-
-  // Check if returning from successful checkout
-  useEffect(() => {
+  const [subscribed, setSubscribed] = useState(() => {
     if (searchParams.get("success") === "true") {
       const data = getUserData();
       data.isPro = true;
       saveUserData(data);
-      setSubscribed(true);
-    } else {
-      const data = getUserData();
-      setSubscribed(data.isPro);
+      return true;
     }
-  }, [searchParams]);
+    return getUserData().isPro;
+  });
 
   const handleSubscribe = () => {
     setLoading(true);
     // Redirect to Gumroad checkout
     window.location.href = "https://wizlspace.gumroad.com/l/wizlpro";
-  };
-
-  // Demo mode — activate PRO locally (kept for testing, not used in production)
-  const _handleDemoSubscribe = () => {
-    const userData = getUserData();
-    userData.isPro = true;
-    saveUserData(userData);
-    setSubscribed(true);
-    setLoading(false);
   };
 
   const features = [

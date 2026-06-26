@@ -1,15 +1,22 @@
 {
-  "name": "task-management-bot",
+  "name": "wizl",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "build:capacitor": "node scripts/capacitor-build.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "factory:plan": "node content/factory/bin/wizl-factory.mjs plan",
+    "factory:image": "node content/factory/bin/wizl-factory.mjs image",
+    "factory:video": "node content/factory/bin/wizl-factory.mjs video",
+    "factory:render": "node content/factory/bin/wizl-factory.mjs render",
+    "factory:status": "node content/factory/bin/wizl-factory.mjs status",
+    "remotion:studio": "remotion studio remotion/index.ts --public-dir content/posts/2026-05-12-wisdom-terpenes",
+    "remotion:still": "remotion still remotion/index.ts WIZLFactoryReel content/factory/preview.png --public-dir content/posts/2026-05-12-wisdom-terpenes --frame 30 --overwrite"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.103.0",
@@ -23,6 +30,8 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@remotion/cli": "^4.0.481",
+    "@remotion/media": "^4.0.481",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
@@ -36,6 +45,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "jsdom": "^29.1.1",
+    "remotion": "^4.0.481",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.6"

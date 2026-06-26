@@ -37,14 +37,13 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => Boolean(supabase));
 
   const isAnonymous = !user || user.is_anonymous === true;
 
   useEffect(() => {
     const sb = supabase;
     if (!sb) {
-      setIsLoading(false);
       return;
     }
 

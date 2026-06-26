@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 import { Link } from "@/i18n/navigation";
-import { User, Shield, Crown, ChevronRight, Star, Search, Trophy, Store, Heart, Leaf, LogOut } from "lucide-react";
+import { User, Shield, Crown, ChevronRight, Star, Trophy, Store, Heart, Leaf, LogOut } from "lucide-react";
 import {
   getUserData,
   getUnlockedAchievements,
@@ -21,25 +22,12 @@ import { strains } from "@/data/strains";
 export default function ProfilePage() {
   const t = useTranslations("profile");
   const tAuth = useTranslations("auth");
+  const locale = useLocale() as WisdomLocale;
+  const [emptyWisdom] = useState(() => getRandomWisdom("empty", { locale }));
   const { user, isAnonymous, signOut } = useAuth();
-  const [data, setData] = useState<UserData | null>(null);
-  const [unlocked, setUnlocked] = useState<Achievement[]>([]);
-  const [taste, setTaste] = useState<TasteProfile | null>(null);
-
-  useEffect(() => {
-    const d = getUserData();
-    setData(d);
-    setUnlocked(getUnlockedAchievements(d));
-    setTaste(getTasteProfile(d, strains));
-  }, []);
-
-  if (!data) {
-    return (
-      <div className="max-w-lg mx-auto px-4 pb-24 pt-8 text-center">
-        <Search className="w-10 h-10 text-accent-green animate-float mx-auto" />
-      </div>
-    );
-  }
+  const [data] = useState<UserData>(() => getUserData());
+  const unlocked: Achievement[] = getUnlockedAchievements(data);
+  const taste: TasteProfile = getTasteProfile(data, strains);
 
   const uniqueStrains = getUniqueStrainCount(data);
   const unlockedIds = new Set(unlocked.map((a) => a.id));
@@ -286,9 +274,12 @@ export default function ProfilePage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-8">
-            <Search className="w-8 h-8 text-accent-green mx-auto mb-2" />
-            <p className="text-text-secondary text-sm">{t("noCheckins")}</p>
+          <div className="text-center py-10">
+            <div className="w-16 h-16 mx-auto mb-3 animate-float">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/wizl-book.png" alt="WIZL" className="w-full h-full object-contain" />
+            </div>
+            <p className="text-text-secondary text-sm italic mb-3">{emptyWisdom}</p>
             <Link href="/checkin" className="text-accent-green text-sm font-semibold">{t("firstScan")} →</Link>
           </div>
         )}
