@@ -1,16 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
 export default function AgeGate({ children }: { children: React.ReactNode }) {
   const t = useTranslations("age");
   const tb = useTranslations("brand");
-  const [verified, setVerified] = useState<boolean | null>(() => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem("wizl-age-verified") === "true";
-  });
+  const [verified, setVerified] = useState<boolean | null>(null);
   const [denied, setDenied] = useState(false);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      setVerified(localStorage.getItem("wizl-age-verified") === "true");
+    });
+  }, []);
 
   const handleVerify = () => {
     localStorage.setItem("wizl-age-verified", "true");

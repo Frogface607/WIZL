@@ -80,10 +80,11 @@ export default function AskWizl() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Stable placeholder seeded by first paint — avoids hydration flicker
-  const [placeholder] = useState(
-    () => INPUT_PLACEHOLDERS[Math.floor(Math.random() * INPUT_PLACEHOLDERS.length)]
-  );
+  const [placeholder, setPlaceholder] = useState(INPUT_PLACEHOLDERS[0]);
+
+  useEffect(() => {
+    setPlaceholder(INPUT_PLACEHOLDERS[Math.floor(Math.random() * INPUT_PLACEHOLDERS.length)]);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {

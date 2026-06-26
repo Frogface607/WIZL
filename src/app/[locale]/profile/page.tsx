@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 import { Link } from "@/i18n/navigation";
@@ -19,15 +19,32 @@ import { useAuth } from "@/lib/auth";
 import AuthPrompt from "@/components/AuthPrompt";
 import { strains } from "@/data/strains";
 
+const INITIAL_USER_DATA: UserData = {
+  checkins: [],
+  favorites: [],
+  wishlist: [],
+  scansToday: 0,
+  scansDate: "",
+  isPro: false,
+  joinedAt: "2026-06-01T00:00:00.000Z",
+  totalScans: 0,
+};
+
 export default function ProfilePage() {
   const t = useTranslations("profile");
   const tAuth = useTranslations("auth");
   const locale = useLocale() as WisdomLocale;
-  const [emptyWisdom] = useState(() => getRandomWisdom("empty", { locale }));
+  const [emptyWisdom] = useState(() => getRandomWisdom("empty", { locale, seed: 0 }));
   const { user, isAnonymous, signOut } = useAuth();
-  const [data] = useState<UserData>(() => getUserData());
+  const [data, setData] = useState<UserData>(INITIAL_USER_DATA);
   const unlocked: Achievement[] = getUnlockedAchievements(data);
   const taste: TasteProfile = getTasteProfile(data, strains);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      setData(getUserData());
+    });
+  }, []);
 
   const uniqueStrains = getUniqueStrainCount(data);
   const unlockedIds = new Set(unlocked.map((a) => a.id));

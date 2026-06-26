@@ -2,13 +2,13 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
-  useCallback,
   type ReactNode,
 } from "react";
-import type { User, Session } from "@supabase/supabase-js";
+import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "./supabase";
 import { setAuthUserId } from "./store";
 
@@ -44,37 +44,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const sb = supabase;
     if (!sb) {
+      queueMicrotask(() => {
+        setIsLoading(false);
+      });
       return;
     }
 
-    // 1. Check existing session
-    sb.auth.getSession().then(({ data: { session: s } }) => {
-      if (s) {
-        setSession(s);
-        setUser(s.user);
-        setAuthUserId(s.user.id);
-        setIsLoading(false);
+    // WIZL can run locally without an account. Avoid silent anonymous signups
+    // when Supabase anonymous auth is disabled; magic links still work.
+    sb.auth.getSession().then(({ data: { session: currentSession } }) => {
+      if (currentSession) {
+        setSession(currentSession);
+        setUser(currentSession.user);
+        setAuthUserId(currentSession.user.id);
       } else {
-        // 2. No session — sign in anonymously
-        sb.auth.signInAnonymously().then(({ data, error }) => {
-          if (!error && data.session) {
-            setSession(data.session);
-            setUser(data.session.user);
-            setAuthUserId(data.session.user.id);
-          }
-          setIsLoading(false);
-        });
+        setSession(null);
+        setUser(null);
       }
+      setIsLoading(false);
     });
 
-    // 3. Listen for auth state changes (magic link, sign out, etc.)
     const {
       data: { subscription },
-    } = sb.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) {
-        setAuthUserId(s.user.id);
+    } = sb.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+      setUser(nextSession?.user ?? null);
+      if (nextSession?.user) {
+        setAuthUserId(nextSession.user.id);
       }
     });
 
@@ -99,18 +95,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       return { error: error?.message ?? null };
     },
-    []
+    [],
   );
 
   const signOut = useCallback(async () => {
     if (!supabase) return;
     await supabase.auth.signOut();
-    // After sign out, create a new anonymous session
-    const { data } = await supabase.auth.signInAnonymously();
-    if (data.session) {
-      setSession(data.session);
-      setUser(data.session.user);
-    }
+    setSession(null);
+    setUser(null);
   }, []);
 
   return (

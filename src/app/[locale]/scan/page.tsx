@@ -46,11 +46,16 @@ export default function ScanPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [scansLeft, setScansLeft] = useState(() => getScansRemaining(getUserData()));
-  const [isPro] = useState(() => getUserData().isPro);
+  const [scansLeft, setScansLeft] = useState(5);
+  const [isPro, setIsPro] = useState(false);
   const [strains, setStrains] = useState<Strain[]>([]);
 
   useEffect(() => {
+    queueMicrotask(() => {
+      const userData = getUserData();
+      setScansLeft(getScansRemaining(userData));
+      setIsPro(userData.isPro);
+    });
     fetchStrains().then(setStrains);
   }, []);
 

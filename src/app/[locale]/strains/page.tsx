@@ -17,8 +17,8 @@ type SortValue = "thc" | "name";
 export default function StrainsPage() {
   const t = useTranslations("strains");
   const locale = useLocale() as WisdomLocale;
-  const [loadingWisdom] = useState(() => getRandomWisdom("loading", { locale }));
-  const [emptyWisdom] = useState(() => getRandomWisdom("empty", { locale }));
+  const [loadingWisdom] = useState(() => getRandomWisdom("loading", { locale, seed: 0 }));
+  const [emptyWisdom] = useState(() => getRandomWisdom("empty", { locale, seed: 0 }));
   const [filter, setFilter] = useState<FilterType>("all");
   const [sort, setSort] = useState<SortValue>("thc");
   const [search, setSearch] = useState("");

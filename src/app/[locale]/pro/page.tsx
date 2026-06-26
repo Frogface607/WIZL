@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
@@ -11,15 +11,20 @@ export default function ProPage() {
   const tb = useTranslations("brand");
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const [subscribed, setSubscribed] = useState(() => {
-    if (searchParams.get("success") === "true") {
-      const data = getUserData();
-      data.isPro = true;
-      saveUserData(data);
-      return true;
-    }
-    return getUserData().isPro;
-  });
+  const [subscribed, setSubscribed] = useState(false);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      if (searchParams.get("success") === "true") {
+        const data = getUserData();
+        data.isPro = true;
+        saveUserData(data);
+        setSubscribed(true);
+        return;
+      }
+      setSubscribed(getUserData().isPro);
+    });
+  }, [searchParams]);
 
   const handleSubscribe = () => {
     setLoading(true);
