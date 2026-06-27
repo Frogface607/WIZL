@@ -44,11 +44,12 @@ Until Founder Story is cut, pin Meet WIZL first.
 ## Publishing Preflight
 
 1. Run `npm run verify:content-assets`.
-2. Open `https://wizl.space/en` and confirm the site loads.
-3. Open `https://wizl.space/en/scan` and confirm the scan CTA is visible after the age gate.
-4. Confirm every caption includes `wizl.space`.
-5. Confirm every cannabis-facing post includes `Adults only where legal.` either in caption or profile bio.
-6. After posting, paste URLs into `content/publish-queue.md`.
+2. Run `npm run verify:launch-smoke`.
+3. Open `https://wizl.space/en` and confirm the site loads.
+4. Open `https://wizl.space/en/scan` and confirm the scan CTA is visible after the age gate.
+5. Confirm every caption includes `wizl.space`.
+6. Confirm every cannabis-facing post includes `Adults only where legal.` either in caption or profile bio.
+7. After posting, paste URLs into `content/publish-queue.md`.
 
 ## Day 1 Fallback: Meet WIZL
 

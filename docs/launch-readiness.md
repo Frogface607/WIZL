@@ -37,6 +37,7 @@ Production smoke on `https://wizl.space/en`:
 - Production check-in smoke passed after the latest deploy: save flow shows `Logged!`, unlocks the badge, keeps the success state at scroll top, and reports no 4xx/5xx events.
 - Production scan no-sticky smoke passed: a Cherry prompt returned `Cherry OG`, then a second Gelato prompt returned `Gelato`; both were real AI results, not demo fallbacks.
 - Shop map data now has a repeatable country/address verifier and 28 obvious city/country mismatches were corrected.
+- Production launch smoke has a repeatable verifier: `npm run verify:launch-smoke` checks key public pages, `/ru` redirect, sitemap/robots, no Cyrillic on checked pages, and two back-to-back AI scan results.
 
 ## User Audit
 
@@ -121,6 +122,7 @@ Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content
 ## Next Product Sprint
 
 1. Test AI scan with 20-30 real labels/photos using `docs/ai-scan-qa-log.md` and write down misses.
+2. Run `npm run verify:launch-smoke` before each launch-week publishing session.
 
 ## Analytics Events
 

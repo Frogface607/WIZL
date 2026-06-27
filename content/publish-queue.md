@@ -19,13 +19,14 @@ This is the operational queue for the first public WIZL content sprint.
 Use this if Founder Story is still not cut.
 
 1. Run `npm run verify:content-assets`.
-2. Open the WIZL profile on Instagram, TikTok, YouTube, and X.
-3. Confirm profile link is `https://wizl.space`.
-4. Publish Meet WIZL to Instagram Feed first.
-5. Publish the X post within 15 minutes.
-6. Add the 3-frame story stack 30-60 minutes later.
-7. Pin Meet WIZL if Founder Story is still missing.
-8. Paste final post URLs into the queue table above.
+2. Run `npm run verify:launch-smoke`.
+3. Open the WIZL profile on Instagram, TikTok, YouTube, and X.
+4. Confirm profile link is `https://wizl.space`.
+5. Publish Meet WIZL to Instagram Feed first.
+6. Publish the X post within 15 minutes.
+7. Add the 3-frame story stack 30-60 minutes later.
+8. Pin Meet WIZL if Founder Story is still missing.
+9. Paste final post URLs into the queue table above.
 
 After posting, use `content/launch-reply-bank.md` for first comments, DMs, and shop-owner replies.
 
