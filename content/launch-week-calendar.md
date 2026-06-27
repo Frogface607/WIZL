@@ -49,6 +49,7 @@ If Founder Story is not cut yet, pin Meet WIZL first and replace it with Founder
 
 ## Daily Execution Checklist
 
+- Open `content/launch-publishing-kit.md` for the exact asset paths, platform captions, and metrics table.
 - Confirm the asset file exists in `content/posts/...`.
 - Read the caption aloud once; keep it simple and human.
 - Add `wizl.space` visibly in the caption or final line.

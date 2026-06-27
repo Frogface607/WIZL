@@ -32,6 +32,7 @@ Production smoke on `https://wizl.space/en`:
 - Mobile bottom navigation spacing was tightened by removing the duplicated layout-level bottom padding; page-level safe space still keeps bottom CTAs above the nav.
 - Strain detail pages now generate strain-specific SEO metadata: title, description, canonical, OpenGraph, Twitter card, and keywords.
 - Local Supabase env is verified: `.env.local` reaches the `strains` table and returns 3,123 rows, so local Book audits no longer silently depend on the 62-strain static fallback.
+- Launch content assets have a repeatable verifier and a publishing kit with exact files, captions, story prompts, and week-1 metrics.
 
 ## User Audit
 
@@ -144,15 +145,17 @@ Privacy rule: do not send user photos, free-text strain descriptions, or full no
 ## Next Marketing Sprint
 
 1. Publish founder story reel from the Hero video.
-2. Publish "Meet WIZL" carousel.
-3. Review and publish the rendered "The Lost Page at the Night Market" adventure reel.
-4. Review and publish the rendered "THC Is Not The Whole Story" carousel.
-5. Review and publish the rendered Product Hook scan-label reel.
+2. If Founder Story is not cut yet, publish "Meet WIZL" as the Day 1 fallback.
+3. Publish the Product Hook scan-label reel.
+4. Publish "THC Is Not The Whole Story" carousel.
+5. Publish "The Lost Page at the Night Market" adventure reel.
 6. Pin the founder story, product hook, and best WIZL lore post.
 7. Track comments manually for the first week and turn good questions into posts.
 
 Operational queue: `content/publish-queue.md`.
 
 Launch week calendar: `content/launch-week-calendar.md`.
+
+Launch publishing kit: `content/launch-publishing-kit.md`.
 
 AI scan QA log: `docs/ai-scan-qa-log.md`.
