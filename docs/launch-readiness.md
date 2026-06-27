@@ -43,7 +43,7 @@ The app now has a clear promise: scan what you got, learn it, save it. The chara
 - Check-in still needs final polish after selection/rating: several secondary labels use older emoji-heavy language.
 - Strain cards are dense on mobile. Good for power users, but first-time users may need clearer "tap to open" affordance later.
 - Console still reports occasional Supabase fetch fallback noise during navigation. Production UI recovers, but this should be watched.
-- Build still warns about the deprecated Next `middleware` convention. Not launch-blocking, but should be cleaned before heavier scaling.
+- The deprecated Next `middleware` convention has been migrated to `proxy`.
 
 ## Launch Blockers
 
@@ -73,10 +73,9 @@ Status on 2026-06-26: mostly ready, content production is the next bottleneck.
 
 1. Connect a real analytics provider dashboard and verify events arrive.
 2. Polish post-check-in copy and share actions.
-3. Fix deprecated Next middleware warning.
-4. Investigate Supabase client fallback noise during fast page navigation.
-5. Review top strain detail pages for missing or weak metadata.
-6. Add one social share image / OG image for launch links.
+3. Investigate Supabase client fallback noise during fast page navigation.
+4. Review top strain detail pages for missing or weak metadata.
+5. Add one social share image / OG image for launch links.
 
 ## Analytics Events
 
