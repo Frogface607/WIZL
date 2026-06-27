@@ -10,7 +10,7 @@ import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
-import { Copy, MessageCircle, Search, Share2, User, Wand2 } from "lucide-react";
+import { Award, Copy, Leaf, MapPin, MessageCircle, Search, Share2, Store, User, Wand2, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 /** Build a temporary Strain object from a scan result stashed in sessionStorage */
@@ -105,6 +105,12 @@ export default function CheckinPage() {
       fetchStrains().then(setAllStrains);
     }
   }, [step, allStrains.length]);
+
+  useEffect(() => {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+  }, [step]);
 
   const filteredStrains = allStrains.filter((s) =>
     s.name.toLowerCase().includes(search.toLowerCase())
@@ -210,7 +216,7 @@ export default function CheckinPage() {
           </p>
           <div className="flex justify-center gap-1 mb-3">
             {Array.from({ length: rating }).map((_, i) => (
-              <span key={i} className="text-2xl">🌿</span>
+              <Leaf key={i} className="h-5 w-5 text-accent-green" aria-hidden="true" />
             ))}
           </div>
           <p className="text-text-muted italic text-xs mb-6">— {successWisdom}</p>
@@ -220,7 +226,10 @@ export default function CheckinPage() {
             <div className="flex flex-col gap-3 mb-6">
               {newAchievements.map((ach) => (
                 <div key={ach.id} className="glass-card rounded-2xl p-5 glow-green">
-                  <p className="text-accent-green font-bold text-sm mb-2">🏆 {t("badgeUnlocked")}</p>
+                  <p className="text-accent-green font-bold text-sm mb-2 inline-flex items-center gap-2">
+                    <Award className="h-4 w-4" aria-hidden="true" />
+                    {t("badgeUnlocked")}
+                  </p>
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{ach.icon}</span>
                     <div className="text-left">
@@ -257,11 +266,11 @@ export default function CheckinPage() {
           <div className="flex gap-3">
             <Link
               href="/scan"
-              className="flex-1 px-6 py-3 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all text-center"
+              className="flex-1 px-4 py-3 rounded-2xl bg-accent-green text-black text-sm font-bold hover:brightness-110 transition-all text-center inline-flex items-center justify-center gap-2 whitespace-nowrap"
             >
-              {t("scanAnother")} 🔍
+              {t("scanAnother")} <Search className="h-4 w-4" aria-hidden="true" />
             </Link>
-            <Link href="/profile" className="flex-1 px-6 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium text-center hover:bg-bg-card-hover transition-all">
+            <Link href="/profile" className="flex-1 px-4 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary text-sm font-medium text-center hover:bg-bg-card-hover transition-all">
               <span className="inline-flex items-center justify-center gap-2">
                 <User className="h-4 w-4" aria-hidden="true" />
                 Profile
@@ -310,12 +319,24 @@ export default function CheckinPage() {
         </div>
 
         <div className="mb-6">
-          <h3 className="font-bold mb-3">{t("rateIt")} 🌿</h3>
+          <h3 className="font-bold mb-3 inline-flex items-center gap-2">
+            {t("rateIt")}
+            <Leaf className="h-5 w-5 text-accent-green" aria-hidden="true" />
+          </h3>
           <div className="flex justify-center gap-3">
             {[1, 2, 3, 4, 5].map((star) => (
-              <button key={star} type="button" onClick={() => setRating(star)}
-                className={`text-4xl transition-all hover:scale-125 ${star <= rating ? "opacity-100 scale-110" : "opacity-30"}`}>
-                🌿
+              <button
+                key={star}
+                type="button"
+                onClick={() => setRating(star)}
+                aria-label={`Rate ${star} out of 5`}
+                className={`h-12 w-12 rounded-full flex items-center justify-center transition-all hover:scale-110 ${
+                  star <= rating
+                    ? "bg-accent-green/15 text-accent-green scale-105"
+                    : "bg-bg-card text-text-muted/60 border border-border"
+                }`}
+              >
+                <Leaf className="h-7 w-7" aria-hidden="true" />
               </button>
             ))}
           </div>
@@ -337,20 +358,29 @@ export default function CheckinPage() {
         </div>
 
         <div className="mb-6">
-          <h3 className="font-bold mb-3">{t("dropNote")} ✍️</h3>
+          <h3 className="font-bold mb-3 inline-flex items-center gap-2">
+            {t("dropNote")}
+            <MessageCircle className="h-5 w-5 text-accent-orange" aria-hidden="true" />
+          </h3>
           <textarea placeholder={t("notePlaceholder")} value={review} onChange={(e) => setReview(e.target.value)} rows={3}
             className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors resize-none" />
         </div>
 
         <div className="mb-6">
-          <h3 className="font-bold mb-3">📍 Where are you?</h3>
+          <h3 className="font-bold mb-3 inline-flex items-center gap-2">
+            <MapPin className="h-5 w-5 text-accent-love" aria-hidden="true" />
+            Where are you?
+          </h3>
           {selectedShop ? (
             <div className="glass-card rounded-2xl p-3 flex items-center gap-3">
-              <span className="text-xl">🏪</span>
+              <Store className="h-5 w-5 text-accent-green" aria-hidden="true" />
               <div className="flex-1">
                 <p className="font-semibold text-sm">{selectedShop.name}</p>
               </div>
-              <button onClick={() => setSelectedShop(null)} className="text-text-muted text-xs hover:text-accent-love transition-colors">✕ Remove</button>
+              <button onClick={() => setSelectedShop(null)} className="text-text-muted text-xs hover:text-accent-love transition-colors inline-flex items-center gap-1">
+                <X className="h-3.5 w-3.5" aria-hidden="true" />
+                Remove
+              </button>
             </div>
           ) : (
             <>
@@ -369,7 +399,7 @@ export default function CheckinPage() {
                       onClick={() => { setSelectedShop({ id: shop.id, name: shop.name }); setShopSearch(""); }}
                       className="glass-card rounded-xl p-2.5 flex items-center gap-2 text-left hover:bg-bg-card-hover transition-all"
                     >
-                      <span className="text-sm">🏪</span>
+                      <Store className="h-4 w-4 text-accent-green" aria-hidden="true" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{shop.name}</p>
                         <p className="text-text-muted text-[10px]">{shop.city}, {shop.country}</p>
@@ -379,17 +409,23 @@ export default function CheckinPage() {
                 </div>
               )}
               {shopSearch.length === 0 && (
-                <p className="text-text-muted text-xs text-center py-2 italic">Tell the Wizard where you found this treasure 🗺</p>
+                <p className="text-text-muted text-xs text-center py-2 italic">Tell WIZL where you found this.</p>
               )}
             </>
           )}
         </div>
 
         <button onClick={handleSubmit} disabled={rating === 0}
-          className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
+          className={`w-full py-4 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center gap-2 ${
             rating > 0 ? "bg-accent-green text-black hover:brightness-110 glow-green" : "bg-bg-card text-text-muted border border-border"
           }`}>
-          {rating > 0 ? `${t("checkIn")} 🔍` : t("rateFirst")}
+          {rating > 0 ? (
+            <>
+              {t("checkIn")} <Search className="h-5 w-5" aria-hidden="true" />
+            </>
+          ) : (
+            t("rateFirst")
+          )}
         </button>
       </div>
     );

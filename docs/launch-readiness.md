@@ -33,6 +33,7 @@ Production smoke on `https://wizl.space/en`:
 - Strain detail pages now generate strain-specific SEO metadata: title, description, canonical, OpenGraph, Twitter card, and keywords.
 - Local Supabase env is verified: `.env.local` reaches the `strains` table and returns 3,123 rows, so local Book audits no longer silently depend on the 62-strain static fallback.
 - Launch content assets have a repeatable verifier and a publishing kit with exact files, captions, story prompts, and week-1 metrics.
+- Check-in rating and success states were polished with stable icon controls, cleaner secondary labels, and scroll-to-top behavior after saving.
 
 ## User Audit
 
@@ -51,7 +52,7 @@ The app now has a clear promise: scan what you got, learn it, save it. The chara
 ### Friction
 
 - Age gate blocks every direct URL for a new user. This is legally useful, but launch content should send people to one clear CTA after they enter.
-- Check-in still needs final polish after selection/rating: several secondary labels use older emoji-heavy language.
+- Check-in selection, rating, save, share, and success states are launch-polished; remaining improvements can wait for real user feedback.
 - Strain cards are dense on mobile. Good for power users, but first-time users may need clearer "tap to open" affordance later.
 - Build-time strain detail fallback noise has been cleaned up.
 - The deprecated Next `middleware` convention has been migrated to `proxy`.
@@ -68,7 +69,7 @@ Checked with a verified age-gate state:
 - Scan result: Cherry prompt returns a cherry strain estimate and exposes save/check-in CTA.
 - Book: production shows 3,123 strains; local dev fallback shows 62 when Supabase fetch is unavailable.
 - Strain detail: OG Kush page loads with check-in/favorite/want-to-try actions.
-- Check-in: entry screen clearly offers AI scan and starting points.
+- Check-in: entry screen clearly offers AI scan and starting points; rating/save/success flow was checked end-to-end on mobile.
 - Map: 1,594 shops load with filters and shop-owner CTA.
 - Club, Story, Shop: pages load and explain their role without Russian text.
 
