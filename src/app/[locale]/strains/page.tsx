@@ -63,6 +63,7 @@ export default function StrainsPage() {
         case "name": return a.name.localeCompare(b.name);
       }
     });
+  const isSampleBook = !loading && strains.length === staticStrains.length;
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
@@ -140,6 +141,17 @@ export default function StrainsPage() {
       <p className="text-text-muted text-xs mb-3">
         {t("found", { count: filtered.length })}
       </p>
+
+      {isSampleBook && (
+        <div className="glass-card rounded-2xl p-3 mb-4 border border-accent-orange/20 bg-accent-orange/5">
+          <p className="text-accent-orange text-xs font-semibold mb-1">
+            Offline sample loaded
+          </p>
+          <p className="text-text-muted text-xs leading-relaxed">
+            The full Book has 3,000+ strains. Check your connection and try again if this looks short.
+          </p>
+        </div>
+      )}
 
       {loading ? (
         <div className="flex flex-col gap-3">

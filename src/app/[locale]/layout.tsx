@@ -67,7 +67,7 @@ export default async function LocaleLayout({
             <AgeGate>
               <SmokeLayer />
               <Header />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))]">{children}</main>
               <Navigation />
             </AgeGate>
           </Providers>
