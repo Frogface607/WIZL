@@ -34,6 +34,9 @@ Production smoke on `https://wizl.space/en`:
 - Local Supabase env is verified: `.env.local` reaches the `strains` table and returns 3,123 rows, so local Book audits no longer silently depend on the 62-strain static fallback.
 - Launch content assets have a repeatable verifier and a publishing kit with exact files, captions, story prompts, and week-1 metrics.
 - Check-in rating and success states were polished with stable icon controls, cleaner secondary labels, and scroll-to-top behavior after saving.
+- Production check-in smoke passed after the latest deploy: save flow shows `Logged!`, unlocks the badge, keeps the success state at scroll top, and reports no 4xx/5xx events.
+- Production scan no-sticky smoke passed: a Cherry prompt returned `Cherry OG`, then a second Gelato prompt returned `Gelato`; both were real AI results, not demo fallbacks.
+- Shop map data now has a repeatable country/address verifier and 28 obvious city/country mismatches were corrected.
 
 ## User Audit
 
@@ -71,6 +74,7 @@ Checked with a verified age-gate state:
 - Strain detail: OG Kush page loads with check-in/favorite/want-to-try actions.
 - Check-in: entry screen clearly offers AI scan and starting points; rating/save/success flow was checked end-to-end on mobile.
 - Map: 1,594 shops load with filters and shop-owner CTA.
+- Map data: 1,594 shop records pass the address-country verifier.
 - Club, Story, Shop: pages load and explain their role without Russian text.
 
 ### Latest Strain SEO Pass - 2026-06-27

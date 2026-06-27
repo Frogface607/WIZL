@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify:book-data": "node scripts/verify-book-data.mjs",
+    "verify:shop-data": "node scripts/verify-shop-data.mjs",
     "verify:content-assets": "node scripts/verify-content-assets.mjs",
     "factory:plan": "node content/factory/bin/wizl-factory.mjs plan",
     "factory:image": "node content/factory/bin/wizl-factory.mjs image",
