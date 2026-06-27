@@ -9,7 +9,7 @@ This is the operational queue for the first public WIZL content sprint.
 | Order | Asset | Format | Status | Owner action |
 |---:|---|---|---|---|
 | 1 | Founder Story | Hero video reel | script ready | Cut from existing Hero video |
-| 2 | Meet WIZL | 6-slide carousel | copy ready | Generate / design slides |
+| 2 | Meet WIZL | 6-slide carousel | rendered | Review and publish |
 | 3 | The Lost Page at the Night Market | 9:16 reel | rendered | Review and publish |
 | 4 | THC Is Not The Whole Story | 6-slide carousel | copy ready | Generate / design slides |
 | 5 | Product Hook | 9:16 reel | prompt ready | Generate start frame |
@@ -164,6 +164,25 @@ X thread:
 ## Meet WIZL Carousel - Slide Copy
 
 Format: 6 slides, 4:5.
+
+Production status: rendered locally.
+
+Asset folder:
+
+`content/posts/2026-06-27-meet-wizl-carousel/`
+
+Files:
+
+- `slide-01.png` through `slide-06.png` - final 1080x1350 carousel slides
+- `qa-contact-sheet.jpg` - visual QA sheet
+- `caption.md` - base caption
+- `manifest.json` - carousel manifest
+
+QA:
+
+- Rebuilt without the white-background mascot / T-pose style.
+- Slides render at 1080x1350.
+- Text is readable in the checked contact sheet.
 
 1. Meet WIZL.
    The weasel wizard of weed wisdom.

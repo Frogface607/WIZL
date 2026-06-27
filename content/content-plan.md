@@ -40,7 +40,7 @@ Assumptions:
 | Day | Platform | Format | Topic | Pillar | CTA | Status |
 |---|---|---|---|---|---|---|
 | Day 1 | IG Reels / TikTok / Shorts | Hero cut | "I built WIZL because Bangkok gave me freedom back" | Founder Story | Follow WIZL | script |
-| Day 2 | IG Carousel / X thread | 5 slides | "Meet WIZL: the weasel wizard of weed wisdom" | WIZL Adventures | Open The Book | outline |
+| Day 2 | IG Carousel / X thread | 6 slides | "Meet WIZL: the weasel wizard of weed wisdom" | WIZL Adventures | Open The Book | rendered |
 | Day 3 | IG Reel / TikTok | Generated adventure | "The Lost Page at the Night Market" | WIZL Adventures | Comment next city | rendered |
 | Day 4 | IG Carousel | Educational | "THC is not the whole story" | Strain & Terpene Education | Save this | outline |
 | Day 5 | IG Reel / TikTok | Product demo edit | "Scan a label. Save the strain. Build your book." | Product Hook | Try scan | outline |
@@ -193,6 +193,17 @@ Story stack:
 Primary platform: Instagram carousel. Secondary: X thread.
 
 Format: 6 slides, 4:5.
+
+Production status: rendered locally.
+
+Output:
+
+- `content/posts/2026-06-27-meet-wizl-carousel/slide-01.png`
+- `content/posts/2026-06-27-meet-wizl-carousel/slide-02.png`
+- `content/posts/2026-06-27-meet-wizl-carousel/slide-03.png`
+- `content/posts/2026-06-27-meet-wizl-carousel/slide-04.png`
+- `content/posts/2026-06-27-meet-wizl-carousel/slide-05.png`
+- `content/posts/2026-06-27-meet-wizl-carousel/slide-06.png`
 
 Goal: explain the IP and product in one saveable post.
 
