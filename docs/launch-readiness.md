@@ -30,6 +30,7 @@ Production smoke on `https://wizl.space/en`:
 - The inherited global canonical was removed so deep pages do not all canonicalize to `/en`.
 - Vercel Analytics is connected in production. Browser smoke confirmed the analytics script plus `POST /view` and `POST /event` returning 200.
 - Mobile bottom navigation spacing was tightened by removing the duplicated layout-level bottom padding; page-level safe space still keeps bottom CTAs above the nav.
+- Strain detail pages now generate strain-specific SEO metadata: title, description, canonical, OpenGraph, Twitter card, and keywords.
 
 ## User Audit
 
@@ -54,6 +55,7 @@ The app now has a clear promise: scan what you got, learn it, save it. The chara
 - The deprecated Next `middleware` convention has been migrated to `proxy`.
 - Local dev can fall back to 62 static strains if browser Supabase fetch fails; production currently shows the full 3,123-strain Book.
 - Mobile bottom navigation no longer adds a second layout-level bottom gutter on top of page safe space.
+- Top strain detail pages no longer inherit the generic WIZL social metadata.
 
 ### Latest Mobile Pass - 2026-06-27
 
@@ -68,6 +70,16 @@ Checked with a verified age-gate state:
 - Map: 1,594 shops load with filters and shop-owner CTA.
 - Club, Story, Shop: pages load and explain their role without Russian text.
 
+### Latest Strain SEO Pass - 2026-06-27
+
+Checked the first 20 Book strain pages locally against the production build:
+
+- All 20 returned HTTP 200.
+- All 20 had strain-specific titles ending in `| WIZL`.
+- All 20 had meta descriptions between 120 and 160 characters.
+- All 20 had canonicals pointing to their exact `/en/strains/[id]` URL.
+- OpenGraph titles matched the strain-specific page titles.
+
 ## Launch Blockers
 
 None for a founder-led soft launch.
@@ -75,7 +87,6 @@ None for a founder-led soft launch.
 Do not run a big paid campaign until:
 
 - AI scan is tested with 20-30 real labels/photos.
-- Top 20 strain detail pages are manually checked.
 - Founder story and first WIZL adventure assets are published and pinned.
 
 ## Soft Launch Definition
@@ -94,8 +105,7 @@ Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content
 ## Next Product Sprint
 
 1. Test AI scan with 20-30 real labels/photos and write down misses.
-2. Review top strain detail pages for missing or weak metadata.
-3. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
+2. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
 
 ## Analytics Events
 

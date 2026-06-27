@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { fetchStrainById } from "@/lib/strains-db";
@@ -65,6 +66,96 @@ export async function generateStaticParams() {
   );
 }
 
+type StrainPageParams = Promise<{ locale: string; id: string }>;
+
+function cleanMetaText(value: string) {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function truncateMeta(value: string, maxLength = 155) {
+  const cleaned = cleanMetaText(value);
+  if (cleaned.length <= maxLength) return cleaned;
+  const sliced = cleaned.slice(0, maxLength - 1);
+  const lastSpace = sliced.lastIndexOf(" ");
+  return `${sliced.slice(0, lastSpace > 80 ? lastSpace : sliced.length).trimEnd()}…`;
+}
+
+function buildStrainDescription(strain: Awaited<ReturnType<typeof fetchStrainById>>) {
+  if (!strain) return "Open The Book and explore cannabis strain notes with WIZL.";
+
+  const effects = strain.effects.slice(0, 3).join(", ");
+  const flavors = strain.flavors.slice(0, 3).join(", ");
+  const details = [
+    `${strain.name} is a ${strain.type} strain`,
+    strain.thc > 0 ? `with around ${strain.thc}% THC` : "",
+    effects ? `noted for ${effects}` : "",
+    flavors ? `and ${flavors} flavors` : "",
+  ].filter(Boolean).join(" ");
+
+  return truncateMeta(`${details}. ${strain.description || "Scan it, know it, and track it in your WIZL Book."}`);
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: StrainPageParams;
+}): Promise<Metadata> {
+  const { locale, id } = await params;
+  const strain = await fetchStrainById(id);
+
+  if (!strain) {
+    return {
+      title: "Strain Not Found — WIZL",
+      description: "This page is not in The Book yet. Explore WIZL and scan what you got.",
+    };
+  }
+
+  const canonicalPath = `/${locale}/strains/${encodeURIComponent(strain.id)}`;
+  const title = `${strain.name} Strain — Effects, Flavors & THC | WIZL`;
+  const description = buildStrainDescription(strain);
+  const keywords = [
+    strain.name,
+    `${strain.name} strain`,
+    `${strain.type} strain`,
+    "cannabis strain",
+    "weed strain",
+    "WIZL",
+    ...strain.effects.slice(0, 4),
+    ...strain.flavors.slice(0, 4),
+  ];
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalPath,
+      siteName: "WIZL",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${strain.name} strain in The WIZL Book`,
+        },
+      ],
+      locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og-image.png"],
+    },
+  };
+}
+
 const typeGradients: Record<string, string> = {
   sativa: "from-yellow-500/80 to-orange-500/80",
   indica: "from-violet-500/80 to-purple-600/80",
@@ -111,7 +202,7 @@ const TerpeneIcon = ({ terpene, className, style }: { terpene: string; className
 export default async function StrainPage({
   params,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  params: StrainPageParams;
 }) {
   const { locale, id } = await params;
   // Required for static export: use URL segment instead of headers() for locale.
