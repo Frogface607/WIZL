@@ -116,19 +116,34 @@ export async function fetchStrains(): Promise<Strain[]> {
 export async function fetchStrainById(id: string): Promise<Strain | null> {
   if (!supabase) return staticStrains.find((s) => s.id === id) || null;
   try {
-    const { data, error } = await supabase
-      .from("strains")
-      .select("*")
-      .eq("id", id)
-      .single();
+    const idVariants = Array.from(new Set([
+      id,
+      safeDecodeURIComponent(id),
+    ].filter(Boolean)));
 
-    if (error) throw error;
-    if (!data) return staticStrains.find((s) => s.id === id) || null;
+    for (const variant of idVariants) {
+      const { data, error } = await supabase
+        .from("strains")
+        .select("*")
+        .eq("id", variant)
+        .maybeSingle();
 
-    return mapSupabaseToStrain(data);
+      if (error) throw error;
+      if (data) return mapSupabaseToStrain(data);
+    }
+
+    return staticStrains.find((s) => idVariants.includes(s.id)) || null;
   } catch (e) {
     console.error("Failed to fetch strain by ID, using static fallback:", e);
     return staticStrains.find((s) => s.id === id) || null;
+  }
+}
+
+function safeDecodeURIComponent(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
   }
 }
 
