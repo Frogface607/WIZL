@@ -22,6 +22,9 @@ Production smoke on `https://wizl.space/en`:
 - AI scan returns real OpenAI results when the key is present.
 - Age gate appears first for new users.
 - Basic launch analytics events are wired in the client funnel.
+- Latest production deploy is Ready on Vercel.
+- Production Book shows 3,123 strains.
+- Production text scan for a Cherry King-style prompt returned a cherry strain result, not the old OG Kush fallback.
 
 ## User Audit
 
@@ -44,6 +47,21 @@ The app now has a clear promise: scan what you got, learn it, save it. The chara
 - Strain cards are dense on mobile. Good for power users, but first-time users may need clearer "tap to open" affordance later.
 - Build-time strain detail fallback noise has been cleaned up.
 - The deprecated Next `middleware` convention has been migrated to `proxy`.
+- Local dev can fall back to 62 static strains if browser Supabase fetch fails; production currently shows the full 3,123-strain Book.
+- On mobile, the fixed bottom navigation can visually compete with the lowest interactive controls during long full-page views. Not a blocker, but polish before paid traffic.
+
+### Latest Mobile Pass - 2026-06-27
+
+Checked with a verified age-gate state:
+
+- Home: clear promise, primary scan CTA, quick links, Ask WIZL module.
+- Scan: name search, photo path, description path, trust copy, free-scan card.
+- Scan result: Cherry prompt returns a cherry strain estimate and exposes save/check-in CTA.
+- Book: production shows 3,123 strains; local dev fallback shows 62 when Supabase fetch is unavailable.
+- Strain detail: OG Kush page loads with check-in/favorite/want-to-try actions.
+- Check-in: entry screen clearly offers AI scan and starting points.
+- Map: 1,594 shops load with filters and shop-owner CTA.
+- Club, Story, Shop: pages load and explain their role without Russian text.
 
 ## Launch Blockers
 
@@ -67,14 +85,16 @@ WIZL is soft-launch ready when:
 - The founder story explains why WIZL exists.
 - The first 7 days of content are ready to post.
 
-Status on 2026-06-26: mostly ready, content production is the next bottleneck.
+Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content publishing is now the main bottleneck.
 
 ## Next Product Sprint
 
 1. Connect a real analytics provider dashboard and verify events arrive.
-2. Polish post-check-in copy and share actions.
-3. Review top strain detail pages for missing or weak metadata.
-4. Add one social share image / OG image for launch links.
+2. Test AI scan with 20-30 real labels/photos and write down misses.
+3. Polish mobile bottom-nav spacing around forms and sticky CTAs.
+4. Review top strain detail pages for missing or weak metadata.
+5. Add one social share image / OG image for launch links.
+6. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
 
 ## Analytics Events
 
@@ -106,7 +126,9 @@ Privacy rule: do not send user photos, free-text strain descriptions, or full no
 1. Publish founder story reel from the Hero video.
 2. Publish "Meet WIZL" carousel.
 3. Review and publish the rendered "The Lost Page at the Night Market" adventure reel.
-4. Pin the founder story, product hook, and best WIZL lore post.
-5. Track comments manually for the first week and turn good questions into posts.
+4. Review and publish the rendered "THC Is Not The Whole Story" carousel.
+5. Review and publish the rendered Product Hook scan-label reel.
+6. Pin the founder story, product hook, and best WIZL lore post.
+7. Track comments manually for the first week and turn good questions into posts.
 
 Operational queue: `content/publish-queue.md`.
