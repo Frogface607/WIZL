@@ -27,6 +27,8 @@ Use this if Founder Story is still not cut.
 7. Pin Meet WIZL if Founder Story is still missing.
 8. Paste final post URLs into the queue table above.
 
+After posting, use `content/launch-reply-bank.md` for first comments, DMs, and shop-owner replies.
+
 Instagram asset order:
 
 1. `content/posts/2026-06-27-meet-wizl-carousel/slide-01.png`

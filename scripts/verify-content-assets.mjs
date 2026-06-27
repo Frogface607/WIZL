@@ -118,6 +118,18 @@ for (const asset of assets) {
       continue;
     }
 
+    if (file === "caption.md") {
+      const caption = readFileSync(path, "utf8");
+      const hasLink = caption.includes("wizl.space");
+      const hasAdultLine = caption.includes("Adults only where legal.");
+      const ok = hasLink && hasAdultLine;
+      failures += ok ? 0 : 1;
+      console.log(`  ${ok ? "OK" : "BAD"} ${file}`);
+      if (!hasLink) console.error(`    Missing wizl.space in ${path}`);
+      if (!hasAdultLine) console.error(`    Missing adult/legal line in ${path}`);
+      continue;
+    }
+
     const ext = extname(file).toLowerCase();
     if ([".png", ".jpg", ".jpeg"].includes(ext) && expectedWidth && expectedHeight) {
       const actual = imageSize(path);
