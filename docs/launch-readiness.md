@@ -29,6 +29,7 @@ Production smoke on `https://wizl.space/en`:
 - Production sitemap is live at `https://wizl.space/sitemap.xml` with 6,268 URLs, and `robots.txt` points to it.
 - The inherited global canonical was removed so deep pages do not all canonicalize to `/en`.
 - Vercel Analytics is connected in production. Browser smoke confirmed the analytics script plus `POST /view` and `POST /event` returning 200.
+- Mobile bottom navigation spacing was tightened by removing the duplicated layout-level bottom padding; page-level safe space still keeps bottom CTAs above the nav.
 
 ## User Audit
 
@@ -52,7 +53,7 @@ The app now has a clear promise: scan what you got, learn it, save it. The chara
 - Build-time strain detail fallback noise has been cleaned up.
 - The deprecated Next `middleware` convention has been migrated to `proxy`.
 - Local dev can fall back to 62 static strains if browser Supabase fetch fails; production currently shows the full 3,123-strain Book.
-- On mobile, the fixed bottom navigation can visually compete with the lowest interactive controls during long full-page views. Not a blocker, but polish before paid traffic.
+- Mobile bottom navigation no longer adds a second layout-level bottom gutter on top of page safe space.
 
 ### Latest Mobile Pass - 2026-06-27
 
@@ -93,9 +94,8 @@ Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content
 ## Next Product Sprint
 
 1. Test AI scan with 20-30 real labels/photos and write down misses.
-2. Polish mobile bottom-nav spacing around forms and sticky CTAs.
-3. Review top strain detail pages for missing or weak metadata.
-4. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
+2. Review top strain detail pages for missing or weak metadata.
+3. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
 
 ## Analytics Events
 
@@ -133,3 +133,5 @@ Privacy rule: do not send user photos, free-text strain descriptions, or full no
 7. Track comments manually for the first week and turn good questions into posts.
 
 Operational queue: `content/publish-queue.md`.
+
+Launch week calendar: `content/launch-week-calendar.md`.
