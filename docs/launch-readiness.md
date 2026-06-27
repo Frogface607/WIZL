@@ -33,6 +33,7 @@ Production smoke on `https://wizl.space/en`:
 - Strain detail pages now generate strain-specific SEO metadata: title, description, canonical, OpenGraph, Twitter card, and keywords.
 - Local Supabase env is verified: `.env.local` reaches the `strains` table and returns 3,123 rows, so local Book audits no longer silently depend on the 62-strain static fallback.
 - Launch content assets have a repeatable verifier and a publishing kit with exact files, captions, story prompts, and week-1 metrics.
+- Launch week now has ready publishable assets for Day 1 fallback through Day 7: four visual assets plus Founder Q&A and Week 1 recap text assets.
 - Check-in rating and success states were polished with stable icon controls, cleaner secondary labels, and scroll-to-top behavior after saving.
 - Production check-in smoke passed after the latest deploy: save flow shows `Logged!`, unlocks the badge, keeps the success state at scroll top, and reports no 4xx/5xx events.
 - Production scan no-sticky smoke passed: a Cherry prompt returned `Cherry OG`, then a second Gelato prompt returned `Gelato`; both were real AI results, not demo fallbacks.
@@ -117,7 +118,7 @@ WIZL is soft-launch ready when:
 - The founder story explains why WIZL exists.
 - The first 7 days of content are ready to post.
 
-Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content publishing is now the main bottleneck.
+Status on 2026-06-27: soft-launch ready for founder-led organic traffic; week-1 content is ready to post, and actual publishing is now the main bottleneck.
 
 ## Next Product Sprint
 

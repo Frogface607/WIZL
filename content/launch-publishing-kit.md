@@ -20,6 +20,8 @@ Current verified assets:
 | Night Market reel | `content/posts/2026-06-26-adventure-01-the-lost-page-at-the-night-market/edit.mp4` + `cover.png` | 1080x1920, 12s |
 | Product Hook reel | `content/posts/2026-06-27-product-hook-scan-label/edit.mp4` + `cover.png` | 1080x1920, 12s |
 | THC education carousel | `content/posts/2026-06-27-thc-not-whole-story-carousel/slide-01.png` through `slide-06.png` | 6 PNG slides, 1080x1350 |
+| Founder Q&A thread | `content/posts/2026-06-27-founder-qa-thread/caption.md` | Text thread + story prompts |
+| Week 1 recap template | `content/posts/2026-06-27-week-1-recap-template/caption.md` | Text recap + story prompts |
 
 ## Profile Setup Before First Post
 
@@ -256,6 +258,34 @@ Story stack:
 1. Frame 1: "The first page is missing."
 2. Frame 2: "WIZL found a trace at the night market."
 3. Frame 3 poll: "Where next? Bangkok rooftops / Secret garden"
+
+## Day 6: Founder Q&A Thread
+
+Asset folder:
+
+`content/posts/2026-06-27-founder-qa-thread/`
+
+Use after at least one post has comments, or whenever a real question appears.
+
+Open `caption.md` for:
+
+- X thread.
+- Instagram story prompts.
+- Follow-up reply.
+
+## Day 7: Week 1 Recap Template
+
+Asset folder:
+
+`content/posts/2026-06-27-week-1-recap-template/`
+
+Before posting, replace one placeholder with a real comment, question, or metric from week 1.
+
+Open `caption.md` for:
+
+- Instagram Feed/Reel text.
+- X recap post.
+- Story prompts.
 
 ## Founder Story Series
 

@@ -13,6 +13,8 @@ This is the operational queue for the first public WIZL content sprint.
 | 3 | Product Hook | 9:16 reel | ready to publish | Publish after Meet WIZL |  |
 | 4 | THC Is Not The Whole Story | 6-slide carousel | ready to publish | Publish as first save/share utility post |  |
 | 5 | The Lost Page at the Night Market | 9:16 reel | ready to publish | Publish as first lore episode |  |
+| 6 | Founder Q&A Thread | Text + story poll | ready to publish | Publish after first comments/questions |  |
+| 7 | Week 1 Recap Template | Text recap + story poll | ready template | Replace placeholder with one real signal before publishing |  |
 
 ## Day 1 Fallback Packet - Publish Now
 
@@ -395,6 +397,32 @@ Story stack:
 1. Frame 1: "THC is only one clue."
 2. Frame 2 quiz: "What do you check first? THC / aroma / genetics / price"
 3. Frame 3: "Scan it. Smell it. Take notes."
+
+## Founder Q&A Thread - Ready To Publish
+
+Asset folder:
+
+`content/posts/2026-06-27-founder-qa-thread/`
+
+Files:
+
+- `caption.md` - X thread, Instagram story prompts, and follow-up reply
+- `manifest.json` - text asset manifest
+
+Use after the first 1-2 posts or whenever a real question arrives.
+
+## Week 1 Recap Template - Ready Template
+
+Asset folder:
+
+`content/posts/2026-06-27-week-1-recap-template/`
+
+Files:
+
+- `caption.md` - Instagram/X recap template plus story prompts
+- `manifest.json` - text asset manifest
+
+Before posting, replace one placeholder learning with a real comment, question, or metric from week 1.
 
 ## Manual Metrics To Track
 

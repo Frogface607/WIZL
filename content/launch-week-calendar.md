@@ -36,8 +36,8 @@ Primary target window: evening Bangkok / afternoon Moscow.
 | Day 3 | IG Reels, TikTok, Shorts | Product Hook | 9:16 reel | Product utility | Ready | Scan a label with WIZL. |
 | Day 4 | IG Feed, Stories, X | THC Is Not The Whole Story | 6-slide carousel | Cannabis education | Ready | Save before your next shop visit. |
 | Day 5 | IG Reels, TikTok, Shorts | The Lost Page at the Night Market | 9:16 reel | WIZL world and lore | Ready | Where should WIZL go next? |
-| Day 6 | X, IG Stories | Founder thread / community Q&A | Text + story poll | Founder journey + community | Draft from queue | Ask Sergey/WIZL anything. |
-| Day 7 | IG Feed or Reel, X | Week 1 recap | Carousel or simple reel | Product utility + community | Needs creation | Try WIZL free. |
+| Day 6 | X, IG Stories | Founder Q&A Thread | Text + story poll | Founder journey + community | Ready | Ask Sergey/WIZL anything. |
+| Day 7 | IG Feed or Reel, X | Week 1 Recap Template | Text recap + story poll | Product utility + community | Ready template | Try WIZL free. |
 
 ## Pinning Order
 
@@ -77,5 +77,5 @@ Monday-style batch for one solo founder:
 Yes, cut the Founder Story with this strategy.
 ```
 
-- Week 1 recap needs a simple template after the first 3-5 posts have real comments or metrics.
+- Week 1 recap template is ready; replace the placeholder learning with one real comment, question, or metric before posting.
 - Berner collaboration dream should appear later as a founder-story follow-up, not in the first product hook.

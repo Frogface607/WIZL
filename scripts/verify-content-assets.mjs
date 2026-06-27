@@ -46,6 +46,16 @@ const assets = [
       ["manifest.json"],
     ],
   },
+  {
+    name: "Founder Q&A thread",
+    dir: "content/posts/2026-06-27-founder-qa-thread",
+    required: [["caption.md"], ["manifest.json"]],
+  },
+  {
+    name: "Week 1 recap template",
+    dir: "content/posts/2026-06-27-week-1-recap-template",
+    required: [["caption.md"], ["manifest.json"]],
+  },
 ];
 
 function imageSize(path) {

@@ -1,0 +1,10 @@
+{
+  "id": "2026-06-27-week-1-recap-template",
+  "title": "Week 1 Recap Template",
+  "format": "text-recap",
+  "platforms": ["instagram-feed", "instagram-stories", "x"],
+  "pillar": "product utility + community",
+  "status": "ready-template",
+  "files": ["caption.md"],
+  "cta": "Try WIZL free"
+}
