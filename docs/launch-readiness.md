@@ -31,6 +31,7 @@ Production smoke on `https://wizl.space/en`:
 - Vercel Analytics is connected in production. Browser smoke confirmed the analytics script plus `POST /view` and `POST /event` returning 200.
 - Mobile bottom navigation spacing was tightened by removing the duplicated layout-level bottom padding; page-level safe space still keeps bottom CTAs above the nav.
 - Strain detail pages now generate strain-specific SEO metadata: title, description, canonical, OpenGraph, Twitter card, and keywords.
+- Local Supabase env is verified: `.env.local` reaches the `strains` table and returns 3,123 rows, so local Book audits no longer silently depend on the 62-strain static fallback.
 
 ## User Audit
 
@@ -53,7 +54,7 @@ The app now has a clear promise: scan what you got, learn it, save it. The chara
 - Strain cards are dense on mobile. Good for power users, but first-time users may need clearer "tap to open" affordance later.
 - Build-time strain detail fallback noise has been cleaned up.
 - The deprecated Next `middleware` convention has been migrated to `proxy`.
-- Local dev can fall back to 62 static strains if browser Supabase fetch fails; production currently shows the full 3,123-strain Book.
+- Local dev now reaches Supabase for the full 3,123-strain Book; the 62-strain fallback remains only as an offline safety net.
 - Mobile bottom navigation no longer adds a second layout-level bottom gutter on top of page safe space.
 - Top strain detail pages no longer inherit the generic WIZL social metadata.
 
@@ -80,6 +81,15 @@ Checked the first 20 Book strain pages locally against the production build:
 - All 20 had canonicals pointing to their exact `/en/strains/[id]` URL.
 - OpenGraph titles matched the strain-specific page titles.
 
+### Latest Local Book Data Pass - 2026-06-27
+
+Checked local `.env.local` and browser dev mode:
+
+- `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are present.
+- Supabase REST count returned `0-0/3123`.
+- Local `/en/strains` loaded `3123 strains`.
+- No `Offline sample loaded` warning appeared.
+
 ## Launch Blockers
 
 None for a founder-led soft launch.
@@ -104,8 +114,7 @@ Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content
 
 ## Next Product Sprint
 
-1. Test AI scan with 20-30 real labels/photos and write down misses.
-2. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
+1. Test AI scan with 20-30 real labels/photos using `docs/ai-scan-qa-log.md` and write down misses.
 
 ## Analytics Events
 
@@ -145,3 +154,5 @@ Privacy rule: do not send user photos, free-text strain descriptions, or full no
 Operational queue: `content/publish-queue.md`.
 
 Launch week calendar: `content/launch-week-calendar.md`.
+
+AI scan QA log: `docs/ai-scan-qa-log.md`.

@@ -10,6 +10,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
+    "verify:book-data": "node scripts/verify-book-data.mjs",
     "factory:plan": "node content/factory/bin/wizl-factory.mjs plan",
     "factory:image": "node content/factory/bin/wizl-factory.mjs image",
     "factory:video": "node content/factory/bin/wizl-factory.mjs video",
