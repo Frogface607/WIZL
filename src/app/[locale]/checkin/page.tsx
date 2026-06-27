@@ -10,7 +10,7 @@ import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
-import { Search, Wand2 } from "lucide-react";
+import { Copy, MessageCircle, Search, Share2, User, Wand2 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 /** Build a temporary Strain object from a scan result stashed in sessionStorage */
@@ -139,6 +139,48 @@ export default function CheckinPage() {
     }
   };
 
+  const getShareText = () => {
+    const strainName = selectedStrain?.name || "a strain";
+    const stars = rating > 0 ? `${rating}/5` : "saved";
+    const shopText = selectedShop ? ` at ${selectedShop.name}` : "";
+    return `I checked in ${strainName}${shopText} on WIZL: ${stars}. Scan it. Know it. Track it.`;
+  };
+
+  const handleShare = async (channel: "native" | "copy" | "message") => {
+    if (typeof window === "undefined") return;
+
+    const text = getShareText();
+    const url = window.location.origin;
+    const shareData = {
+      title: "WIZL check-in",
+      text,
+      url,
+    };
+
+    trackEvent("checkin_share_clicked", {
+      channel,
+      strain_id: selectedStrain?.id,
+      rating,
+      has_shop: Boolean(selectedShop),
+    });
+
+    if (channel === "native" && navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {
+        // Fall back to copy below when sharing is cancelled or unavailable.
+      }
+    }
+
+    if (channel === "message") {
+      window.open(`sms:?&body=${encodeURIComponent(`${text} ${url}`)}`, "_self");
+      return;
+    }
+
+    await navigator.clipboard?.writeText(`${text} ${url}`);
+  };
+
   if (step === "done") {
     const successWisdom = getRandomWisdom("success", { locale });
     return (
@@ -196,15 +238,16 @@ export default function CheckinPage() {
             <p className="text-xs text-text-muted mb-2">{t("shareCheckin")}</p>
             <div className="flex gap-3">
               {[
-                { icon: "📱", label: "Share" },
-                { icon: "📋", label: "Copy" },
-                { icon: "💬", label: "Message" },
+                { icon: Share2, label: "Share", channel: "native" as const },
+                { icon: Copy, label: "Copy", channel: "copy" as const },
+                { icon: MessageCircle, label: "Message", channel: "message" as const },
               ].map((b) => (
                 <button
                   key={b.label}
+                  onClick={() => void handleShare(b.channel)}
                   className="flex-1 py-3 rounded-xl bg-bg-primary border border-border text-xs hover:bg-bg-card-hover transition-colors flex flex-col items-center gap-1"
                 >
-                  <span className="text-xl">{b.icon}</span>
+                  <b.icon className="h-5 w-5 text-accent-green" aria-hidden="true" />
                   <span className="text-text-muted">{b.label}</span>
                 </button>
               ))}
@@ -219,7 +262,10 @@ export default function CheckinPage() {
               {t("scanAnother")} 🔍
             </Link>
             <Link href="/profile" className="flex-1 px-6 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium text-center hover:bg-bg-card-hover transition-all">
-              👤 Profile
+              <span className="inline-flex items-center justify-center gap-2">
+                <User className="h-4 w-4" aria-hidden="true" />
+                Profile
+              </span>
             </Link>
           </div>
         </div>

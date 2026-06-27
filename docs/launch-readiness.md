@@ -94,6 +94,7 @@ Client events now emit through `trackEvent()` and are ready for Vercel Analytics
 - `scan_save_checkin_clicked`
 - `checkin_scan_cta_clicked`
 - `checkin_saved`
+- `checkin_share_clicked`
 - `club_free_claimed`
 - `club_support_clicked`
 - `club_checkout_success`
@@ -104,6 +105,6 @@ Privacy rule: do not send user photos, free-text strain descriptions, or full no
 
 1. Publish founder story reel from the Hero video.
 2. Publish "Meet WIZL" carousel.
-3. Generate "The Lost Page at the Night Market" adventure reel.
+3. Review and publish the rendered "The Lost Page at the Night Market" adventure reel.
 4. Pin the founder story, product hook, and best WIZL lore post.
 5. Track comments manually for the first week and turn good questions into posts.

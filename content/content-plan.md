@@ -39,7 +39,7 @@ Assumptions:
 |---|---|---|---|---|---|---|
 | Day 1 | IG Reels / TikTok / Shorts | Hero cut | "I built WIZL because Bangkok gave me freedom back" | Founder Story | Follow WIZL | script |
 | Day 2 | IG Carousel / X thread | 5 slides | "Meet WIZL: the weasel wizard of weed wisdom" | WIZL Adventures | Open The Book | outline |
-| Day 3 | IG Reel / TikTok | Generated adventure | "The Lost Page at the Night Market" | WIZL Adventures | Comment next city | queued |
+| Day 3 | IG Reel / TikTok | Generated adventure | "The Lost Page at the Night Market" | WIZL Adventures | Comment next city | rendered |
 | Day 4 | IG Carousel | Educational | "THC is not the whole story" | Strain & Terpene Education | Save this | outline |
 | Day 5 | IG Reel / TikTok | Product demo edit | "Scan a label. Save the strain. Build your book." | Product Hook | Try scan | outline |
 | Day 6 | IG Carousel / X | Strain card | "Blue Dream field note" | Strain Education | Search The Book | idea |
@@ -240,6 +240,15 @@ X thread:
 ### Asset 3 - The Lost Page at the Night Market
 
 Primary platform: Instagram Reels, TikTok, Shorts.
+
+Production status: rendered locally.
+
+Output:
+
+- Start frame: `content/posts/2026-06-26-adventure-01-the-lost-page-at-the-night-market/start.png`
+- Motion loop: `content/posts/2026-06-26-adventure-01-the-lost-page-at-the-night-market/loop.mp4`
+- Final edit: `content/posts/2026-06-26-adventure-01-the-lost-page-at-the-night-market/edit.mp4`
+- Cover: `content/posts/2026-06-26-adventure-01-the-lost-page-at-the-night-market/cover.png`
 
 Factory command:
 
