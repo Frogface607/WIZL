@@ -6,13 +6,79 @@ This is the operational queue for the first public WIZL content sprint.
 
 ## Status
 
-| Order | Asset | Format | Status | Owner action |
-|---:|---|---|---|---|
-| 1 | Founder Story | Hero video reel | script ready | Cut from existing Hero video |
-| 2 | Meet WIZL | 6-slide carousel | rendered | Review and publish |
-| 3 | The Lost Page at the Night Market | 9:16 reel | rendered | Review and publish |
-| 4 | THC Is Not The Whole Story | 6-slide carousel | rendered | Review and publish |
-| 5 | Product Hook | 9:16 reel | rendered | Review and publish |
+| Order | Asset | Format | Status | Owner action | Post URL |
+|---:|---|---|---|---|---|
+| 1 | Founder Story | Hero video reel | waiting for cut approval | Confirm exact approval phrase or skip to fallback |  |
+| 2 | Meet WIZL | 6-slide carousel | ready to publish | Publish as Day 1 fallback today |  |
+| 3 | Product Hook | 9:16 reel | ready to publish | Publish after Meet WIZL |  |
+| 4 | THC Is Not The Whole Story | 6-slide carousel | ready to publish | Publish as first save/share utility post |  |
+| 5 | The Lost Page at the Night Market | 9:16 reel | ready to publish | Publish as first lore episode |  |
+
+## Day 1 Fallback Packet - Publish Now
+
+Use this if Founder Story is still not cut.
+
+1. Run `npm run verify:content-assets`.
+2. Open the WIZL profile on Instagram, TikTok, YouTube, and X.
+3. Confirm profile link is `https://wizl.space`.
+4. Publish Meet WIZL to Instagram Feed first.
+5. Publish the X post within 15 minutes.
+6. Add the 3-frame story stack 30-60 minutes later.
+7. Pin Meet WIZL if Founder Story is still missing.
+8. Paste final post URLs into the queue table above.
+
+Instagram asset order:
+
+1. `content/posts/2026-06-27-meet-wizl-carousel/slide-01.png`
+2. `content/posts/2026-06-27-meet-wizl-carousel/slide-02.png`
+3. `content/posts/2026-06-27-meet-wizl-carousel/slide-03.png`
+4. `content/posts/2026-06-27-meet-wizl-carousel/slide-04.png`
+5. `content/posts/2026-06-27-meet-wizl-carousel/slide-05.png`
+6. `content/posts/2026-06-27-meet-wizl-carousel/slide-06.png`
+
+Instagram caption:
+
+```text
+Meet WIZL.
+
+A weasel wizard. An orange cat. A living Book with 3,000+ strain notes.
+
+Scan what you got.
+Save what you learn.
+Build your own taste trail.
+
+Free to use.
+
+wizl.space
+
+Adults only where legal.
+
+#wizl #cannabisculture #strainnotes #cannabiseducation #weedwisdom #indieapp
+```
+
+X post:
+
+```text
+Meet WIZL.
+
+A weasel wizard.
+An orange cat.
+A living Book with 3,000+ strain notes.
+
+Scan what you got.
+Save what you learn.
+Build your own taste trail.
+
+Free to use: wizl.space
+
+Adults only where legal.
+```
+
+Story stack:
+
+1. "Meet WIZL."
+2. "3,000+ strains in The Book."
+3. Poll: "What should WIZL find next? A strain / A shop"
 
 ## Ready To Publish - Night Market Reel
 
