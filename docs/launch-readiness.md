@@ -1,6 +1,6 @@
 # WIZL Launch Readiness
 
-Updated: 2026-06-26
+Updated: 2026-06-27
 
 ## Current Launch State
 
@@ -21,6 +21,7 @@ Production smoke on `https://wizl.space/en`:
 - No 400/500 page responses detected during the mobile pass.
 - AI scan returns real OpenAI results when the key is present.
 - Age gate appears first for new users.
+- Basic launch analytics events are wired in the client funnel.
 
 ## User Audit
 
@@ -52,7 +53,7 @@ Do not run a big paid campaign until:
 
 - AI scan is tested with 20-30 real labels/photos.
 - Top 20 strain detail pages are manually checked.
-- Analytics events are wired for scan started, scan completed, strain opened, check-in saved, Club click.
+- A real analytics provider dashboard is connected and verified.
 - Founder story and first WIZL adventure assets are published and pinned.
 
 ## Soft Launch Definition
@@ -70,12 +71,36 @@ Status on 2026-06-26: mostly ready, content production is the next bottleneck.
 
 ## Next Product Sprint
 
-1. Add basic analytics events.
+1. Connect a real analytics provider dashboard and verify events arrive.
 2. Polish post-check-in copy and share actions.
 3. Fix deprecated Next middleware warning.
 4. Investigate Supabase client fallback noise during fast page navigation.
 5. Review top strain detail pages for missing or weak metadata.
 6. Add one social share image / OG image for launch links.
+
+## Analytics Events
+
+Client events now emit through `trackEvent()` and are ready for Vercel Analytics, GA, or a `dataLayer` bridge:
+
+- `home_primary_cta_clicked`
+- `home_quick_link_clicked`
+- `strain_search_submitted`
+- `strain_filter_changed`
+- `strain_sort_changed`
+- `strain_opened`
+- `scan_photo_selected`
+- `scan_started`
+- `scan_completed`
+- `scan_failed`
+- `scan_limit_reached`
+- `scan_save_checkin_clicked`
+- `checkin_scan_cta_clicked`
+- `checkin_saved`
+- `club_free_claimed`
+- `club_support_clicked`
+- `club_checkout_success`
+
+Privacy rule: do not send user photos, free-text strain descriptions, or full notes. Only send safe funnel metadata such as source, result type, confidence, text length, rating, and whether a shop was selected.
 
 ## Next Marketing Sprint
 

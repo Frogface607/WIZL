@@ -11,6 +11,7 @@ import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 import { Search, Wand2 } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 /** Build a temporary Strain object from a scan result stashed in sessionStorage */
 function scanPendingToStrain(): Strain | null {
@@ -121,6 +122,15 @@ export default function CheckinPage() {
   const handleSubmit = () => {
     if (!selectedStrain || rating === 0) return;
     const result = addCheckin(selectedStrain, rating, selectedMood, review, selectedShop || undefined);
+    trackEvent("checkin_saved", {
+      strain_id: selectedStrain.id,
+      strain_type: selectedStrain.type,
+      rating,
+      mood_selected: Boolean(selectedMood),
+      note_length: review.length,
+      has_shop: Boolean(selectedShop),
+      source: fromScan ? "scan_result" : preselectedId ? "strain_detail" : "checkin_search",
+    });
     setNewAchievements(result.newAchievements);
     setStep("done");
     // Clear scan-pending so next checkin flow starts fresh
@@ -349,6 +359,7 @@ export default function CheckinPage() {
 
       <Link
         href="/scan"
+        onClick={() => trackEvent("checkin_scan_cta_clicked", { destination: "scan" })}
         className="glass-card rounded-2xl p-4 mb-4 flex items-center gap-3 border border-accent-green/20 hover:bg-bg-card-hover transition-all"
       >
         <span className="w-10 h-10 rounded-xl bg-accent-green text-black flex items-center justify-center font-black">

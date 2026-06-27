@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import AskWizl from "@/components/AskWizl";
 import { BookOpen, MapPin, ScanLine } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Home() {
   const t = useTranslations();
@@ -53,6 +54,7 @@ export default function Home() {
         <div className="px-4 pb-4 pt-4 relative z-10">
           <Link
             href="/scan"
+            onClick={() => trackEvent("home_primary_cta_clicked", { destination: "scan" })}
             className="inline-flex items-center gap-2.5 px-9 py-3 rounded-2xl bg-accent-neon text-black font-bold text-base hover:brightness-110 transition-all"
             style={{ boxShadow: "0 0 24px rgba(153,247,136,0.3)" }}
           >
@@ -71,6 +73,7 @@ export default function Home() {
           <Link
             key={item.href}
             href={item.href}
+            onClick={() => trackEvent("home_quick_link_clicked", { destination: item.label.toLowerCase() })}
             className="glass-card rounded-2xl p-3 text-left hover:bg-bg-card-hover transition-all"
           >
             <item.icon className="w-4 h-4 text-accent-green mb-2" />

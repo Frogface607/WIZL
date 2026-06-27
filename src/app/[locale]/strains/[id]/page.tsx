@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { fetchStrainById } from "@/lib/strains-db";
 import { shops } from "@/data/shops";
 import StrainActions from "@/components/StrainActions";
+import StrainViewTracker from "@/components/StrainViewTracker";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -131,6 +132,8 @@ export default async function StrainPage({
 
   return (
     <div className="max-w-lg mx-auto px-4 pb-24">
+      <StrainViewTracker strainId={strain.id} strainType={strain.type} />
+
       {/* Back nav */}
       <Link
         href="/strains"

@@ -8,6 +8,7 @@ import { strains as staticStrains } from "@/data/strains";
 import StrainCard from "@/components/StrainCard";
 import { Strain, StrainType } from "@/types";
 import { BookOpen } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 type FilterType = "all" | StrainType;
 
@@ -81,6 +82,15 @@ export default function StrainsPage() {
           placeholder={t("search")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && search.trim()) {
+              trackEvent("strain_search_submitted", {
+                surface: "book",
+                query_length: search.trim().length,
+                result_count: filtered.length,
+              });
+            }
+          }}
           className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 pl-10 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors"
         />
         <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -93,7 +103,10 @@ export default function StrainsPage() {
         {filters.map((f) => (
           <button
             key={f.value}
-            onClick={() => setFilter(f.value)}
+            onClick={() => {
+              setFilter(f.value);
+              trackEvent("strain_filter_changed", { filter: f.value });
+            }}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
               filter === f.value
                 ? `${f.className} text-white`
@@ -109,7 +122,10 @@ export default function StrainsPage() {
         {sortOptions.map((s) => (
           <button
             key={s.value}
-            onClick={() => setSort(s.value)}
+            onClick={() => {
+              setSort(s.value);
+              trackEvent("strain_sort_changed", { sort: s.value });
+            }}
             className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
               sort === s.value
                 ? "bg-accent-purple/20 text-accent-purple border border-accent-purple/30"

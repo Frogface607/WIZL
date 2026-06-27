@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { getUserData, saveUserData } from "@/lib/store";
+import { trackEvent } from "@/lib/analytics";
 
 export default function ProPage() {
   const t = useTranslations("pro");
@@ -19,6 +20,7 @@ export default function ProPage() {
         const data = getUserData();
         data.isPro = true;
         saveUserData(data);
+        trackEvent("club_checkout_success", { source: "gumroad" });
         setSubscribed(true);
         return;
       }
@@ -28,6 +30,7 @@ export default function ProPage() {
 
   const handleSubscribe = () => {
     setLoading(true);
+    trackEvent("club_support_clicked", { price: "4.20", destination: "gumroad" });
     // Redirect to Gumroad checkout
     window.location.href = "https://wizlspace.gumroad.com/l/wizlpro";
   };
@@ -79,6 +82,7 @@ export default function ProPage() {
     const userData = getUserData();
     userData.isPro = true;
     saveUserData(userData);
+    trackEvent("club_free_claimed", { cohort: "first_420" });
     setSubscribed(true);
   };
 

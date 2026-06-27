@@ -8,6 +8,7 @@ import { fetchStrains } from "@/lib/strains-db";
 import { Strain } from "@/types";
 import { Search, Camera, Zap, Droplets, Link2, ScanLine, ShieldCheck } from "lucide-react";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
+import { trackEvent } from "@/lib/analytics";
 
 interface ScanResult {
   name: string;
@@ -59,14 +60,21 @@ export default function ScanPage() {
     fetchStrains().then(setStrains);
   }, []);
 
-  const handleScan = async (image?: string, text?: string) => {
+  const handleScan = async (image?: string, text?: string, source: "photo" | "description" | "name_search_api" | "similar_strain" = image ? "photo" : "description") => {
     // Check scan limit
     const { allowed } = incrementScans();
     if (!allowed) {
+      trackEvent("scan_limit_reached", { source, is_pro: isPro });
       setError("Daily scan limit reached. Upgrade to PRO for unlimited scans.");
       return;
     }
 
+    trackEvent("scan_started", {
+      source,
+      locale,
+      has_image: Boolean(image),
+      text_length: text?.length ?? 0,
+    });
     setMode("loading");
     setError(null);
 
@@ -84,15 +92,23 @@ export default function ScanPage() {
       const data = await res.json();
 
       if (data.error) {
+        trackEvent("scan_failed", { source, reason: "api_error" });
         setError(data.error);
         setMode("idle");
         return;
       }
 
+      trackEvent("scan_completed", {
+        source,
+        confidence: data.confidence,
+        result_type: data.type,
+        demo: Boolean(data._demo),
+      });
       setResult(data);
       setMode("result");
       setScansLeft(getScansRemaining(getUserData()));
     } catch {
+      trackEvent("scan_failed", { source, reason: "connection_error" });
       setError("Connection error. Please try again.");
       setMode("idle");
     }
@@ -102,11 +118,21 @@ export default function ScanPage() {
     if (!searchQuery.trim()) return;
 
     const query = searchQuery.trim().toLowerCase();
+    trackEvent("strain_search_submitted", {
+      surface: "scan",
+      query_length: query.length,
+    });
     const found = strains.find(
       (s) => s.name.toLowerCase() === query || s.id === query.replace(/\s+/g, "-")
     );
 
     if (found) {
+      trackEvent("scan_completed", {
+        source: "name_search_local",
+        confidence: "high",
+        result_type: found.type,
+        demo: false,
+      });
       // Found locally -- show as result directly
       setResult({
         name: found.name,
@@ -123,7 +149,7 @@ export default function ScanPage() {
       setMode("result");
     } else {
       // Not found locally -- call API
-      handleScan(undefined, searchQuery.trim());
+      handleScan(undefined, searchQuery.trim(), "name_search_api");
     }
   };
 
@@ -135,14 +161,18 @@ export default function ScanPage() {
     reader.onloadend = () => {
       const base64 = reader.result as string;
       setPreview(base64);
-      handleScan(base64);
+      trackEvent("scan_photo_selected", {
+        file_type: file.type || "unknown",
+        file_size_kb: Math.round(file.size / 1024),
+      });
+      handleScan(base64, undefined, "photo");
     };
     reader.readAsDataURL(file);
   };
 
   const handleTextScan = () => {
     if (!description.trim()) return;
-    handleScan(undefined, description.trim());
+    handleScan(undefined, description.trim(), "description");
   };
 
   const reset = () => {
@@ -160,6 +190,12 @@ export default function ScanPage() {
     const matched = strains.find(
       (s) => s.name.toLowerCase() === result.name.toLowerCase()
     );
+    trackEvent("scan_save_checkin_clicked", {
+      matched: Boolean(matched),
+      confidence: result.confidence,
+      result_type: result.type,
+      demo: Boolean(result._demo),
+    });
 
     if (matched) {
       router.push(`/checkin?strain=${matched.id}`);
@@ -357,7 +393,7 @@ export default function ScanPage() {
                         });
                       } else {
                         setSearchQuery(strain);
-                        handleScan(undefined, strain);
+                        handleScan(undefined, strain, "similar_strain");
                       }
                     }}
                     className="px-3 py-1.5 rounded-full bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/20 hover:bg-accent-green/20 transition-colors cursor-pointer"
