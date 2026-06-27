@@ -12,7 +12,7 @@ This is the operational queue for the first public WIZL content sprint.
 | 2 | Meet WIZL | 6-slide carousel | rendered | Review and publish |
 | 3 | The Lost Page at the Night Market | 9:16 reel | rendered | Review and publish |
 | 4 | THC Is Not The Whole Story | 6-slide carousel | rendered | Review and publish |
-| 5 | Product Hook | 9:16 reel | prompt ready | Generate start frame |
+| 5 | Product Hook | 9:16 reel | rendered | Review and publish |
 
 ## Ready To Publish - Night Market Reel
 
@@ -214,8 +214,61 @@ wizl.space
 1. Founder Story - pin after posting.
 2. Meet WIZL carousel - pin after posting.
 3. Night Market reel - first lore episode.
-4. Product Hook - pin once rendered.
+4. Product Hook - pin after posting.
 5. THC education carousel - save/share utility post.
+
+## Product Hook - Ready To Publish
+
+Asset folder:
+
+`content/posts/2026-06-27-product-hook-scan-label/`
+
+Files:
+
+- `edit.mp4` - final 1080x1920 static reel, 12.00s
+- `cover.png` - posting cover
+- `start.png` - source still
+- `caption.md` - base caption
+- `manifest.json` - asset manifest
+
+QA:
+
+- WIZL, The Book, the orange cat, a cannabis package label, and scan frame are visible.
+- Final edit renders at 1080x1920 with 9:16 display aspect ratio and audio track.
+- Static-video choice keeps the generated text and product hook readable instead of risking motion warping.
+
+Instagram caption:
+
+```text
+When the label is confusing, ask the wizard.
+
+WIZL gives an educational strain estimate, then helps you save the note in your own Book.
+
+Try one scan: wizl.space
+```
+
+TikTok caption:
+
+```text
+Not sure what you got?
+
+Scan the label with WIZL.
+Save it in The Book.
+```
+
+YouTube Shorts title:
+
+```text
+Scan a Label With WIZL
+```
+
+YouTube Shorts description:
+
+```text
+Scan what you got, learn the vibe, and save your notes in The Book.
+
+wizl.space
+```
 
 ## THC Is Not The Whole Story - Ready To Publish
 

@@ -43,7 +43,7 @@ Assumptions:
 | Day 2 | IG Carousel / X thread | 6 slides | "Meet WIZL: the weasel wizard of weed wisdom" | WIZL Adventures | Open The Book | rendered |
 | Day 3 | IG Reel / TikTok | Generated adventure | "The Lost Page at the Night Market" | WIZL Adventures | Comment next city | rendered |
 | Day 4 | IG Carousel | Educational | "THC is not the whole story" | Strain & Terpene Education | Save this | rendered |
-| Day 5 | IG Reel / TikTok | Product demo edit | "Scan a label. Save the strain. Build your book." | Product Hook | Try scan | outline |
+| Day 5 | IG Reel / TikTok | Product demo edit | "Scan a label. Save the strain. Build your book." | Product Hook | Try scan | rendered |
 | Day 6 | IG Carousel / X | Strain card | "Blue Dream field note" | Strain Education | Search The Book | idea |
 | Day 7 | Stories + Carousel | Community | "Where should WIZL travel next?" | Community | Vote / follow | idea |
 
@@ -356,6 +356,18 @@ Save this before your next shop visit.
 Primary platform: Reels, TikTok, Shorts.
 
 Goal: convert attention into first scan.
+
+Production status: rendered locally.
+
+Asset folder:
+
+`content/posts/2026-06-27-product-hook-scan-label/`
+
+Outputs:
+
+- `edit.mp4` - final 1080x1920 static reel, 12.00s
+- `cover.png` - posting cover
+- `start.png` - source still
 
 Beat list:
 
