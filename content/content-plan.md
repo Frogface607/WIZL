@@ -6,6 +6,8 @@ Launch sprint update: 2026-06-26
 
 Brand source of truth: `docs/wizl-brand-kit.md`
 
+Operational publish queue: `content/publish-queue.md`
+
 ## Production Reality
 
 - Real footage available: one existing Hero video.

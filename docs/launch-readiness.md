@@ -108,3 +108,5 @@ Privacy rule: do not send user photos, free-text strain descriptions, or full no
 3. Review and publish the rendered "The Lost Page at the Night Market" adventure reel.
 4. Pin the founder story, product hook, and best WIZL lore post.
 5. Track comments manually for the first week and turn good questions into posts.
+
+Operational queue: `content/publish-queue.md`.
