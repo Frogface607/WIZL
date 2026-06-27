@@ -1,14 +1,14 @@
 "use client";
 
+import { track as trackVercelEvent } from "@vercel/analytics";
+
 type AnalyticsValue = string | number | boolean | null | undefined;
 export type AnalyticsProperties = Record<string, AnalyticsValue>;
 
-type VercelAnalytics = (event: "event", name: string, properties?: AnalyticsProperties) => void;
 type Gtag = (command: "event", name: string, properties?: AnalyticsProperties) => void;
 
 declare global {
   interface Window {
-    va?: VercelAnalytics;
     gtag?: Gtag;
     dataLayer?: unknown[];
   }
@@ -22,7 +22,7 @@ export function trackEvent(name: string, properties: AnalyticsProperties = {}) {
     path: window.location.pathname,
   };
 
-  window.va?.("event", name, payload);
+  trackVercelEvent(name, payload);
   window.gtag?.("event", name, payload);
   window.dataLayer?.push({ event: name, ...payload });
 

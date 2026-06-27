@@ -1,10 +1,15 @@
 import { afterEach, expect, test, vi } from "vitest";
 import { trackEvent } from "@/lib/analytics";
+import { track } from "@vercel/analytics";
+
+vi.mock("@vercel/analytics", () => ({
+  track: vi.fn(),
+}));
 
 afterEach(() => {
-  delete window.va;
   delete window.gtag;
   delete window.dataLayer;
+  vi.clearAllMocks();
   vi.restoreAllMocks();
 });
 
@@ -15,16 +20,14 @@ test("trackEvent is safe without analytics providers", () => {
 });
 
 test("trackEvent forwards safe payloads to configured providers", () => {
-  const va = vi.fn();
   const gtag = vi.fn();
-  window.va = va;
   window.gtag = gtag;
   window.dataLayer = [];
   vi.spyOn(console, "debug").mockImplementation(() => {});
 
   trackEvent("checkin_saved", { strain_id: "blue-dream", rating: 5 });
 
-  expect(va).toHaveBeenCalledWith("event", "checkin_saved", expect.objectContaining({
+  expect(track).toHaveBeenCalledWith("checkin_saved", expect.objectContaining({
     strain_id: "blue-dream",
     rating: 5,
     path: "/",
