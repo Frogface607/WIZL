@@ -28,6 +28,7 @@ Production smoke on `https://wizl.space/en`:
 - Production social preview is live: `og:image` and `twitter:image` point to `https://wizl.space/og-image.png`.
 - Production sitemap is live at `https://wizl.space/sitemap.xml` with 6,268 URLs, and `robots.txt` points to it.
 - The inherited global canonical was removed so deep pages do not all canonicalize to `/en`.
+- Vercel Analytics is connected in production. Browser smoke confirmed the analytics script plus `POST /view` and `POST /event` returning 200.
 
 ## User Audit
 
@@ -74,7 +75,6 @@ Do not run a big paid campaign until:
 
 - AI scan is tested with 20-30 real labels/photos.
 - Top 20 strain detail pages are manually checked.
-- A real analytics provider dashboard is connected and verified.
 - Founder story and first WIZL adventure assets are published and pinned.
 
 ## Soft Launch Definition
@@ -92,15 +92,14 @@ Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content
 
 ## Next Product Sprint
 
-1. Connect a real analytics provider dashboard and verify events arrive.
-2. Test AI scan with 20-30 real labels/photos and write down misses.
-3. Polish mobile bottom-nav spacing around forms and sticky CTAs.
-4. Review top strain detail pages for missing or weak metadata.
-5. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
+1. Test AI scan with 20-30 real labels/photos and write down misses.
+2. Polish mobile bottom-nav spacing around forms and sticky CTAs.
+3. Review top strain detail pages for missing or weak metadata.
+4. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
 
 ## Analytics Events
 
-Client events now emit through `trackEvent()` and are ready for Vercel Analytics, GA, or a `dataLayer` bridge:
+Client events now emit through `trackEvent()` to the official Vercel Analytics collector, with GA and `dataLayer` bridges still available:
 
 - `home_primary_cta_clicked`
 - `home_quick_link_clicked`
