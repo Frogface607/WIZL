@@ -102,6 +102,24 @@ Hashtags:
 
 Format: 45-60s Reel/TikTok/Shorts from existing Hero video.
 
+Source inventory:
+
+- `public/HERO.MOV` - vertical 720x1280, 30fps, 47.40s, h264 + AAC stereo.
+
+Proposed cut strategy:
+
+1. Keep `HERO.MOV` as the visual bed and avoid cutting inside motion unless the source has obvious dead air.
+2. Use Sergey's voiceover as the primary story; subtitles stay natural sentence case, 4-7 words per line.
+3. Add 5 short overlay beats, not constant text: "Bangkok", "I built WIZL", "Not a marketplace", "3,000+ strains", "Free to use".
+4. End on a clean CTA card: "Follow WIZL. Start with one scan. wizl.space".
+5. Keep it founder-led and honest, not overproduced. Warm grade, no hard sales energy.
+
+Needs approval before cutting:
+
+```text
+Yes, cut the Founder Story with this strategy.
+```
+
 Voiceover:
 
 ```text
