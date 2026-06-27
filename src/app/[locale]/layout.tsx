@@ -24,13 +24,6 @@ export const metadata: Metadata = {
     "Discover what you got. AI-powered cannabis strain scanner, check-ins, reviews, and the chillest strain guide on the planet. With love.",
   keywords: ["cannabis", "strains", "scan", "check-in", "reviews", "AI", "WIZL"],
   manifest: "/manifest.json",
-  alternates: {
-    canonical: "/en",
-    languages: {
-      en: "/en",
-      th: "/th",
-    },
-  },
   openGraph: {
     title: "WIZL — Scan it. Know it. Track it.",
     description:
