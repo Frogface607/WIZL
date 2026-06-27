@@ -18,11 +18,43 @@ import Providers from "@/components/Providers";
 import SmokeLayer from "@/components/SmokeLayer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://wizl.space"),
   title: "WIZL — Scan it. Know it. Track it.",
   description:
     "Discover what you got. AI-powered cannabis strain scanner, check-ins, reviews, and the chillest strain guide on the planet. With love.",
   keywords: ["cannabis", "strains", "scan", "check-in", "reviews", "AI", "WIZL"],
   manifest: "/manifest.json",
+  alternates: {
+    canonical: "/en",
+    languages: {
+      en: "/en",
+      th: "/th",
+    },
+  },
+  openGraph: {
+    title: "WIZL — Scan it. Know it. Track it.",
+    description:
+      "AI strain scanner, personal Book, and 3,000+ cannabis strain notes. Free to use.",
+    url: "https://wizl.space/en",
+    siteName: "WIZL",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "WIZL, the cannabis strain scanner and personal strain Book",
+      },
+    ],
+    locale: "en",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WIZL — Scan it. Know it. Track it.",
+    description:
+      "AI strain scanner, personal Book, and 3,000+ cannabis strain notes. Free to use.",
+    images: ["/og-image.png"],
+  },
   icons: [
     { rel: "icon", url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     { rel: "icon", url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
