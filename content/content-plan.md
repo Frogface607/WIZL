@@ -42,7 +42,7 @@ Assumptions:
 | Day 1 | IG Reels / TikTok / Shorts | Hero cut | "I built WIZL because Bangkok gave me freedom back" | Founder Story | Follow WIZL | script |
 | Day 2 | IG Carousel / X thread | 6 slides | "Meet WIZL: the weasel wizard of weed wisdom" | WIZL Adventures | Open The Book | rendered |
 | Day 3 | IG Reel / TikTok | Generated adventure | "The Lost Page at the Night Market" | WIZL Adventures | Comment next city | rendered |
-| Day 4 | IG Carousel | Educational | "THC is not the whole story" | Strain & Terpene Education | Save this | outline |
+| Day 4 | IG Carousel | Educational | "THC is not the whole story" | Strain & Terpene Education | Save this | rendered |
 | Day 5 | IG Reel / TikTok | Product demo edit | "Scan a label. Save the strain. Build your book." | Product Hook | Try scan | outline |
 | Day 6 | IG Carousel / X | Strain card | "Blue Dream field note" | Strain Education | Search The Book | idea |
 | Day 7 | Stories + Carousel | Community | "Where should WIZL travel next?" | Community | Vote / follow | idea |
@@ -318,6 +318,17 @@ Where should WIZL go next?
 Primary platform: Instagram carousel.
 
 Goal: saveable education that makes WIZL useful, not just cute.
+
+Production status: rendered locally.
+
+Output:
+
+- `content/posts/2026-06-27-thc-not-whole-story-carousel/slide-01.png`
+- `content/posts/2026-06-27-thc-not-whole-story-carousel/slide-02.png`
+- `content/posts/2026-06-27-thc-not-whole-story-carousel/slide-03.png`
+- `content/posts/2026-06-27-thc-not-whole-story-carousel/slide-04.png`
+- `content/posts/2026-06-27-thc-not-whole-story-carousel/slide-05.png`
+- `content/posts/2026-06-27-thc-not-whole-story-carousel/slide-06.png`
 
 Slides:
 

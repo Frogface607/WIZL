@@ -11,7 +11,7 @@ This is the operational queue for the first public WIZL content sprint.
 | 1 | Founder Story | Hero video reel | script ready | Cut from existing Hero video |
 | 2 | Meet WIZL | 6-slide carousel | rendered | Review and publish |
 | 3 | The Lost Page at the Night Market | 9:16 reel | rendered | Review and publish |
-| 4 | THC Is Not The Whole Story | 6-slide carousel | copy ready | Generate / design slides |
+| 4 | THC Is Not The Whole Story | 6-slide carousel | rendered | Review and publish |
 | 5 | Product Hook | 9:16 reel | prompt ready | Generate start frame |
 
 ## Ready To Publish - Night Market Reel
@@ -216,6 +216,45 @@ wizl.space
 3. Night Market reel - first lore episode.
 4. Product Hook - pin once rendered.
 5. THC education carousel - save/share utility post.
+
+## THC Is Not The Whole Story - Ready To Publish
+
+Asset folder:
+
+`content/posts/2026-06-27-thc-not-whole-story-carousel/`
+
+Files:
+
+- `slide-01.png` through `slide-06.png` - final 1080x1350 carousel slides
+- `qa-contact-sheet.jpg` - visual QA sheet
+- `caption.md` - base caption
+- `manifest.json` - carousel manifest
+
+QA:
+
+- Slides render at 1080x1350.
+- Text is readable in the checked contact sheet.
+- Copy avoids medical promises and frames THC, aroma, terpenes, labels, and personal notes as educational clues.
+
+Instagram caption:
+
+```text
+High THC does not automatically mean better.
+
+Aroma, terpenes, freshness, dose, and your own body all matter.
+
+The Book is a guide. Your notes make it personal.
+
+Save this before your next shop visit.
+
+wizl.space
+```
+
+Story stack:
+
+1. Frame 1: "THC is only one clue."
+2. Frame 2 quiz: "What do you check first? THC / aroma / genetics / price"
+3. Frame 3: "Scan it. Smell it. Take notes."
 
 ## Manual Metrics To Track
 
