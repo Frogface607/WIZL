@@ -25,6 +25,9 @@ Production smoke on `https://wizl.space/en`:
 - Latest production deploy is Ready on Vercel.
 - Production Book shows 3,123 strains.
 - Production text scan for a Cherry King-style prompt returned a cherry strain result, not the old OG Kush fallback.
+- Production social preview is live: `og:image` and `twitter:image` point to `https://wizl.space/og-image.png`.
+- Production sitemap is live at `https://wizl.space/sitemap.xml` with 6,268 URLs, and `robots.txt` points to it.
+- The inherited global canonical was removed so deep pages do not all canonicalize to `/en`.
 
 ## User Audit
 
@@ -93,8 +96,7 @@ Status on 2026-06-27: soft-launch ready for founder-led organic traffic; content
 2. Test AI scan with 20-30 real labels/photos and write down misses.
 3. Polish mobile bottom-nav spacing around forms and sticky CTAs.
 4. Review top strain detail pages for missing or weak metadata.
-5. Add one social share image / OG image for launch links.
-6. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
+5. Verify local dev Supabase env so the Book does not silently fall back to 62 strains during audits.
 
 ## Analytics Events
 
