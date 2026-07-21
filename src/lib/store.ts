@@ -1,38 +1,5 @@
 import { Strain } from "@/types";
 
-// ── Auth-aware user ID ──
-let _cachedUserId: string | null = null;
-
-/** Returns the Supabase auth user ID, or a localStorage fallback. */
-export function getUserId(): string {
-  if (_cachedUserId) return _cachedUserId;
-
-  // Try localStorage cache first (sync, no await)
-  if (typeof window !== "undefined") {
-    const cached = localStorage.getItem("wizl-user-id");
-    if (cached) {
-      _cachedUserId = cached;
-      return cached;
-    }
-  }
-
-  // Generate a fallback (will be replaced once auth initialises)
-  const fallback = `anon-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  if (typeof window !== "undefined") {
-    localStorage.setItem("wizl-user-id", fallback);
-  }
-  _cachedUserId = fallback;
-  return fallback;
-}
-
-/** Called by AuthProvider once auth session is ready. */
-export function setAuthUserId(userId: string): void {
-  _cachedUserId = userId;
-  if (typeof window !== "undefined") {
-    localStorage.setItem("wizl-user-id", userId);
-  }
-}
-
 // ── Types ──
 export interface UserCheckin {
   id: string;
@@ -54,7 +21,7 @@ export interface UserData {
   wishlist: string[]; // strain IDs — "want to try"
   scansToday: number;
   scansDate: string; // YYYY-MM-DD
-  isPro: boolean;
+  isPro: boolean; // Legacy migration field; no paid access is active.
   joinedAt: string;
   totalScans: number;
 }
@@ -215,11 +182,11 @@ export const achievements: Achievement[] = [
     category: "special",
   },
   {
-    id: "wizl-og",
-    name: "WIZL OG",
-    icon: "👑",
-    description: "Joined the Club — you're an original",
-    condition: (d) => d.isPro,
+    id: "field-scholar",
+    name: "Field Scholar",
+    icon: "📓",
+    description: "Logged 20 field notes",
+    condition: (d) => d.checkins.length >= 20,
     category: "special",
   },
 ];
@@ -312,7 +279,7 @@ export function incrementScans(): { allowed: boolean; data: UserData } {
     data.scansDate = today;
   }
 
-  const limit = data.isPro ? Infinity : 5;
+  const limit = 5;
   if (data.scansToday >= limit) {
     return { allowed: false, data };
   }
@@ -390,7 +357,6 @@ export function getTasteProfile(data: UserData, allStrains: Strain[]): TasteProf
 }
 
 export function getScansRemaining(data: UserData): number {
-  if (data.isPro) return Infinity;
   const today = new Date().toISOString().split("T")[0];
   if (data.scansDate !== today) return 5;
   return Math.max(0, 5 - data.scansToday);

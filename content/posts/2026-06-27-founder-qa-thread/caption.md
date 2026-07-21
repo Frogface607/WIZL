@@ -2,21 +2,15 @@
 
 1/ Ask me anything about WIZL.
 
-I built it after a strange, beautiful season in Bangkok, and now I am opening the doors.
+I built the first version after a strange, beautiful spring in Bangkok. I did not give it a proper launch. Now I am starting again in public.
 
-2/ WIZL is a free cannabis strain companion:
-scan what you got, learn the vibe, save notes, and build your own taste trail.
+2/ WIZL is a free cannabis field guide: more than 3,000 references, cautious label reads, and private field notes on your device.
 
-3/ It is not a marketplace.
-It is not medical advice.
-It is a living Book for cannabis culture.
+3/ It is not a marketplace, seller directory, lab test, or medical tool.
 
-4/ The Book has 3,000+ strain notes.
-The scan is an educational estimate.
-Your own notes make it personal.
+4/ The question I care about is simple: what do you wish you had remembered about the last product you tried?
 
-5/ Ask me anything:
-the app, the wizard, the cat, Bangkok, The Book, the scan, or what WIZL should do next.
+5/ Ask me about the app, the wizard, the cat, the Book, Bangkok, privacy, or what WIZL should build next.
 
 wizl.space
 
@@ -24,10 +18,10 @@ Adults only where legal.
 
 # Instagram Stories
 
-1. Ask Sergey/WIZL anything.
-2. Question sticker: What should WIZL explain next?
-3. Poll: More strain wisdom / More adventure lore
+1. Ask Sergey or WIZL anything.
+2. Question sticker: What do you wish you had remembered?
+3. Poll: More field-guide wisdom / More adventure lore
 
 # Follow-up Reply
 
-Good question. I am saving this for the next WIZL post.
+Good question. I am saving the exact wording for the next WIZL post.

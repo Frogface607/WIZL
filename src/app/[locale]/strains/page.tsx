@@ -158,7 +158,7 @@ export default function StrainsPage() {
           <div className="flex items-center justify-center gap-2 py-2">
             <div className="w-6 h-6 animate-float">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/wizl-book.png" alt="" className="w-full h-full object-contain" />
+              <img src="/wizl-book.webp" alt="" className="w-full h-full object-contain" />
             </div>
             <p className="text-text-muted text-xs italic">{loadingWisdom}</p>
           </div>
@@ -186,7 +186,7 @@ export default function StrainsPage() {
         <div className="text-center py-12">
           <div className="w-16 h-16 mx-auto mb-3 animate-float">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/wizl-book.png" alt="WIZL" className="w-full h-full object-contain" />
+            <img src="/wizl-book.webp" alt="WIZL" className="w-full h-full object-contain" />
           </div>
           <p className="text-text-secondary text-sm font-medium italic">{emptyWisdom}</p>
         </div>

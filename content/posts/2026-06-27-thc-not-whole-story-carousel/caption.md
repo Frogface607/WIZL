@@ -2,25 +2,27 @@
 
 High THC does not automatically mean better.
 
-Aroma, terpenes, freshness, dose, and your own body all matter.
+Producer, batch, test date, aroma, freshness, amount, setting, and your own response can all matter.
 
-The Book is a guide. Your notes make it personal.
+A strain name is a clue.
+The label is a clue.
+Your field note is the memory.
 
-Save this before your next shop visit.
+Save this for your next label.
 
 wizl.space
 
 Adults only where legal.
 
-#wizl #cannabiseducation #terpenes #strainnotes #weedwisdom #cannabisculture
+#wizl #cannabiseducation #terpenes #strainnotes #cannabisculture
 
 # X
 
-THC is only one clue.
+THC is one clue.
 
-Aroma, freshness, dose, terpenes, and your own notes matter too.
+Producer, batch, aroma, setting, and your own notes matter too.
 
-The Book is a guide. Your taste trail makes it personal.
+The Book is a reference. Your field notes make it personal.
 
 wizl.space
 
@@ -28,6 +30,6 @@ Adults only where legal.
 
 # Stories
 
-1. THC is only one clue.
-2. Quiz: What do you check first? THC / aroma / genetics / price
-3. Scan it. Smell it. Take notes.
+1. THC is one clue.
+2. Poll: What do you record first? Aroma / producer / batch / setting
+3. Read it. Notice it. Remember it.

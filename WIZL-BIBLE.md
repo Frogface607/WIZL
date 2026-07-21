@@ -1,218 +1,271 @@
-# WIZL — Project Bible
+# WIZL Project Bible
 
-> **Last updated:** 2026-04-20
->
-> Everything you need to continue building WIZL. Shift happens fast — update this whenever the vision moves.
+Last updated: July 21, 2026
 
----
+## The one-sentence product
 
-## 🔍 What is WIZL?
+WIZL is a kind cannabis field guide that helps adults read package clues, explore strain references, and remember their own experience in a private journal.
 
-**WIZL** ([wizl.space](https://wizl.space)) — a cannabis strain explorer with 3,000+ strains, AI-powered budtender chat, check-ins, favorites, wishlist, shop map. Free forever. Club for $4.20/year (pay what you want, first 420 explorers free).
+## The emotional product
 
-**Tagline:** `with love`
-**Slogan:** `Scan it. Know it. Track it.`
-**Positioning:** Education & discovery tool for the cannabis-curious. Not a marketplace. Not a dealer app.
+A tiny weasel wizard lives in your pocket, walks beside you, and keeps the Book with love.
 
-**Brand formula:** `WIZL = Weasel + Wizard + Weed Wisdom + With Love`
+WIZL should feel like a companion, not a database wearing a costume. The useful tool earns repeat use. The world, cat, Book, artifacts, and adventures create memory, affection, and future brand value.
 
----
+Brand formula:
 
-## 👤 Who is building this
+WIZL = Weasel + Wizard + Weed Wisdom + With Love
 
-Sergey (Frogface607) — former owner of a 10-year music bar in Siberia (Edison Bar, closing May 2026). Currently in Bangkok (Vit38 Rent — cannabis-friendly hotel). Building WIZL on the streets — GoPro, Volta mic, peace-sign pendant, no team, no VC.
+Slogan:
 
-**Superpower:** he IS the distribution. Walks into real Bangkok shops, tests live with owners, films it, posts it.
+Scan it. Know it. Track it.
 
-**Tone:** honest, warm, slightly mystical, never corporate. Sergey's natural voice and street-level presence are part of the brand.
+Current product promise:
 
----
+Read the label. Remember the experience.
 
-## 🧙‍♂️ The Character — WIZL The Wizard
+## Founder truth
 
-An anthropomorphic weasel in a purple patched cloak, wizard hat with cannabis leaf pin, gnarled staff topped with a glowing emerald crystal. Leather satchel with potion vials and a sleeping orange cat. Travels the world, meets curious creatures, finds rare strains, records them in his magical book.
+Sergey built a music bar for ten years and eventually closed that chapter. During a spring in Bangkok, he fell in love with the city’s warmth, openness, and cannabis culture. He built the first WIZL version, walked around showing it to people, then returned home without giving it a proper launch.
 
-**Assets:**
-- `public/mascot.png` — head close-up, transparent
-- `public/logo-mark-transparent.png` — mascot with neon-green glow
-- `public/hero-wizl.png` — full hero (2048×2048, mascot + wordmark + tagline on navy)
-- `public/wizl-book.png` — wizard with magical book
+The launch story is not “overnight AI startup.” It is unfinished work returning to life.
 
-**Style universe:** *Mystic Street Futurism* — Miyazaki warmth × Moomin linework × Adventure Time playfulness × street-culture neon. See `design/system.md` for full brand system.
+Public founder opening:
 
----
+Hello world. I’m Sergey. My English isn’t perfect, but this story is real.
 
-## 💰 Business Model
+Do not open with a defensive explanation about nationality or politics. Context can be answered later if genuinely relevant.
 
-### Revenue
-- **WIZL Club** — $4.20/year, pay-what-you-want (min $4.20, suggested $20)
-- **Processor:** Gumroad ([wizlspace.gumroad.com/l/wizlpro](https://wizlspace.gumroad.com/l/wizlpro))
-- **First 420 explorers:** free Club forever (founder offer, honour system via `isPro` local flag)
-- **Future:** sponsored shop placements on map, merch, Pinterest/Reddit affiliate, creator collabs
+## Character and world
 
-### Cost structure (low)
-- Supabase — free tier
-- Vercel — free tier (hobby)
-- OpenRouter (Perplexity Sonar for AI chat) — ~$1/1000 requests
-- OpenAI Responses API for scan + web search — usage-based per scan
-- ElevenLabs (Wizl voice) — $22/mo
-- HeyGen (character avatar video) — $24/mo when subscribed
-- Freepik Premium Plus — already owned, 84K credits
+WIZL is an anthropomorphic weasel in a patched purple cloak and wizard hat, with an emerald staff and a leather satchel. He travels with an orange cat and records discoveries in the magic Book.
 
-Break-even at 10 paying members.
+World tone:
 
----
+- kind, curious, playful, slightly mystical
+- warm street-level texture rather than luxury stoner stereotypes
+- conscious adult use without shame or glorification
+- funny enough to share, useful enough to save
+- no red eyes, smoke-cloud clichés, fake intoxication, or reckless consumption
 
-## 🏗️ Tech Stack
+Primary visual sources remain in public as high-resolution originals for content production. The web app uses small WebP derivatives.
 
-- **Next.js 16** (App Router) + React 19 + TypeScript + Tailwind CSS 4
-- **Supabase** (Postgres + Auth + Storage) — project `qbhyrhvpmavsrpasxnoz`
-- **Vercel** — prod deploy, auto on push to main
-- **next-intl** — EN / RU / TH
-- **PWA** — manifest + icons + installable
-- **Auth** — anonymous sessions + magic-link email upgrade (via Supabase Auth)
-- **AI chat** — OpenRouter → Perplexity Sonar (web-grounded)
-- **AI scan** — OpenAI Responses API + `web_search_preview` tool
-- **Content gen** — Freepik (Nano Banana Pro, Flux Kontext Max, Kling 2.5, Seedance 2.0), ElevenLabs (voice), HeyGen (character video)
+## Audience
 
----
+Initial beachhead:
 
-## 🗺️ App Map
+Adults in legal markets who try different labeled cannabis products or strains and want to remember what actually worked for them.
 
-| Route | What |
-|---|---|
-| `/` | Hero (mascot + WIZL + tagline) + scan CTA + inline AI chat |
-| `/strains` | **The Book** — 3,000+ strains, filters (type), sort (THC / name), search |
-| `/strains/[id]` | Strain detail — hero, terpenes, effects, flavors, check-in CTA, empty-state reviews |
-| `/checkin` | 3-step flow (select → rate → done). Accepts `?strain=ID`, `?shop=ID`, `?scan=1` (from scan page) |
-| `/scan` | AI scanner — photo or description → strain identification via OpenAI + web_search |
-| `/map` | Leaflet shop map with region filter, 1594 shops, check-in per shop |
-| `/profile` | Stats, checkins, achievements, taste profile. Shows AuthPrompt if anonymous |
-| `/pro` | WIZL Club — founders banner (first 420 free), Gumroad fallback, features comparison |
-| `/about` | Serge's story — fully i18n (EN/RU/TH) |
-| `/shop` | For shop owners — how to join the map |
-| `/shop/dashboard` | Shop owner dashboard (placeholder) |
-| `/privacy`, `/terms`, `/refund` | Legal |
-| `/auth/callback` | Supabase magic-link exchange |
+Important traits:
 
----
+- privacy-sensitive
+- curious about labels, chemistry, aroma, and personal response
+- tired of generic ratings and inconsistent strain names
+- willing to log one useful note if the flow is fast
+- interested in moderation, tolerance, breaks, and responsible use
 
-## 🗄️ Database (Supabase)
+WIZL is not initially for:
 
-**Key tables:**
-- `strains` — 3,123 rows. `id`, `name`, `type`, `thc_min/max`, `cbd_min/max`, `description`, `effects[]`, `flavors[]`, `terpenes` (JSONB), `genetics`, `difficulty`, `rating` (0 now — real ratings later), `rating_count`, `fts` (search index)
-- `checkins` — user checkins, `user_id`, `strain_id`, `rating`, `mood`, `review`, `shop_id`
+- people trying to buy cannabis
+- shop-menu discovery
+- growers seeking a cultivation operating system
+- medical diagnosis or treatment
+- children or people below legal age
+- mass-market paid acquisition
 
-**Client-side:**
-- `localStorage` key `wizl-user-data` — anonymous cache of checkins, favorites, wishlist, isPro flag
-- Eventually migrates to Supabase when user does magic-link upgrade
+## Core job and loop
 
-**Ratings policy (critical):**
-- `mapSupabaseToStrain` in `src/lib/strains-db.ts` forces `rating: 0, reviewCount: 0` regardless of seeded DB values
-- UI shows "New on WIZL / Be the first to check in" until real community data exists
-- Sort-by-rating / sort-by-reviews options hidden in catalog
-- When check-ins accumulate — aggregate job will compute real values
+Job:
 
----
+Help me make sense of the label and remember my own experience next time.
 
-## 🔑 API Routes
+Core loop:
 
-| Route | Purpose |
-|---|---|
-| `POST /api/chat` | AI chat via OpenRouter + Perplexity Sonar |
-| `POST /api/scan` | AI scan via OpenAI Responses API + web_search_preview |
-| `POST /api/checkout` | Gumroad redirect (returns the product URL) |
-| `GET /auth/callback` | Supabase magic-link handler |
+1. Search an exact name or read a clear label.
+2. Compare cautious reference information.
+3. Save a field note with rating, mood, and observation.
+4. See the taste trail in Profile.
+5. Return when the next labeled product appears.
+6. Share a tasteful field-note card or WIZL lesson.
 
----
+Activation:
 
-## 🌍 i18n
+First saved field note.
 
-- `messages/en.json` — English (primary)
-- `messages/th.json` — Thai (local market)
+North-star metric:
 
-Locale in URL: `/en/...`, `/th/...`
+Weekly users who save at least one field note.
 
-**Rule:** all user-facing strings via `useTranslations("namespace")`. No hardcoded English.
+Supporting metrics:
 
----
+- visit to first field note
+- label read to saved note
+- seven-day return after first note
+- notes per activated user
+- export rate
+- share rate
+- AI cost per activated user
+- qualified email replies expressing Club interest
 
-## ♻️ Env Variables
+## Product truth
 
-```
-NEXT_PUBLIC_SUPABASE_URL=https://qbhyrhvpmavsrpasxnoz.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<in .env.local>
-OPENROUTER_API_KEY=<in .env.local>
-OPENAI_API_KEY=<in .env.local / Vercel>
-OPENAI_SCAN_MODEL=<optional, defaults to gpt-4.1-mini>
-MUAPI_API_KEY=<optional, for image gen via MuAPI>
-NEXT_PUBLIC_APP_URL=https://wizl.space
-```
+The Book:
 
-Gumroad is configured by redirect URL on their side: `https://wizl.space/en/pro?success=true`.
+More than 3,000 reference entries. Names, reported effects, flavors, and potency ranges are references, not product-specific lab data.
 
----
+Label reader:
 
-## 📱 Social
+OpenAI-assisted. Best with clear printed text or an exact name. It must return Unidentified flower when a naked flower image lacks identifying evidence.
 
-- **Instagram:** [@wizl.space](https://instagram.com/wizl.space) — primary, carousel+reels
-- **TikTok:** [@wizl.space](https://tiktok.com/@wizl.space) — virality engine
-- **YouTube:** `@wizl.space` — long-form shop visits, Puff & Walk
-- **Twitter/X:** `@wizlspace` — builder-in-public, celebrity tags via Wizl
+Field notes:
 
-**Audience rule:** EN/TH only. No restricted-market cannabis content.
+Stored in browser local storage on the current device. No account or cross-device sync. Export is available in Profile.
 
-Launch playbook: `D:\PROJECTS\knowledge\wizl-launch\` (Obsidian-ready, 9 files).
+Ask WIZL:
 
----
+Educational assistant through OpenRouter. It must not provide sellers, purchase links, prices, delivery, or medical diagnosis.
 
-## 🎯 Current Focus (Apr 20)
+Atlas:
 
-1. ✅ Socials set up (IG / TikTok / YouTube / Twitter)
-2. ✅ Mascot + voice + hero + palette
-3. ✅ 3,000+ strains, zero fake ratings
-4. ✅ First 420 founders offer
-5. 🎬 **Tomorrow:** shoot intro video (Script 1 in playbook) + first shop visit
-6. 🎬 **Tomorrow:** create 5 Freepik backgrounds for HeyGen Wizl videos
-7. 📖 Grow strain DB toward 5,000+ via background agents
+Public venue listings are paused while provenance, freshness, legal status, and ownership are re-verified.
 
----
+WIZL Club:
 
-## 🛑 What NOT to do
+No checkout and no paid access are active. The current page is an interest path only.
 
-- Don't auto-generate fake check-in data — integrity > engagement theater
-- Don't post cannabis content on Sergey's personal accounts
-- Don't use perfectly-American voice-cloning for Serge — accent is feature
-- Don't add "Sign up to see results" dark patterns
-- Don't overdesign — `done > perfect`, especially during launch week
-- Don't break the mascot style — every Wizl image passes through brand style node
-- Don't replace Serge in video with AI avatar. HeyGen is for **Wizl** the character, not the human
+## Routes
 
----
+- / — product promise, scan entry, Book, journal, Ask WIZL
+- /strains — The Book
+- /strains/[id] — reference page and field-note entry
+- /scan — exact-name search and cautious label reader
+- /checkin — field-note creation
+- /profile — local journal, taste trail, achievements, export
+- /about — Sergey and WIZL origin story
+- /pro — Club concept and interest email
+- /map — paused Atlas notice
+- /shop — licensed partner pilot information
+- /privacy, /terms, /refund — current legal truth
+- /api/scan — OpenAI-first label read with OpenRouter fallback and best-effort server rate limit
+- /api/chat — OpenRouter educational chat with best-effort server rate limit
+- /api/checkout — intentionally returns 410 while payments are paused
 
-## 🧭 Key Files to Know
+## Data and infrastructure
 
-- `design/system.md` — full brand bible (palette, typography, character, world, motion)
-- `content/content-plan.md` — 14-post content pipeline
-- `D:\PROJECTS\knowledge\wizl-launch\` — 9-file launch playbook (IG, TikTok, YT, Twitter, Reddit, Freepik prompts, video scripts, 7-day queue, ElevenLabs voice)
-- `src/lib/strains-db.ts` — Supabase data layer (rating forced to 0)
-- `src/lib/auth.tsx` — Supabase anonymous + magic-link auth
-- `src/app/api/chat/route.ts` — AI chat system prompt (Wizl persona, cannabis-only)
-- `src/app/api/scan/route.ts` — OpenAI Responses API + web_search scanner
+Stack:
 
----
+- Next.js 16, React 19, TypeScript, Tailwind CSS 4
+- next-intl with English and Thai routes
+- Supabase strain catalog
+- Vercel hosting and aggregate analytics
+- OpenAI Responses API for primary label reads
+- OpenRouter for fallback label reads and Ask WIZL
 
-## 📞 Contact / Links
+Local user data key:
 
-- Domain: [wizl.space](https://wizl.space)
-- Gumroad: [wizlspace.gumroad.com/l/wizlpro](https://wizlspace.gumroad.com/l/wizlpro)
-- Git: [github.com/Frogface607/WIZL](https://github.com/Frogface607/WIZL)
-- Email: `hello@wizl.space`
+wizl-user-data
 
----
+The isPro field remains only as a legacy migration field. It must not grant active paid access or unlimited scans.
 
-## 🌿 Closing note
+Server rate limiting is in-memory and best-effort. It helps against casual abuse but is not a distributed production quota. Before meaningful scale, add a durable limiter or Vercel firewall rule and a cost alert.
 
-> WIZL is Serge's dream project — all the things he loves (walking, cannabis, building, stories, Bangkok) collapsed into one point. Treat every decision through that lens. If it doesn't fit the spirit — don't ship.
->
-> *With love.*
+## Business model
+
+Launch now:
+
+Free product, no payment.
+
+Next:
+
+- compliance-approved supporter membership for the WIZL media world
+- low-risk collectibles such as stickers, prints, apparel, and digital artifacts
+- native premium only after real sync, deeper personal insights, and a defensible paid feature set
+- licensed educational, quality, lab, or IP collaborations after legal review
+- grinders and other paraphernalia only after processor, advertising, age-gating, shipping, and local-law review
+
+Do not build revenue around cannabis sales, delivery, menus, paid listings, or affiliate purchase links.
+
+The symbolic $4.20 yearly supporter idea is emotionally strong but cannot finance heavy AI usage. Treat it as a founding signal, not SaaS unit economics.
+
+## Marketing system
+
+Content mix:
+
+- 35 percent useful education and harm reduction
+- 30 percent WIZL adventures and lore
+- 20 percent founder journey
+- 15 percent product rituals and user field notes
+
+Primary channels:
+
+- Instagram for the visual canon and carousels
+- YouTube Shorts and long-form founder chapters
+- X for building in public and product learning
+- Reddit for honest research and selected founder posts
+- TikTok as an experimental organic channel, accepting age restriction or limited distribution
+
+No paid cannabis ads at launch.
+
+Every post has one job:
+
+- follow WIZL
+- try the free Book or label reader
+- save a first field note
+- answer one research question
+
+## Bangkok rule
+
+Thailand moved to stricter medical-only controls in June 2025. Public cannabis advertising and online sales are prohibited. The Bangkok return is a founder-story and research chapter, not a dispensary-promotion tour.
+
+Allowed only after verification:
+
+- interviews about education, lab quality, cultivation standards, traceability, design, culture, or compliance
+- collaboration with a currently licensed organization
+- no prices, menus, purchase links, addresses as calls to action, rankings, or “best shop” content
+- written consent for filming and brand use
+- local legal review before commercial partnership
+
+## Berner and Cookies
+
+The collaboration dream is a long-term quest, not launch positioning.
+
+Do:
+
+- build real audience and retention
+- publish original WIZL IP
+- make a respectful founder post about the dream after proof exists
+- approach with specific data and an original collaboration concept
+
+Do not:
+
+- create unauthorized Cookies pages, sticker packs, logos, or endorsement claims
+- spam tags
+- imply a partnership
+- rely on celebrity attention as a success metric
+
+## Non-negotiables
+
+- No fake reviews, users, check-ins, Club members, partner claims, or map listings.
+- No exact strain or potency claim from flower appearance.
+- No active checkout before written provider approval.
+- No cannabis purchase facilitation.
+- No “safe” medical promise.
+- No Russian locale or Russian-targeted cannabis marketing.
+- No founder video edit from HERO.MOV until Sergey gives the exact approval phrase recorded in the launch docs.
+- Keep originals for the content factory; serve optimized derivatives in the app.
+- Character consistency matters, but truth matters more.
+
+## Key documents
+
+- docs/gtm-launch-strategy.md
+- docs/launch-readiness.md
+- docs/wizl-brand-kit.md
+- content/content-plan.md
+- content/launch-publishing-kit.md
+- .agents/product-marketing.md
+
+## Contact
+
+- Site: https://wizl.space
+- Email: wizl.space.app@gmail.com
+- Repository: https://github.com/Frogface607/WIZL

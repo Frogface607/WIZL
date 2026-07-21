@@ -1,125 +1,93 @@
 # WIZL Launch Reply Bank
 
-Updated: 2026-06-27
+Updated: July 21, 2026
 
-Use these during week 1 after posting. Keep replies warm, short, and human. Do not make medical claims. Do not ask people to break local law.
+Use these as starting points. Keep Sergey’s voice natural and answer the actual person.
 
-## Default Voice
+## Product
 
-- Kind, curious, slightly mystical.
-- Helpful before promotional.
-- One clear next step: scan, open The Book, or tell WIZL where to go next.
+### What is WIZL?
 
-## Fast Comment Replies
+WIZL is a cannabis field guide and pocket companion: more than 3,000 strain references, a cautious label reader, and private field notes that stay on your device.
 
-### "What is WIZL?"
+### Can it identify a strain from a bud photo?
 
-```text
-WIZL is a free cannabis strain companion: scan what you got, learn the vibe, save notes, and build your own taste trail. Adults only where legal.
-```
+Not reliably, and WIZL should not pretend otherwise. A clear package label or exact printed name can give useful clues. A naked flower image should come back as unidentified.
 
-### "Is this a marketplace?"
+### Is it a lab test?
 
-```text
-Not a marketplace. WIZL is a strain guide and personal Book first: scan, learn, save, and check in.
-```
+No. Potency and chemistry in WIZL are references. The actual package and current lab report matter.
 
-### "Is the AI scan accurate?"
+### Is it free?
 
-```text
-It is an educational estimate, not a lab test. Always verify the label, lab results, and local laws. The scan is best for learning and tracking.
-```
+Yes. The current app is free. There is no active paid subscription or checkout.
 
-### "Is it free?"
+### What is WIZL Club?
 
-```text
-Yes. WIZL is free to use. The Club is optional support for the road.
-```
+It is a future supporter idea for the WIZL world. Payments are paused while the benefits and an approved provider are worked out.
 
-### "What is the Club?"
+### Do I need an account?
 
-```text
-Optional support for WIZL: $4.20/year, founder energy, and helping keep the Book growing. The core app stays free.
-```
+No. Field notes stay in this browser on this device. Export them from Profile before clearing data or changing devices.
 
-### "Do you have my strain?"
+### Why only five AI reads?
 
-```text
-The Book has 3,000+ strain notes. Try searching it at wizl.space, and if something is missing, tell me the name.
-```
+AI calls have a real cost. Exact-name search, The Book, and field notes remain available without a paid account while we learn what people genuinely use.
 
-### "Where should WIZL go next?"
+## Safety and health
 
-```text
-Tell me the city, shop, or strain. WIZL follows good clues.
-```
+### What should I use for a medical condition?
 
-### "Can shops join?"
+WIZL cannot diagnose or prescribe. A qualified healthcare professional who understands your history and medications is the right person for that decision.
 
-```text
-Yes. Shop owners can start at wizl.space/shop. The first goal is simple: help customers understand and remember what they found.
-```
+### How do I lower tolerance or quit?
 
-### "Can I use this for medical advice?"
+You are allowed to pause or stop. Changing routines, reducing triggers, getting support, and speaking with a professional can help. If mood, sleep, withdrawal, or dependence feels hard, please seek qualified support.
 
-```text
-No medical advice here. WIZL is for education, culture, and personal notes. For health decisions, talk to a qualified professional.
-```
+### Is cannabis good for sport?
 
-### "Does it work in Thailand?"
+It is not a simple performance or recovery hack. Impairment, coordination, judgment, heart rate, rules, and your own health matter. Do not train, drive, swim, or work impaired.
 
-```text
-Yes, WIZL works on the web and The Map already includes Thai shop discovery. Adults only where legal.
-```
+## Commerce and venues
 
-## DM Templates
+### Where can I buy this strain?
 
-### Shop Owner Intro
+WIZL does not provide sellers, purchase links, menus, prices, or delivery. Check your local law and use only lawful, licensed channels.
 
-```text
-Hey, thank you for checking WIZL out.
+### Do you have a shop map?
 
-It is a free strain companion for customers: scan, learn, save notes, and remember where they found something good.
+The public Atlas is paused while listings and legal status are re-verified. WIZL does not want to publish stale or unverified venue claims.
 
-If you run a shop, start here:
-https://wizl.space/shop
-```
+### Can a business partner with WIZL?
 
-### Creator / Cannabis Page Intro
+Possibly, for licensed education, label literacy, lab quality, traceability, or original storytelling. Email wizl.space.app@gmail.com. Every collaboration needs verification and compliance review.
 
-```text
-Thank you for the follow.
+## Founder and world
 
-I am building WIZL as a small world for cannabis culture: a wizard, a cat, a Book, and 3,000+ strain notes.
+### Who made WIZL?
 
-If you try it, send me the first strain you scan. I am collecting real launch feedback.
-```
+I’m Sergey. I built the first version during a spring in Bangkok, then went home to close a ten-year business chapter. I did not launch it properly, so I am starting again in public.
 
-### Bug / Wrong Scan
+### Is WIZL a real animal?
 
-```text
-Thank you, this helps a lot.
+He is a weasel wizard, which is already a demanding full-time job. The orange cat handles quality control.
 
-The scan is an educational estimate, so misses can happen. If you can share the strain name and what WIZL returned, I will add it to the QA log and improve the flow.
-```
+### Where should WIZL go next?
 
-## Comment-To-Content Prompts
+Tell me the lesson or mystery, not a seller. The best answer may become the next page from the Book.
 
-Turn good comments into posts:
+### Are you collaborating with Berner or Cookies?
 
-| Comment type | Follow-up post |
-|---|---|
-| "THC is everything" | Carousel: THC is only one clue |
-| "How accurate is scan?" | Reel: AI estimate vs lab test |
-| "What should I smell for?" | Carousel: scent clues before buying |
-| "Do you have shops near me?" | Reel: open The Map |
-| "What is The Book?" | Carousel: how WIZL saves your taste trail |
-| "Can shops join?" | Shop-owner post with `wizl.space/shop` |
+No partnership is implied. It is a long-term dream, but WIZL will earn the right to make an approach through original work and real users.
 
-## First 24h Routine
+## Research invitation
 
-1. Reply to every real comment within 12 hours.
-2. Like and reply to the first 10 meaningful comments manually.
-3. Save every useful question in `content/launch-publishing-kit.md` under Comment Capture.
-4. Turn the best question into tomorrow's story poll.
-5. Do not argue. Clarify once, then move on.
+That is useful. Could I ask you three short questions about the last time you wished you had remembered a label, batch, or effect? No sales pitch. I am trying to make the field-note flow genuinely useful.
+
+## Hostile or dismissive comment
+
+Fair criticism. WIZL should earn trust by being useful and honest. What part feels wrong or unnecessary to you?
+
+## Policy-sensitive comment
+
+WIZL is for adults where legal, does not sell cannabis, and does not provide purchase directions. The content is educational and the AI result is not medical or laboratory advice.

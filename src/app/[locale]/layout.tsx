@@ -7,7 +7,7 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 const montserrat = Montserrat({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin"],
   variable: "--font-brand",
   display: "swap",
 });
@@ -19,15 +19,22 @@ import SmokeLayer from "@/components/SmokeLayer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wizl.space"),
-  title: "WIZL — Scan it. Know it. Track it.",
+  title: "WIZL | Cannabis Field Guide and Private Journal",
   description:
-    "Discover what you got. AI-powered cannabis strain scanner, check-ins, reviews, and the chillest strain guide on the planet. With love.",
-  keywords: ["cannabis", "strains", "scan", "check-in", "reviews", "AI", "WIZL"],
+    "Read cannabis package labels, explore 3,000+ strain references, and keep private field notes with WIZL.",
+  keywords: [
+    "cannabis field guide",
+    "cannabis label reader",
+    "strain reference",
+    "private cannabis journal",
+    "field notes",
+    "WIZL",
+  ],
   manifest: "/manifest.json",
   openGraph: {
-    title: "WIZL — Scan it. Know it. Track it.",
+    title: "WIZL | Read the label. Remember the experience.",
     description:
-      "AI strain scanner, personal Book, and 3,000+ cannabis strain notes. Free to use.",
+      "A magical cannabis field guide with 3,000+ references and private field notes on your device.",
     url: "https://wizl.space/en",
     siteName: "WIZL",
     images: [
@@ -35,7 +42,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "WIZL, the cannabis strain scanner and personal strain Book",
+        alt: "WIZL, a weasel wizard holding the Book",
       },
     ],
     locale: "en",
@@ -43,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "WIZL — Scan it. Know it. Track it.",
+    title: "WIZL | Cannabis Field Guide",
     description:
-      "AI strain scanner, personal Book, and 3,000+ cannabis strain notes. Free to use.",
+      "Read the label, explore the Book, and remember your own experience.",
     images: ["/og-image.png"],
   },
   icons: [

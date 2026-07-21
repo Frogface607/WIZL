@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -12,6 +12,7 @@ const flagIcons: Record<string, { src: string; label: string }> = {
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
+  const t = useTranslations("common");
   const router = useRouter();
   const pathname = usePathname();
 
@@ -25,8 +26,8 @@ export default function LanguageSwitcher() {
     <button
       onClick={() => router.replace(pathname, { locale: nextLocale() })}
       className="w-8 h-8 rounded-full bg-bg-card border border-border flex items-center justify-center overflow-hidden hover:bg-bg-card-hover transition-all"
-      title={`Switch language (${flag.label})`}
-      aria-label={`Switch language (${flag.label})`}
+      title={t("switchLanguage", { language: flag.label })}
+      aria-label={t("switchLanguage", { language: flag.label })}
     >
       <Image
         src={flag.src}

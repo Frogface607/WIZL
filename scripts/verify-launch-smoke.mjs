@@ -2,14 +2,17 @@ const baseUrl = (process.env.LAUNCH_BASE_URL || "https://wizl.space").replace(/\
 const timeoutMs = Number(process.env.LAUNCH_SMOKE_TIMEOUT_MS || 60000);
 
 const pageChecks = [
-  { path: "/en", mustInclude: ["Scan it. Know it. Track it."] },
-  { path: "/en/scan", mustInclude: ["AI", "scan"] },
-  { path: "/en/strains", mustInclude: ["strains"] },
-  { path: "/en/map", mustInclude: ["shops"] },
-  { path: "/en/checkin", mustInclude: ["Check"] },
-  { path: "/en/pro", mustInclude: ["Club"] },
+  { path: "/en", mustInclude: ["Read the label. Remember the experience."], mustExclude: ["Find cannabis shops", "GB"] },
+  { path: "/en/scan", mustInclude: ["WIZL Label Reader", "flower photo alone cannot prove identity or potency"] },
+  { path: "/en/strains", mustInclude: ["The Book"] },
+  { path: "/en/map", mustInclude: ["The map is being re-verified."], mustExclude: ["Find cannabis shops nearby"] },
+  { path: "/en/checkin", mustInclude: ["New field note"] },
+  { path: "/en/profile", mustInclude: ["Your field notes stay in this browser"] },
+  { path: "/en/pro", mustInclude: ["Payments are paused"], mustExclude: ["Join Club - $4.20"] },
+  { path: "/en/about", mustInclude: ["Hello world.", "This time, WIZL is going into the world."] },
+  { path: "/en/privacy", mustInclude: ["does not require an account"] },
   { path: "/robots.txt", mustInclude: ["sitemap"] },
-  { path: "/sitemap.xml", mustInclude: ["/en/strains/"] },
+  { path: "/sitemap.xml", mustInclude: ["/en/strains/"], mustExclude: ["/en/map", "/en/shop"] }
 ];
 
 function withTimeout() {
@@ -70,13 +73,15 @@ for (const check of pageChecks) {
   }
 
   const missing = check.mustInclude.filter((needle) => !text.includes(needle));
-  const hasCyrillic = /[А-Яа-яЁё]/.test(text);
+  const forbidden = (check.mustExclude || []).filter((needle) => text.includes(needle));
+  const hasCyrillic = /[\u0400-\u04FF]/.test(text);
 
-  if (missing.length > 0 || hasCyrillic) {
+  if (missing.length > 0 || forbidden.length > 0 || hasCyrillic) {
     fail(
-      `BAD ${label}${missing.length ? ` missing: ${missing.join(", ")}` : ""}${
-        hasCyrillic ? " contains Cyrillic text" : ""
-      }`,
+      `BAD ${label}` +
+      (missing.length ? ` missing: ${missing.join(", ")}` : "") +
+      (forbidden.length ? ` forbidden: ${forbidden.join(", ")}` : "") +
+      (hasCyrillic ? " contains Cyrillic text" : "")
     );
     continue;
   }
@@ -98,11 +103,25 @@ for (const check of pageChecks) {
   }
 }
 
+{
+  const { response, text } = await fetchText("/api/checkout", { method: "POST" });
+  let data = {};
+  try {
+    data = JSON.parse(text);
+  } catch {}
+
+  if (response.status !== 410 || data.code !== "CHECKOUT_PAUSED") {
+    fail(`BAD checkout pause: ${response.status}/${data.code || "missing"}`);
+  } else {
+    console.log("OK checkout is paused");
+  }
+}
+
 async function scan(description) {
   const { response, text } = await fetchText("/api/scan", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ description, locale: "en" }),
+    body: JSON.stringify({ description, locale: "en" })
   });
 
   let data;
@@ -115,12 +134,8 @@ async function scan(description) {
   return { status: response.status, data };
 }
 
-const firstScan = await scan(
-  "Cherry King strain. Red cherry candy aroma, hybrid, tell me what this could be.",
-);
-const secondScan = await scan(
-  "Gelato strain. Creamy dessert aroma, relaxing hybrid, scan again please.",
-);
+const firstScan = await scan("Exact printed strain name: Cherry King.");
+const secondScan = await scan("Exact printed strain name: Gelato.");
 
 const firstName = firstScan.data?.name || "";
 const secondName = secondScan.data?.name || "";
@@ -129,15 +144,15 @@ const scanOk =
   secondScan.status === 200 &&
   firstName &&
   secondName &&
+  firstName.toLowerCase().includes("cherry king") &&
+  secondName.toLowerCase().includes("gelato") &&
   firstName !== secondName &&
   !firstScan.data?._demo &&
   !secondScan.data?._demo;
 
 if (!scanOk) {
   fail(
-    `BAD scan smoke: first=${firstScan.status}/${firstName || "missing"} demo=${Boolean(
-      firstScan.data?._demo,
-    )}; second=${secondScan.status}/${secondName || "missing"} demo=${Boolean(secondScan.data?._demo)}`,
+    `BAD scan smoke: first=${firstScan.status}/${firstName || "missing"} demo=${Boolean(firstScan.data?._demo)}; second=${secondScan.status}/${secondName || "missing"} demo=${Boolean(secondScan.data?._demo)}`
   );
 } else {
   console.log(`OK scan smoke: ${firstName} -> ${secondName}`);

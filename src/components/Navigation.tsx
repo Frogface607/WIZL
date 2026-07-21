@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Home, BookOpen, MapPin, User, ScanLine } from "lucide-react";
+import { Home, BookOpen, NotebookPen, User, ScanLine } from "lucide-react";
 
 export default function Navigation() {
   const t = useTranslations("nav");
@@ -12,7 +12,7 @@ export default function Navigation() {
     { href: "/" as const, icon: Home, label: t("home") },
     { href: "/strains" as const, icon: BookOpen, label: t("book") },
     { href: "/scan" as const, icon: null, label: t("scan") },
-    { href: "/map" as const, icon: MapPin, label: t("map") },
+    { href: "/checkin" as const, icon: NotebookPen, label: t("journal") },
     { href: "/profile" as const, icon: User, label: t("profile") },
   ];
 
@@ -26,16 +26,16 @@ export default function Navigation() {
             const Icon = item.icon;
 
             return (
-              <Link key={item.href} href={item.href}
-                className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all ${
-                  isActive ? "text-accent-green" : "text-text-muted hover:text-text-secondary"
-                }`}>
-                <span className={`${isScan ? "bg-accent-green text-black w-10 h-10 rounded-full flex items-center justify-center -mt-5 shadow-lg" : ""}`}>
-                  {isScan ? (
-                    <ScanLine className="w-5 h-5" />
-                  ) : (
-                    Icon && <Icon className="w-5 h-5" />
-                  )}
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  "flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all " +
+                  (isActive ? "text-accent-green" : "text-text-muted hover:text-text-secondary")
+                }
+              >
+                <span className={isScan ? "bg-accent-green text-black w-10 h-10 rounded-full flex items-center justify-center -mt-5 shadow-lg" : ""}>
+                  {isScan ? <ScanLine className="w-5 h-5" /> : Icon && <Icon className="w-5 h-5" />}
                 </span>
                 <span className="text-[10px] font-medium">{item.label}</span>
               </Link>

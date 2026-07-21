@@ -10,7 +10,7 @@ export default function NotFound() {
         <div className="relative w-32 h-32 mx-auto mb-6 animate-float">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/wizl-book.png"
+            src="/wizl-book.webp"
             alt="WIZL"
             className="w-full h-full object-contain"
           />

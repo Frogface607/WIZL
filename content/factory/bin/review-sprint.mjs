@@ -1,107 +1,166 @@
 #!/usr/bin/env node
 /**
- * WIZL Sprint Review — automatic per-slide QA via Claude Vision (no SDK deps).
+ * Review generated WIZL slides with OpenAI vision.
  *
  * Usage:
- *   node content/factory/bin/review-sprint.mjs content/posts/2026-05-14-adventures/05-og-kush-oath
+ *   npm run factory:review -- content/posts/path-to-episode
  *
- * Output:
- *   review.md, review.json, regenerate.list (in episode folder)
- *
- * Requires env ANTHROPIC_API_KEY
+ * Reads OPENAI_API_KEY from the environment. For Sergey's local setup, it also
+ * checks ~/.codex/secrets/openai.env without printing or copying the secret.
  */
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
 const dir = process.argv[2];
 if (!dir) {
-  console.error("usage: review-sprint.mjs <episode-folder>");
+  console.error("Usage: review-sprint.mjs <episode-folder>");
   process.exit(1);
 }
 
-const apiKey = process.env.ANTHROPIC_API_KEY;
+if (!process.env.OPENAI_API_KEY && fs.existsSync(path.resolve(".env.local"))) {
+  process.loadEnvFile(path.resolve(".env.local"));
+}
+
+if (!process.env.OPENAI_API_KEY) {
+  const envPath =
+    process.env.WIZL_OPENAI_ENV ||
+    path.join(os.homedir(), ".codex", "secrets", "openai.env");
+
+  if (fs.existsSync(envPath)) {
+    process.loadEnvFile(envPath);
+  }
+}
+
+const apiKey = process.env.OPENAI_API_KEY;
 if (!apiKey) {
-  console.error("missing ANTHROPIC_API_KEY env var");
+  console.error("Missing OPENAI_API_KEY.");
   process.exit(1);
 }
 
 const slides = fs
   .readdirSync(dir)
-  .filter((f) => f.startsWith("slide-") && f.endsWith(".png"))
+  .filter((file) => /^slide-.*\.(png|jpe?g|webp)$/i.test(file))
   .sort();
 
-const RUBRIC = `
-You are reviewing a single slide from a WIZL cannabis-storybook carousel.
-
-CANONICAL CHARACTER (Wizl):
-- Anthropomorphic otter wizard
-- Purple traveling cloak with moon-and-star patches
-- Pointed wizard hat with a small green crystal/leaf pin on brim
-- Gnarled wooden staff topped with glowing emerald-green crystal
-- Leather satchel with a sleeping orange cat peeking out
-- Sturdy brown boots
-- Warm storybook painterly cartoon style (NOT vector, NOT photoreal)
-
-HARD RULES (any violation = regenerate=true):
-1. Exactly ONE Wizl character per slide. No duplicates, no reflections that read as a second Wizl, no twin compositions.
-2. NO humans. Only fantasy creatures (otter, mushroom-folk, tanuki, kinnari, badger, fox, monkey-spirits, dragonfly, mole, etc).
-3. Cat in satchel present (orange tabby) unless story explicitly removes it (e.g. cat escaped scene).
-4. Mascot palette: purple cloak (#8C6FB8), green crystal (#99F788). NOT red/gold/blue cloak.
-
-SOFT CHECKS:
-- Overlay text legible, no typos, English correct
-- Caption box / speech bubble well-placed, doesn't crop important elements
-- Bangkok-mystic vibe present where relevant
-- Composition: breathable, character grounded
-
-OUTPUT — strict JSON only, no fences, no prose:
-{
-  "ok": <bool>,
-  "score": <1-10>,
-  "issues": [{"severity": "high"|"med"|"low", "what": "<one-line>"}],
-  "regenerate": <bool>,
-  "notes": "<one sentence overall>"
+if (slides.length === 0) {
+  console.error("No slide images found in the episode folder.");
+  process.exit(1);
 }
+
+const RUBRIC = `
+Review one generated slide for WIZL, an adult educational field-guide and
+storybook brand.
+
+Canonical WIZL:
+- one small anthropomorphic weasel wizard
+- warm 2D storybook-cartoon style, never photorealistic
+- purple traveling cloak with simple moon-and-star patches
+- weathered purple hat with an emerald crystal pin
+- wooden staff with an emerald crystal
+- leather satchel with a visible orange tabby cat
+- natural body language, never a T-pose
+
+Regenerate when any hard rule fails:
+1. More than one WIZL, a duplicate, or a reflection that reads as a duplicate.
+2. WIZL becomes an otter, bear, human, realistic animal, or 3D character.
+3. The required cloak, hat, staff, satchel, or cat is missing without a clear
+   story reason.
+4. A minor or youth-coded person appears.
+5. The slide depicts purchase, price, menu, delivery, seller promotion,
+   consumption, impaired driving, a medical promise, or dangerous behavior.
+6. A celebrity likeness, third-party logo, or implied endorsement appears.
+7. Essential overlay text is misspelled, cropped, unreadable, or differs from
+   the supplied design.
+
+Also assess composition, mobile readability, palette, and whether the scene
+feels warm, useful, and consistent with WIZL.
 `.trim();
 
+const REVIEW_SCHEMA = {
+  type: "object",
+  properties: {
+    ok: { type: "boolean" },
+    score: { type: "integer", minimum: 1, maximum: 10 },
+    issues: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          severity: { type: "string", enum: ["high", "medium", "low"] },
+          what: { type: "string" }
+        },
+        required: ["severity", "what"],
+        additionalProperties: false
+      }
+    },
+    regenerate: { type: "boolean" },
+    notes: { type: "string" }
+  },
+  required: ["ok", "score", "issues", "regenerate", "notes"],
+  additionalProperties: false
+};
+
+function mediaType(file) {
+  const extension = path.extname(file).toLowerCase();
+  if (extension === ".jpg" || extension === ".jpeg") return "image/jpeg";
+  if (extension === ".webp") return "image/webp";
+  return "image/png";
+}
+
+function outputText(response) {
+  for (const item of response.output || []) {
+    for (const part of item.content || []) {
+      if (part.type === "output_text" && part.text) return part.text;
+    }
+  }
+  throw new Error("OpenAI response contained no output text.");
+}
+
 async function reviewSlide(fullPath) {
-  const imgData = fs.readFileSync(fullPath).toString("base64");
+  const image = fs.readFileSync(fullPath).toString("base64");
   const body = {
-    model: "claude-sonnet-4-5",
-    max_tokens: 1024,
-    messages: [
+    model: process.env.OPENAI_REVIEW_MODEL || "gpt-5-mini",
+    store: false,
+    max_output_tokens: 1200,
+    input: [
       {
         role: "user",
         content: [
+          { type: "input_text", text: RUBRIC },
           {
-            type: "image",
-            source: { type: "base64", media_type: "image/png", data: imgData },
-          },
-          { type: "text", text: RUBRIC },
-        ],
-      },
+            type: "input_image",
+            image_url: `data:${mediaType(fullPath)};base64,${image}`,
+            detail: "high"
+          }
+        ]
+      }
     ],
+    text: {
+      format: {
+        type: "json_schema",
+        name: "wizl_slide_review",
+        strict: true,
+        schema: REVIEW_SCHEMA
+      }
+    }
   };
 
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
+  const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-      "content-type": "application/json",
+      authorization: `Bearer ${apiKey}`,
+      "content-type": "application/json"
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
 
-  if (!resp.ok) {
-    const errText = await resp.text();
-    throw new Error(`HTTP ${resp.status}: ${errText.slice(0, 200)}`);
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`OpenAI HTTP ${response.status}: ${errorText.slice(0, 240)}`);
   }
 
-  const data = await resp.json();
-  const text = data.content[0].text.trim();
-  const cleaned = text.replace(/^```(?:json)?\s*|```\s*$/g, "");
-  return JSON.parse(cleaned);
+  return JSON.parse(outputText(await response.json()));
 }
 
 const reviews = [];
@@ -109,50 +168,59 @@ const regenerate = [];
 
 for (const slide of slides) {
   const fullPath = path.join(dir, slide);
-  process.stdout.write(`  ${slide} … `);
+  process.stdout.write(`Reviewing ${slide}... `);
 
   try {
-    const json = await reviewSlide(fullPath);
-    reviews.push({ slide, ...json });
-    if (json.regenerate) regenerate.push(slide);
-    console.log(`${json.ok ? "OK" : "❌"} (${json.score}/10)`);
-  } catch (err) {
-    console.log(`ERR: ${err.message.slice(0, 100)}`);
+    const review = await reviewSlide(fullPath);
+    reviews.push({ slide, ...review });
+    if (review.regenerate) regenerate.push(slide);
+    console.log(`${review.ok ? "OK" : "FAIL"} (${review.score}/10)`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.log(`ERROR: ${message.slice(0, 120)}`);
     reviews.push({
       slide,
       ok: false,
-      score: 0,
-      issues: [{ severity: "high", what: err.message.slice(0, 200) }],
+      score: 1,
+      issues: [{ severity: "high", what: message.slice(0, 240) }],
       regenerate: true,
-      notes: "API error",
+      notes: "Automated review failed."
     });
     regenerate.push(slide);
   }
 }
 
-fs.writeFileSync(path.join(dir, "review.json"), JSON.stringify(reviews, null, 2));
+fs.writeFileSync(
+  path.join(dir, "review.json"),
+  JSON.stringify(reviews, null, 2) + "\n",
+  "utf8"
+);
 
-const okCount = reviews.filter((r) => r.ok).length;
-const avg = reviews.reduce((a, r) => a + (r.score || 0), 0) / reviews.length;
-
-const md = [
-  `# Sprint Review — ${path.basename(dir)}`,
-  `*${new Date().toISOString()}*`,
-  ``,
-  `**${reviews.length} slides · ${okCount} OK · ${regenerate.length} need regen · avg ${avg.toFixed(1)}/10**`,
-  ``,
+const okCount = reviews.filter((review) => review.ok).length;
+const average =
+  reviews.reduce((sum, review) => sum + review.score, 0) / reviews.length;
+const report = [
+  `# Sprint Review: ${path.basename(dir)}`,
+  "",
+  `Reviewed: ${new Date().toISOString()}`,
+  `Slides: ${reviews.length} | OK: ${okCount} | Regenerate: ${regenerate.length} | Average: ${average.toFixed(1)}/10`,
+  ""
 ];
 
-for (const r of reviews) {
-  md.push(`## ${r.slide} — ${r.score}/10 ${r.ok ? "✅" : "❌"} ${r.regenerate ? "🔄" : ""}`);
-  if (r.notes) md.push(`\n*${r.notes}*\n`);
-  if (r.issues?.length) {
-    for (const i of r.issues) md.push(`- **${i.severity}**: ${i.what}`);
+for (const review of reviews) {
+  report.push(`## ${review.slide}: ${review.score}/10 ${review.ok ? "OK" : "FAIL"}`);
+  if (review.notes) report.push("", review.notes, "");
+  for (const issue of review.issues || []) {
+    report.push(`- ${issue.severity}: ${issue.what}`);
   }
-  md.push(``);
+  report.push("");
 }
 
-fs.writeFileSync(path.join(dir, "review.md"), md.join("\n"));
-fs.writeFileSync(path.join(dir, "regenerate.list"), regenerate.join("\n"));
+fs.writeFileSync(path.join(dir, "review.md"), report.join("\n"), "utf8");
+fs.writeFileSync(
+  path.join(dir, "regenerate.list"),
+  regenerate.join("\n"),
+  "utf8"
+);
 
-console.log(`\n→ review.md + ${regenerate.length} flagged`);
+console.log(`Review complete: ${regenerate.length} slide(s) flagged.`);

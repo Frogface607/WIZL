@@ -1,7 +1,7 @@
 {
-  "name": "WIZL — Cannabis Strain Explorer",
+  "name": "WIZL ? Cannabis Field Guide",
   "short_name": "WIZL",
-  "description": "Scan it. Know it. Track it. 3,000+ strains, AI-powered. With love.",
+  "description": "Read the label. Remember the experience. 3,000+ strain references and private field notes.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#080c08",

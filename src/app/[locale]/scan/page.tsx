@@ -2,18 +2,18 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Link, useRouter } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { getUserData, incrementScans, getScansRemaining } from "@/lib/store";
 import { fetchStrains } from "@/lib/strains-db";
 import { Strain } from "@/types";
-import { Search, Camera, Zap, Droplets, Link2, ScanLine, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Search, Camera, Zap, Droplets, Link2, ScanLine, ShieldCheck } from "lucide-react";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 import { trackEvent } from "@/lib/analytics";
 
 interface ScanResult {
   name: string;
   confidence: "high" | "medium" | "low";
-  type: "sativa" | "indica" | "hybrid";
+  type: "sativa" | "indica" | "hybrid" | "unknown";
   thc_range: string;
   cbd_range: string;
   effects: string[];
@@ -22,6 +22,7 @@ interface ScanResult {
   best_for: string;
   similar_strains: string[];
   _demo?: boolean;
+  _provider?: "openai" | "openrouter";
 }
 
 const confidenceColors = {
@@ -30,12 +31,49 @@ const confidenceColors = {
   low: "text-text-muted",
 };
 
-const confidenceLabels = {
-  high: "High",
-  medium: "Medium",
-  low: "Low",
-};
+const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
+const MAX_IMAGE_DIMENSION = 1600;
 
+function loadImage(url: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error("This image format could not be read."));
+    image.src = url;
+  });
+}
+
+async function prepareScanImage(file: File): Promise<string> {
+  if (file.size > MAX_UPLOAD_BYTES) {
+    throw new Error("Image is too large. Choose one under 15 MB.");
+  }
+
+  const objectUrl = URL.createObjectURL(file);
+
+  try {
+    const image = await loadImage(objectUrl);
+    const scale = Math.min(1, MAX_IMAGE_DIMENSION / Math.max(image.naturalWidth, image.naturalHeight));
+    const width = Math.max(1, Math.round(image.naturalWidth * scale));
+    const height = Math.max(1, Math.round(image.naturalHeight * scale));
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    if (!context) {
+      throw new Error("Your browser could not prepare this image.");
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+    context.fillStyle = "#10181f";
+    context.fillRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+
+    return canvas.toDataURL("image/jpeg", 0.82);
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
+}
 export default function ScanPage() {
   const t = useTranslations("scan");
   const locale = useLocale() as WisdomLocale;
@@ -48,24 +86,20 @@ export default function ScanPage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [scansLeft, setScansLeft] = useState(5);
-  const [isPro, setIsPro] = useState(false);
   const [strains, setStrains] = useState<Strain[]>([]);
 
   useEffect(() => {
     queueMicrotask(() => {
       const userData = getUserData();
       setScansLeft(getScansRemaining(userData));
-      setIsPro(userData.isPro);
     });
     fetchStrains().then(setStrains);
   }, []);
 
   const handleScan = async (image?: string, text?: string, source: "photo" | "description" | "name_search_api" | "similar_strain" = image ? "photo" : "description") => {
-    // Check scan limit
-    const { allowed } = incrementScans();
-    if (!allowed) {
-      trackEvent("scan_limit_reached", { source, is_pro: isPro });
-      setError("Daily scan limit reached. Upgrade to PRO for unlimited scans.");
+    if (getScansRemaining(getUserData()) <= 0) {
+      trackEvent("scan_limit_reached", { source });
+      setError(t("dailyLimit"));
       return;
     }
 
@@ -103,7 +137,9 @@ export default function ScanPage() {
         confidence: data.confidence,
         result_type: data.type,
         demo: Boolean(data._demo),
+        provider: data._provider || "fallback",
       });
+      if (!data._demo) incrementScans();
       setResult(data);
       setMode("result");
       setScansLeft(getScansRemaining(getUserData()));
@@ -153,21 +189,25 @@ export default function ScanPage() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result as string;
-      setPreview(base64);
+    setError(null);
+
+    try {
+      const preparedImage = await prepareScanImage(file);
+      setPreview(preparedImage);
       trackEvent("scan_photo_selected", {
         file_type: file.type || "unknown",
         file_size_kb: Math.round(file.size / 1024),
       });
-      handleScan(base64, undefined, "photo");
-    };
-    reader.readAsDataURL(file);
+      await handleScan(preparedImage, undefined, "photo");
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : "This image could not be read.");
+    } finally {
+      event.target.value = "";
+    }
   };
 
   const handleTextScan = () => {
@@ -226,7 +266,7 @@ export default function ScanPage() {
           <div className="relative w-24 h-24 mx-auto mb-6 animate-float">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/wizl-book.png"
+              src="/wizl-book.webp"
               alt="WIZL"
               className="w-full h-full object-contain"
             />
@@ -273,7 +313,8 @@ export default function ScanPage() {
           onClick={reset}
           className="text-text-muted text-sm mb-4 hover:text-text-secondary transition-colors"
         >
-          ← {t("scanAgain")}
+          <ArrowLeft className="inline-block w-4 h-4 mr-1" />
+          {t("scanAgain")}
         </button>
 
         <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -294,10 +335,14 @@ export default function ScanPage() {
             <div>
               <h1 className="text-2xl font-black">{result.name}</h1>
               <div className="flex items-center gap-2 mt-1">
-                <span className={`strain-${result.type} px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider text-white`}>
+                <span className={result.type === "unknown" ? "px-3 py-0.5 rounded-full text-xs font-bold uppercase text-text-muted border border-border" : "strain-" + result.type + " px-3 py-0.5 rounded-full text-xs font-bold uppercase text-white"}>
                   {result.type}
                 </span>
-                <span className="text-text-muted text-sm">THC {result.thc_range}</span>
+                {result.type !== "unknown" && result.thc_range !== "Unknown" && (
+                  <span className="text-text-muted text-sm">
+                    {t("referenceThc")} {result.thc_range}
+                  </span>
+                )}
               </div>
             </div>
             <div className="text-right">
@@ -305,7 +350,13 @@ export default function ScanPage() {
                 {t("confidence")}
               </span>
               <p className={`text-sm font-bold ${confidenceColors[result.confidence]}`}>
-                {confidenceLabels[result.confidence]}
+                {t(
+                  result.confidence === "high"
+                    ? "confidenceHigh"
+                    : result.confidence === "medium"
+                      ? "confidenceMedium"
+                      : "confidenceLow",
+                )}
               </p>
             </div>
           </div>
@@ -317,51 +368,55 @@ export default function ScanPage() {
           <div className="bg-accent-green/5 border border-accent-green/15 rounded-xl p-3 mb-3 flex gap-2">
             <ShieldCheck className="w-4 h-4 text-accent-green shrink-0 mt-0.5" />
             <p className="text-[11px] leading-relaxed text-text-muted">
-              AI estimate for education and tracking. Verify labels, lab results, and local laws before making decisions.
+              {result.type === "unknown"
+                ? t("notEnoughEvidence")
+                : t("referenceDisclaimer")}
             </p>
           </div>
 
           <div className="bg-bg-primary/50 rounded-xl p-3">
-            <p className="text-xs text-text-muted mb-1">Best for</p>
+            <p className="text-xs text-text-muted mb-1">{t("whatToVerify")}</p>
             <p className="text-sm text-text-primary">{result.best_for}</p>
           </div>
 
           {result._demo && (
             <div className="mt-3 bg-accent-orange/10 rounded-xl p-3 border border-accent-orange/20">
               <p className="text-accent-orange text-xs font-medium">
-                Demo mode - add OPENAI_API_KEY for real AI scans
+                {t("readerUnavailable")}
               </p>
             </div>
           )}
         </div>
 
-        {/* Effects */}
-        <div className="glass-card rounded-2xl p-5 mb-4">
-          <h3 className="font-bold mb-3 flex items-center gap-2">
-            <Zap className="w-4 h-4 text-accent-green" /> Effects
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {result.effects.map((effect) => (
-              <span key={effect} className="px-3 py-1.5 rounded-full bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/20">
-                {effect}
-              </span>
-            ))}
+        {result.effects.length > 0 && (
+          <div className="glass-card rounded-2xl p-5 mb-4">
+            <h3 className="font-bold mb-3 flex items-center gap-2">
+              <Zap className="w-4 h-4 text-accent-green" /> {t("effects")}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {result.effects.map((effect) => (
+                <span key={effect} className="px-3 py-1.5 rounded-full bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/20">
+                  {effect}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Flavors */}
-        <div className="glass-card rounded-2xl p-5 mb-4">
-          <h3 className="font-bold mb-3 flex items-center gap-2">
-            <Droplets className="w-4 h-4 text-accent-purple" /> Flavors
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {result.flavors.map((flavor) => (
-              <span key={flavor} className="px-3 py-1.5 rounded-full bg-accent-purple/10 text-accent-purple text-sm font-medium border border-accent-purple/20">
-                {flavor}
-              </span>
-            ))}
+        {result.flavors.length > 0 && (
+          <div className="glass-card rounded-2xl p-5 mb-4">
+            <h3 className="font-bold mb-3 flex items-center gap-2">
+              <Droplets className="w-4 h-4 text-accent-purple" /> {t("flavors")}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {result.flavors.map((flavor) => (
+                <span key={flavor} className="px-3 py-1.5 rounded-full bg-accent-purple/10 text-accent-purple text-sm font-medium border border-accent-purple/20">
+                  {flavor}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Similar Strains */}
         {result.similar_strains.length > 0 && (
@@ -408,18 +463,29 @@ export default function ScanPage() {
 
         {/* Actions */}
         <div className="flex gap-3">
-          <button
-            onClick={handleSaveCheckin}
-            className="flex-1 py-3 rounded-2xl bg-accent-green text-black font-bold text-center hover:brightness-110 transition-all glow-green"
-          >
-            {t("saveCheckin")}
-          </button>
-          <button
-            onClick={reset}
-            className="flex-1 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium hover:bg-bg-card-hover transition-all flex items-center justify-center gap-2"
-          >
-            {t("scanAgain")} <ScanLine className="w-4 h-4" />
-          </button>
+          {result.type !== "unknown" ? (
+            <button
+              onClick={handleSaveCheckin}
+              className="flex-1 py-3 rounded-2xl bg-accent-green text-black font-bold text-center hover:brightness-110 transition-all glow-green"
+            >
+              {t("saveCheckin")}
+            </button>
+          ) : (
+            <button
+              onClick={reset}
+              className="flex-1 py-3 rounded-2xl bg-accent-green text-black font-bold text-center hover:brightness-110 transition-all"
+            >
+              {t("tryClearerLabel")}
+            </button>
+          )}
+          {result.type !== "unknown" && (
+            <button
+              onClick={reset}
+              className="flex-1 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium hover:bg-bg-card-hover transition-all flex items-center justify-center gap-2"
+            >
+              {t("scanAgain")} <ScanLine className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
     );
@@ -433,7 +499,7 @@ export default function ScanPage() {
         <h1 className="text-2xl font-black gradient-text mb-1">{t("title")}</h1>
         <p className="text-text-secondary text-sm">{t("subtitle")}</p>
         <p className="text-text-muted text-xs mt-2 max-w-[310px] mx-auto">
-          Best with a package label or clear strain name. WIZL is an educational guide, not a lab test.
+          {t("photoCaution")}
         </p>
       </div>
 
@@ -484,7 +550,7 @@ export default function ScanPage() {
         <input
           ref={fileRef}
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
           capture="environment"
           onChange={handleFileChange}
           className="hidden"
@@ -529,24 +595,12 @@ export default function ScanPage() {
         </button>
       </div>
 
-      {/* Scan limit / PRO */}
-      {isPro ? (
-        <div className="glass-card rounded-2xl p-4 text-center border border-accent-green/20">
-          <p className="text-accent-green text-xs font-medium">
-            <span className="pro-badge px-2 py-0.5 rounded-full text-[10px] font-bold text-black mr-1">PRO</span>
-            {" "}Unlimited scans active
-          </p>
-        </div>
-      ) : (
-        <div className="glass-card rounded-2xl p-4 text-center border border-accent-purple/20">
-          <p className="text-text-secondary text-sm font-medium mb-1">
-            {scansLeft} free scan{scansLeft !== 1 ? "s" : ""} left today
-          </p>
-          <Link href="/pro" className="text-accent-green text-xs font-semibold">
-            Upgrade to PRO for unlimited →
-          </Link>
-        </div>
-      )}
+      <div className="border-y border-border py-4 text-center">
+        <p className="text-text-secondary text-sm font-medium">
+          {scansLeft} AI read{scansLeft !== 1 ? "s" : ""} left today
+        </p>
+        <p className="text-text-muted text-xs mt-1">The Book and field notes stay free.</p>
+      </div>
     </div>
   );
 }

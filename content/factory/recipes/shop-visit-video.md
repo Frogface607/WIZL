@@ -1,81 +1,56 @@
-# Recipe: Shop Visit Video Loop (atmospheric, 5-8s)
+# Paused Recipe: Licensed Partner Education Visit
 
-**Goal:** Short atmospheric loop showing Wizl entering / browsing a Bangkok cannabis shop. Used as: Reel intro, story background, B-roll for Сергея's GoPro footage.
+Status: paused by default
 
-**Variables:** `$Shop` (name, e.g. "Space Herbs"), `$Action` (e.g. "Wizl walking past glowing jars on wooden shelves"), `$World` (default: `apothecary` or `night-market`), `$Duration` (5 or 8 seconds)
+This file intentionally replaces the old promotional shop-visit recipe.
 
-**Output:** `content/posts/{Date}-shop-{shop-slug}/`
-- `loop.mp4`
-- `cover.png` (first frame extract for thumbnail)
-- `caption.md`
+Do not generate or publish a venue visit merely because a venue exists or agrees informally. Thailand’s current medical controls and advertising restrictions, along with platform drug-promotion rules, make the old format unsafe.
 
----
+## Reactivation gate
 
-## Step 1 — Generate start frame (model: `nano_banana_2`, aspect `9:16`)
+All items are required:
 
-```bash
-higgsfield generate create nano_banana_2 \
-  --prompt "$(cat nodes/character.txt) $Action $(cat nodes/worlds/$World.txt) Cinematic still frame, slight motion blur on the cat in his satchel, magical green dust drifting in the air. $(cat nodes/style.txt)" \
-  --image public/mascot.png \
-  --aspect_ratio 9:16 \
-  --resolution 2k \
-  --wait
-```
+- the organization’s current license is verified
+- a qualified local reviewer confirms the concept
+- written filming, trademark, and publication permission exists
+- the story is educational rather than product promotion
+- no menu, price, discount, purchase link, seller address CTA, ranking, or consumption spectacle
+- factual claims are approved by the interviewed expert
+- the caption states that WIZL does not sell or certify products
 
-**Save the result URL as `start.png`.**
+## Approved concept
 
-## Step 2 — Animate via Seedance 2.0
+Title:
 
-```bash
-higgsfield generate create seedance_2_0 \
-  --prompt "Camera slowly dollies forward following Wizl as he $Action. Subtle parallax on the background shelves and lanterns. Magical green dust drifts gently. The cat in his satchel turns its head. Smoke wisps curl up. Loop-friendly motion, gentle, dreamy. Mystic Street Futurism aesthetic preserved." \
-  --start-image start.png \
-  --duration $Duration \
-  --aspect_ratio 9:16 \
-  --wait --wait-timeout 20m
-```
+How to Read a Legal Cannabis Label
 
-## Step 3 — Extract cover
+Potential partner types:
 
-```bash
-ffmpeg -i loop.mp4 -vframes 1 cover.png
-```
+- licensed lab
+- educator
+- quality or traceability specialist
+- researcher
+- licensed cultivation specialist discussing general standards
 
----
+Story beats:
 
-## Cheap alternative (model: `kling3_0`)
+1. WIZL finds a confusing page in the Book.
+2. A qualified expert explains producer, batch, test date, cannabinoid information, and traceability.
+3. WIZL records the lesson.
+4. The CTA is to save a field note, not visit or buy.
 
-When Seedance budget is tight, use Kling 3.0 instead — single-plane motion, no cuts. Same start-image, same prompt structure. Cheaper.
+## Visual rule
 
----
-
-## Action library
-
-| Action | Best World |
-|---|---|
-| Wizl walking past glowing jars on wooden shelves | apothecary |
-| Wizl opening the magical book and reading by lamplight | study |
-| Wizl examining a single bud held to the emerald crystal | apothecary or secret-garden |
-| Wizl walking through a neon-lit Bangkok night market | night-market |
-| Wizl sitting on a rooftop sipping tea, peace-sign flag waving | rooftop |
-| Wizl entering through a glowing magical portal | portal-chamber |
-| Wizl tending to tall cannabis plants in the garden | secret-garden |
-| Wizl walking along a misty mountain road, airships above | travel-route |
-
----
+The partner’s product must not become the hero. Show process, documents, testing concepts, and the WIZL lesson. Obtain permission before using any logo.
 
 ## Caption template
 
-```markdown
-# Main caption (IG Reel)
-Day [X] in Bangkok — visiting $Shop with Wizl 🌿
+A label is more than a strain name.
 
-$ShopShortDescription
+Today WIZL learned to look for producer, batch, test date, chemistry, and traceability.
 
-What's your favorite Bangkok shop? Drop a name in the comments — Wizl might visit.
+This chapter was reviewed with a licensed education or quality partner. It is general information, not a product endorsement, lab certification, or purchase guide.
 
-wizl.space — every strain has a story.
+Save the checklist.
 
-# Hashtags
-#bangkokweed #cannabisthailand #shopvisit #wizl #cannabis #buildinpublic
-```
+Adults only where legal.

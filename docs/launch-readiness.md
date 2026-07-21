@@ -1,169 +1,276 @@
 # WIZL Launch Readiness
 
-Updated: 2026-06-27
+Updated: July 21, 2026
+Status: local release candidate verified; production deployment pending
+Launch type: founder-led organic soft launch
 
-## Current Launch State
+## Verdict
 
-WIZL is close to a soft public launch.
+WIZL has a real product heart and a memorable world. The current build is ready for a controlled founder-led soft launch after production smoke testing. It is not ready for a large paid or commercial launch, and scanner promotion still requires real-label QA.
 
-The core web flow now explains the product quickly:
+The best product is not the old map or an AI strain guess. It is:
 
-- Home: scan, Book, map, Ask WIZL.
-- Scan: AI strain estimate with educational trust copy.
-- Book: 3,000+ strains visible on production.
-- Map: shop discovery and shop-owner CTA.
-- Check-in: AI scan path, search path, and save flow.
-- Club: free founder claim plus optional $4.20/year support.
+- The Book
+- cautious label literacy
+- a fast private field note
+- the personal taste trail
+- WIZL as a companion and serialized character
 
-Production smoke on `https://wizl.space/en`:
+## Verification snapshot
 
-- No Russian text detected in the checked public pages.
-- No 400/500 page responses detected during the mobile pass.
-- AI scan returns real OpenAI results when the key is present.
-- Age gate appears first for new users.
-- Basic launch analytics events are wired in the client funnel.
-- Latest production deploy is Ready on Vercel.
-- Production Book shows 3,123 strains.
-- Production text scan for a Cherry King-style prompt returned a cherry strain result, not the old OG Kush fallback.
-- Production social preview is live: `og:image` and `twitter:image` point to `https://wizl.space/og-image.png`.
-- Production sitemap is live at `https://wizl.space/sitemap.xml` with 6,268 URLs, and `robots.txt` points to it.
-- The inherited global canonical was removed so deep pages do not all canonicalize to `/en`.
-- Vercel Analytics is connected in production. Browser smoke confirmed the analytics script plus `POST /view` and `POST /event` returning 200.
-- Mobile bottom navigation spacing was tightened by removing the duplicated layout-level bottom padding; page-level safe space still keeps bottom CTAs above the nav.
-- Strain detail pages now generate strain-specific SEO metadata: title, description, canonical, OpenGraph, Twitter card, and keywords.
-- Local Supabase env is verified: `.env.local` reaches the `strains` table and returns 3,123 rows, so local Book audits no longer silently depend on the 62-strain static fallback.
-- Launch content assets have a repeatable verifier and a publishing kit with exact files, captions, story prompts, and week-1 metrics.
-- Launch week now has ready publishable assets for Day 1 fallback through Day 7: four visual assets plus Founder Q&A and Week 1 recap text assets.
-- Check-in rating and success states were polished with stable icon controls, cleaner secondary labels, and scroll-to-top behavior after saving.
-- Production check-in smoke passed after the latest deploy: save flow shows `Logged!`, unlocks the badge, keeps the success state at scroll top, and reports no 4xx/5xx events.
-- Production scan no-sticky smoke passed: a Cherry prompt returned `Cherry OG`, then a second Gelato prompt returned `Gelato`; both were real AI results, not demo fallbacks.
-- Shop map data now has a repeatable country/address verifier and 28 obvious city/country mismatches were corrected.
-- Production launch smoke has a repeatable verifier: `npm run verify:launch-smoke` checks key public pages, `/ru` redirect, sitemap/robots, no Cyrillic on checked pages, and two back-to-back AI scan results.
+Verified locally on July 21, 2026:
 
-## User Audit
+- 7 automated tests pass across analytics, scan rate limiting, and API rate limiting.
+- ESLint and TypeScript pass.
+- The production build generates 6,279 static pages.
+- The Book verifier confirms 3,123 Supabase strain-reference entries.
+- Content assets pass dimension, duration, and completeness checks through ffprobe.
+- Launch smoke passes all core English routes, the /ru redirect, paused checkout, and a Cherry King then Gelato back-to-back lookup.
+- Browser QA passes the age gate, mobile and desktop layout, English and Thai switching, field-note save, local profile persistence, and zero runtime page errors.
+- English and Thai message trees match at 213 leaf keys each with no broken Thai encoding.
+- The OpenAI credential is accepted, but the account currently returns insufficient_quota for generation. The structured OpenRouter fallback works; if providers fail, WIZL returns an honest unknown result instead of guessing.
+- Legacy generated social visuals are treated as storyboards. The canonical publish queue blocks old otter-era art and the obsolete "Scan what you got" promise until Sergey replaces or approves them.
 
-### First Impression
+Production remains a separate gate for the exact pushed commit.
 
-The app now has a clear promise: scan what you got, learn it, save it. The character layer makes it memorable, but the interface still needs to keep proving that WIZL is useful in the first 10 seconds.
+## What the current truth pass changed
 
-### Strong Points
+Product:
 
-- The home page finally says what the product does without requiring lore context.
-- The Book count is impressive and gives instant substance.
-- The AI scan flow has trust copy, which matters for cannabis and image recognition.
-- The map creates a broader discovery angle beyond strain lookup.
-- The $4.20 Club offer fits the brand and does not feel like a hard paywall.
+- Journal replaced Map in bottom navigation.
+- Home now leads with label understanding and memory.
+- Public venue data is paused behind an honest Atlas notice.
+- Check-in no longer asks the user to attach a shop.
+- Strain pages no longer claim product availability at venues.
+- Profile no longer promises account sync.
+- Profile explains local storage and exports field notes as JSON.
+- WIZL Club no longer grants browser-only fake paid access.
+- Checkout now returns 410 while payments are paused.
+- Shop owner checkout and dashboard prototype were removed.
+- The partner page now describes only a licensed, compliance-reviewed pilot.
+- “Blasted” was replaced by “Grounded.”
 
-### Friction
+Trust and cost:
 
-- Age gate blocks every direct URL for a new user. This is legally useful, but launch content should send people to one clear CTA after they enter.
-- Check-in selection, rating, save, share, and success states are launch-polished; remaining improvements can wait for real user feedback.
-- Strain cards are dense on mobile. Good for power users, but first-time users may need clearer "tap to open" affordance later.
-- Build-time strain detail fallback noise has been cleaned up.
-- The deprecated Next `middleware` convention has been migrated to `proxy`.
-- Local dev now reaches Supabase for the full 3,123-strain Book; the 62-strain fallback remains only as an offline safety net.
-- Mobile bottom navigation no longer adds a second layout-level bottom gutter on top of page safe space.
-- Top strain detail pages no longer inherit the generic WIZL social metadata.
+- The scanner prompt now forbids cultivar and potency claims from appearance alone.
+- Unknown flower is a real result state and cannot be saved as a named field note.
+- Images are resized to a maximum 1,600-pixel dimension before upload.
+- Scan and chat endpoints have best-effort in-memory network limits.
+- Rate-limit behavior has tests.
+- Ask WIZL no longer assists with sellers, prices, delivery, or purchase directions.
 
-### Latest Mobile Pass - 2026-06-27
+Privacy and legal:
 
-Checked with a verified age-gate state:
+- Auth UI and callback code were removed because user data was not synced.
+- Privacy and Terms now match local storage, OpenAI, OpenRouter, Supabase, and Vercel.
+- Refund page says no paid service is active.
+- Sitemap no longer advertises paused or no-index commercial routes.
+- Age gate uses legal age in the user’s jurisdiction rather than a universal 20 or 21.
 
-- Home: clear promise, primary scan CTA, quick links, Ask WIZL module.
-- Scan: name search, photo path, description path, trust copy, free-scan card.
-- Scan result: Cherry prompt returns a cherry strain estimate and exposes save/check-in CTA.
-- Book: production shows 3,123 strains; local dev fallback shows 62 when Supabase fetch is unavailable.
-- Strain detail: OG Kush page loads with check-in/favorite/want-to-try actions.
-- Check-in: entry screen clearly offers AI scan and starting points; rating/save/success flow was checked end-to-end on mobile.
-- Map: 1,594 shops load with filters and shop-owner CTA.
-- Map data: 1,594 shop records pass the address-country verifier.
-- Club, Story, Shop: pages load and explain their role without Russian text.
+Performance:
 
-### Latest Strain SEO Pass - 2026-06-27
+- Original character PNG files remain available for content production.
+- The app now uses optimized WebP versions.
+- Approximate web asset reductions:
+  - hero: 4.6 MB to about 76 KB
+  - mascot: 6.6 MB to about 16 KB
+  - Book: 8.0 MB to about 69 KB
+  - avatar: 5.5 MB to about 19 KB
+  - header mark: 3.3 MB to about 5 KB
 
-Checked the first 20 Book strain pages locally against the production build:
+## Strengths
 
-- All 20 returned HTTP 200.
-- All 20 had strain-specific titles ending in `| WIZL`.
-- All 20 had meta descriptions between 120 and 160 characters.
-- All 20 had canonicals pointing to their exact `/en/strains/[id]` URL.
-- OpenGraph titles matched the strain-specific page titles.
+### Memorability
 
-### Latest Local Book Data Pass - 2026-06-27
+WIZL has original IP, a protagonist, a cat, a magic object, recurring worlds, and a founder story. This can grow into a media and merchandise brand rather than remain a utility with a cannabis skin.
 
-Checked local `.env.local` and browser dev mode:
+### Substance
 
-- `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are present.
-- Supabase REST count returned `0-0/3123`.
-- Local `/en/strains` loaded `3123 strains`.
-- No `Offline sample loaded` warning appeared.
+The Book contains more than 3,000 reference entries. The app already supports exact-name search, field notes, ratings, moods, favorites, a wishlist, achievements, export, and taste patterns.
 
-## Launch Blockers
+### Privacy wedge
 
-None for a founder-led soft launch.
+No account is required and journal data remains on the device. User feedback across journal products repeatedly shows that privacy and low friction matter in this category.
 
-Do not run a big paid campaign until:
+### Founder-market fit
 
-- AI scan is tested with 20-30 real labels/photos.
-- Founder story and first WIZL adventure assets are published and pinned.
+Sergey genuinely cares about Bangkok, cannabis culture, world-building, walking, and making useful things. The founder story is not manufactured.
 
-## Soft Launch Definition
+## Critical risks
 
-WIZL is soft-launch ready when:
+### Scanner accuracy
 
-- A new adult user can understand the product from the home page.
-- A user can search The Book and open a strain.
-- A user can run one AI scan and see a result that is not a demo fallback.
-- A user can save/check in a strain.
-- The founder story explains why WIZL exists.
-- The first 7 days of content are ready to post.
+A flower photo cannot establish a named cultivar or potency. The new prompt and unknown state reduce false confidence, but twenty or more real packages and difficult cases must be tested before strong promotion.
 
-Status on 2026-06-27: soft-launch ready for founder-led organic traffic; week-1 content is ready to post, and actual publishing is now the main bottleneck.
+Required QA classes:
 
-## Next Product Sprint
+- clear strain name
+- clear full label
+- reflective jar
+- partial label
+- handwritten label
+- multiple products in frame
+- naked flower
+- unrelated plant
+- screenshot or meme
+- non-English label
+- fake or misspelled strain
+- second scan after a prior result
 
-1. Test AI scan with 20-30 real labels/photos using `docs/ai-scan-qa-log.md` and write down misses.
-2. Run `npm run verify:launch-smoke` before each launch-week publishing session.
+Pass condition:
 
-## Analytics Events
+No sticky prior result, no confident naked-flower guess, and no invented exact potency.
 
-Client events now emit through `trackEvent()` to the official Vercel Analytics collector, with GA and `dataLayer` bridges still available:
+### Distributed abuse protection
 
-- `home_primary_cta_clicked`
-- `home_quick_link_clicked`
-- `strain_search_submitted`
-- `strain_filter_changed`
-- `strain_sort_changed`
-- `strain_opened`
-- `scan_photo_selected`
-- `scan_started`
-- `scan_completed`
-- `scan_failed`
-- `scan_limit_reached`
-- `scan_save_checkin_clicked`
-- `checkin_scan_cta_clicked`
-- `checkin_saved`
-- `checkin_share_clicked`
-- `club_free_claimed`
-- `club_support_clicked`
-- `club_checkout_success`
+The in-memory limiter is only a first line. Serverless instances do not share memory reliably.
 
-Privacy rule: do not send user photos, free-text strain descriptions, or full notes. Only send safe funnel metadata such as source, result type, confidence, text length, rating, and whether a shop was selected.
+Before more than a small launch:
 
-## Next Marketing Sprint
+- add a durable quota through Redis, Vercel Firewall, or another shared store
+- set provider usage alerts and hard budgets
+- record per-route cost without storing user content
+- add bot and payload protection
 
-1. Publish founder story reel from the Hero video.
-2. If Founder Story is not cut yet, publish "Meet WIZL" as the Day 1 fallback.
-3. Publish the Product Hook scan-label reel.
-4. Publish "THC Is Not The Whole Story" carousel.
-5. Publish "The Lost Page at the Night Market" adventure reel.
-6. Pin the founder story, product hook, and best WIZL lore post.
-7. Track comments manually for the first week and turn good questions into posts.
+### Local-only data loss
 
-Operational queue: `content/publish-queue.md`.
+The privacy wedge is also a retention risk. Users can lose notes when browser storage is cleared.
 
-Launch week calendar: `content/launch-week-calendar.md`.
+Launch mitigation:
 
-Launch publishing kit: `content/launch-publishing-kit.md`.
+Visible explanation plus export.
 
-AI scan QA log: `docs/ai-scan-qa-log.md`.
+Later decision:
+
+Add opt-in sync only after user demand and a real migration design.
+
+### Catalog trust
+
+The Book is reference data, not product or batch data. THC numbers and effects must stay framed as references. Add source and update provenance to the data backlog.
+
+### Thailand
+
+The planned Bangkok return cannot use the old dispensary-tour playbook. Current official guidance describes medical controls, prescriptions, advertising restrictions, and online-sales restrictions. Use local legal review before any partner campaign.
+
+### Payments
+
+The project should not assume Gumroad, Stripe, Paddle, or Lemon Squeezy will support the business. Checkout stays off until the exact model is approved in writing.
+
+### Platform distribution
+
+Meta, TikTok, YouTube, and X all restrict drug-related advertising, sales, or promotional content. Organic educational and narrative content is the starting point. Reach suppression is possible and is not a reason to evade moderation.
+
+## Launch gates
+
+### Gate A: repository
+
+- npm test passes
+- npm run lint passes
+- npm run build passes
+- book-data verifier passes
+- content-asset verifier passes
+- no secrets are tracked
+- no unintended large generated files are added
+- HERO.MOV remains untouched unless explicitly approved
+
+### Gate B: production
+
+- deploy is Ready
+- home, Book, label reader, field note, Profile, Story, Club, Privacy, and Terms return 200
+- checkout returns 410
+- old map displays the paused Atlas notice
+- old shop URL displays partner pilot, not checkout
+- no Russian locale or public Russian cannabis copy
+- language button displays a flag
+- mobile navigation does not overlap controls
+- optimized images load
+- analytics receives only safe metadata
+
+### Gate C: product trust
+
+- twenty real-label QA cases recorded
+- naked flower returns unknown
+- exact-name lookup remains fast
+- back-to-back reads do not reuse the prior result
+- first field note completes in under two minutes
+- export produces valid JSON
+- three people outside the project complete the core flow without coaching
+
+### Gate D: launch content
+
+- official handles confirmed
+- bio and link-in-bio ready
+- first seven assets exported and reviewed
+- Founder Episode 1 recorded or Meet WIZL fallback selected
+- captions contain no sales, menu, price, medical, or visual-identification claim
+- reply bank ready
+- one metric sheet owner: Sergey
+
+## Remaining human decisions
+
+1. Founder Story approval
+
+Do not edit public/HERO.MOV until Sergey sends exactly:
+
+Yes, cut the Founder Story with this strategy.
+
+2. Social links
+
+Confirm final Instagram, TikTok, YouTube, and X handles before linking them in the app.
+
+3. Payment
+
+Choose no provider yet. First obtain written approval for the exact supporter model.
+
+4. Thailand
+
+Obtain qualified local legal guidance before filming or signing a cannabis-adjacent commercial partner.
+
+## Forty-eight-hour release checklist
+
+1. Finish code and document diff.
+2. Run all local verification.
+3. Build production bundle.
+4. Commit in English and push main.
+5. Wait for Vercel Ready state.
+6. Run production smoke.
+7. Test checkout 410 and paused Atlas.
+8. Test one exact-name lookup and one unknown image.
+9. Test save, Profile, and export.
+10. Publish Meet WIZL if founder video is not yet approved.
+11. Answer every qualified reply personally.
+12. Record baseline metrics at 24 and 72 hours.
+
+## First sprint after launch
+
+Do not begin with merch inventory, native apps, or a map rebuild.
+
+Run:
+
+- fifteen interviews
+- twenty label tests
+- activation analysis
+- seven-day return analysis
+- comment mining
+- one evidence-backed retention improvement
+
+Candidate improvements, in order of likely value:
+
+- producer and batch fields
+- faster repeat-note flow
+- shareable field-note card
+- weekly recap
+- opt-in sync
+- tolerance and break notes
+
+## Current blockers for scale
+
+- no durable distributed limiter
+- no real account sync
+- no product-level source provenance
+- no written payment-provider approval
+- no Thai legal review for partner activity
+- no validated retention cohort
+- no confirmed unit economics
+
+These do not block a small founder-led learning launch. They do block spending money to acquire users or accepting commercial partner payments.

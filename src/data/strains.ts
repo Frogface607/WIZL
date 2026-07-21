@@ -1596,7 +1596,7 @@ export const moods = [
   { emoji: "\u{1F3B5}", label: "Musical", value: "musical" },
   { emoji: "\u{1F4AD}", label: "Thoughtful", value: "thoughtful" },
   { emoji: "\u{1F60E}", label: "Chill", value: "chill" },
-  { emoji: "\u{1F680}", label: "Blasted", value: "blasted" },
+  { emoji: "\u{1F30D}", label: "Grounded", value: "grounded" },
 ];
 
 export const recentCheckins: CheckIn[] = [

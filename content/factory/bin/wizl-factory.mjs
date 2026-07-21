@@ -8,7 +8,7 @@ const configPath = path.join(root, "content/factory/factory.config.json");
 const config = readJson(configPath);
 const command = process.argv[2] || "help";
 const flags = parseFlags(process.argv.slice(3));
-const implementedRecipes = ["shop-visit-reel", "adventure-reel", "wisdom-card", "strain-carousel"];
+const implementedRecipes = ["adventure-reel", "wisdom-card", "strain-carousel"];
 
 const usage = `
 WIZL Content Factory
@@ -21,13 +21,12 @@ Commands:
   status  List recent Higgsfield jobs
 
 Examples:
-  node content/factory/bin/wizl-factory.mjs plan --recipe shop-visit-reel --shop "Space Herbs" --world night-market
   node content/factory/bin/wizl-factory.mjs plan --recipe adventure-reel --title "The Lost Page at the Night Market" --world night-market --episode 01
   node content/factory/bin/wizl-factory.mjs plan --recipe wisdom-card --quote "The nose knows." --world rooftop
-  node content/factory/bin/wizl-factory.mjs plan --recipe strain-carousel --strain "Blue Dream" --type Hybrid --thc 21 --world secret-garden
-  npm run factory:image -- --manifest content/posts/2026-06-21-shop-space-herbs/manifest.json
-  npm run factory:video -- --manifest content/posts/2026-06-21-shop-space-herbs/manifest.json
-  npm run factory:render -- --manifest content/posts/2026-06-21-shop-space-herbs/manifest.json
+  node content/factory/bin/wizl-factory.mjs plan --recipe strain-carousel --strain "Blue Dream" --source "https://source.example/reference" --type Hybrid --world secret-garden
+  npm run factory:image -- --manifest content/posts/2026-06-21-adventure-01-the-lost-page-at-the-night-market/manifest.json
+  npm run factory:video -- --manifest content/posts/2026-06-21-adventure-01-the-lost-page-at-the-night-market/manifest.json
+  npm run factory:render -- --manifest content/posts/2026-06-21-adventure-01-the-lost-page-at-the-night-market/manifest.json
 `;
 
 try {
@@ -52,7 +51,7 @@ try {
 }
 
 function plan() {
-  const recipe = flags.recipe || flags._[0] || "shop-visit-reel";
+  const recipe = flags.recipe || flags._[0] || "adventure-reel";
   if (!implementedRecipes.includes(recipe)) {
     throw new Error(`Recipe '${recipe}' is not implemented in the orchestrator yet. Available: ${implementedRecipes.join(", ")}`);
   }
@@ -137,33 +136,7 @@ function getPlanData(recipe) {
   if (recipe === "strain-carousel") {
     return planStrainCarousel();
   }
-  return planShopVisitReel();
-}
-
-function planShopVisitReel() {
-  const shop = flags.shop || flags._[1] || "Bangkok Apothecary";
-  const world = flags.world || flags._[2] || "night-market";
-  const action =
-    flags.action ||
-    `walking past glowing jars and handwritten menu cards inside ${shop}`;
-
-  return {
-    slug: `shop-${slugify(shop)}`,
-    date: flags.date || flags._[3],
-    title: `${shop} with WIZL`,
-    subtitle: "Bangkok field note",
-    source: { shop, world, action },
-    prompts: buildShopVisitPrompts({ shop, world, action }),
-    caption: [
-      `WIZL stopped by ${shop}.`,
-      "",
-      "A small field note from the road.",
-      "",
-      "Every strain has a story.",
-      "",
-      "wizl.space"
-    ].join("\n")
-  };
+  throw new Error(`Recipe '${recipe}' is not implemented.`);
 }
 
 function planAdventureReel() {
@@ -199,11 +172,11 @@ function planWisdomCard() {
     flags.quote ||
     flags._[1] ||
     pickByDay([
-      "The nose knows.",
-      "Low and slow.",
-      "Terpenes tell you more than THC ever will.",
-      "The best strain matches your moment.",
-      "Labels are guides, not rules."
+      "The label starts the story. Your notes finish it.",
+      "A strain name is a clue, not a guarantee.",
+      "Producer and batch matter. Write them down.",
+      "Tolerance is feedback, not a contest.",
+      "The wisest choice is sometimes not today."
     ]);
   const world = flags.world || flags._[2] || "rooftop";
   const action = flags.action || "studying The Book under a warm lantern";
@@ -241,23 +214,42 @@ function planWisdomCard() {
 }
 
 function planStrainCarousel() {
-  const strain = flags.strain || flags._[1] || "Blue Dream";
-  const type = flags.type || flags._[2] || "Hybrid";
-  const thc = normalizePercent(flags.thc || flags._[3] || "21");
-  const genetics = flags.genetics || "Blueberry x Haze";
-  const effects = flags.effects || "calm focus, creative lift, easy mood";
-  const flavors = flags.flavors || "berry, citrus, soft herbal sweetness";
+  const strain = flags.strain || flags._[1];
+  const sourceUrl = flags.source;
+
+  if (!strain) {
+    throw new Error("strain-carousel requires --strain.");
+  }
+  if (!sourceUrl) {
+    throw new Error("strain-carousel requires --source with the reference used for fact-checking.");
+  }
+
+  const type = flags.type || "Reference profile";
+  const thc = flags.thc ? normalizePercent(flags.thc) : "Check the package label";
+  const genetics = flags.genetics || "Varies by producer and batch";
+  const effects = flags.effects || "Responses vary by person";
+  const flavors = flags.flavors || "Record the label and your own aroma notes";
   const world = flags.world || flags._[4] || "secret-garden";
   const prompts = buildStrainCarouselPrompts({ strain, type, thc, genetics, effects, flavors, world });
 
   return {
     slug: `strain-${slugify(strain)}`,
     date: flags.date || flags._[5],
-    title: `Strain of the Day: ${strain}`,
+    title: `Reference Profile: ${strain}`,
     subtitle: `${type} | ${thc}`,
     format: config.formats.carouselPortrait,
     startImageName: "slide-1.png",
-    source: { strain, type, thc, genetics, effects, flavors, world },
+    source: {
+      strain,
+      type,
+      thc,
+      genetics,
+      effects,
+      flavors,
+      world,
+      sourceUrl,
+      disclaimer: "Strain names are not reliable product identities; producer, batch, label, and personal response matter."
+    },
     prompts: {
       image: prompts.slide1,
       motion: ""
@@ -289,17 +281,18 @@ function planStrainCarousel() {
       }
     ],
     caption: [
-      `STRAIN OF THE DAY: ${strain}`,
+      `REFERENCE PROFILE: ${strain}`,
       "",
       `${type} | ${thc}`,
-      `Genetics: ${genetics}`,
-      `Effects: ${effects}`,
-      `Notes: ${flavors}`,
+      `Reported lineage: ${genetics}`,
+      `Reported effects: ${effects}`,
+      `Reported notes: ${flavors}`,
       "",
-      "Found in The Book.",
-      "wizl.space",
+      "A strain name is a clue, not a guarantee. Compare the producer, batch, and package label, then record your own response.",
       "",
-      `#wizl #strainoftheday #${slugify(strain).replaceAll("-", "")} #cannabiseducation`
+      `Source reviewed: ${sourceUrl}`,
+      "Adults only where legal.",
+      "wizl.space"
     ].join("\n")
   };
 }
@@ -509,44 +502,14 @@ function render() {
   console.log(`Rendered: ${output}`);
 }
 
-function buildShopVisitPrompts({ shop, world, action }) {
-  const character = readNode("nodes/character.txt");
-  const style = readNode("nodes/style.txt");
-  const worldText = readNode(`nodes/worlds/${world}.txt`);
-  const cleanWorld = neutralize(worldText);
-  const cleanAction = neutralize(action);
-
-  const image = neutralize(`
-Vertical 9:16 cinematic start frame for a WIZL reel.
-
-${character}
-
-${mascotStyleLock()}
-
-Scene: ${cleanWorld}
-
-Action: WIZL is ${cleanAction}. Keep the character in the lower middle third with clear space above for editorial text overlays. The orange cat in the satchel is visible and calm. The shop name "${shop}" may appear as a small handwritten sign.
-
-${style}
-
-Premium social poster quality. Crisp readable composition, no duplicate characters, no humans in foreground, no photorealism.
-`).trim();
-
-  const motion = neutralize(`
-Animate this start image into a loop-friendly 9:16 social reel. Camera slowly dollies forward behind WIZL as he is ${cleanAction}. Add subtle parallax on shelves, lanterns, mist, and tiny green spark particles. The orange cat gently turns its head once. Keep WIZL on-model, one character only, no extra humans, no hard cuts. Gentle dreamy motion, 8 to 12 seconds, suitable for Remotion edit.
-`).trim();
-
-  return { image, motion };
-}
-
 function buildAdventurePrompts({ title, world, action, hook }) {
   const character = readNode("nodes/character.txt");
   const style = readNode("nodes/style.txt");
   const worldText = readNode(`nodes/worlds/${world}.txt`);
-  const cleanWorld = neutralize(worldText);
-  const cleanAction = neutralize(action);
+  const cleanWorld = cleanPrompt(worldText);
+  const cleanAction = cleanPrompt(action);
 
-  const image = neutralize(`
+  const image = cleanPrompt(`
 Vertical 9:16 cinematic key frame for a WIZL adventure reel.
 
 Title: "${title}"
@@ -565,7 +528,7 @@ ${style}
 Premium illustrated social reel frame. One WIZL only. No humans in foreground. No photorealism. No hard cannabis symbols in the scene description. Mystical, useful, kind, street-folklore energy.
 `).trim();
 
-  const motion = neutralize(`
+  const motion = cleanPrompt(`
 Animate this WIZL adventure key frame into a loop-friendly 9:16 reel. Camera slowly pushes toward the floating page fragment while WIZL follows it. The page glows, lanterns flicker, mist drifts, small green spark particles move through the air, and the orange cat blinks once from the satchel. Keep the character on-model, keep The Book visible, no extra WIZL duplicates, no hard cuts. Dreamy cinematic motion for a 10-12 second Remotion edit.
 `).trim();
 
@@ -576,10 +539,10 @@ function buildWisdomPrompts({ quote, world, action }) {
   const character = readNode("nodes/character.txt");
   const style = readNode("nodes/style.txt");
   const worldText = readNode(`nodes/worlds/${world}.txt`);
-  const cleanWorld = neutralize(worldText);
-  const cleanAction = neutralize(action);
+  const cleanWorld = cleanPrompt(worldText);
+  const cleanAction = cleanPrompt(action);
 
-  const image = neutralize(`
+  const image = cleanPrompt(`
 Square 1:1 editorial WIZL wisdom card.
 
 Exact quote text to render large and clean:
@@ -606,9 +569,9 @@ function buildStrainCarouselPrompts({ strain, type, thc, genetics, effects, flav
   const character = readNode("nodes/character.txt");
   const style = readNode("nodes/style.txt");
   const worldText = readNode(`nodes/worlds/${world}.txt`);
-  const cleanWorld = neutralize(worldText);
+  const cleanWorld = cleanPrompt(worldText);
 
-  const slide1 = neutralize(`
+  const slide1 = cleanPrompt(`
 Portrait 3:4 carousel hero card for WIZL.
 
 Visible title text: "${strain}"
@@ -627,26 +590,28 @@ ${style}
 Premium editorial card, no duplicate characters, no humans in foreground, no photorealism, no hard cannabis symbols, no consumption scene.
 `).trim();
 
-  const slide2 = neutralize(`
+  const slide2 = cleanPrompt(`
 Portrait 3:4 WIZL strain notes infographic.
 
 Text to render:
 ${strain}
-${type}
-INTENSITY ${thc}
-LINEAGE: ${genetics}
-NOTES: ${flavors}
-EFFECTS: ${effects}
+REFERENCE PROFILE
+TYPE: ${type}
+LABEL THC: ${thc}
+REPORTED LINEAGE: ${genetics}
+REPORTED NOTES: ${flavors}
+REPORTED EFFECTS: ${effects}
+Footer: Names vary by producer and batch.
 
 Deep navy background, cream typography, neon green intensity value, wizard purple badge, warm gold dividers. Include a small low-opacity WIZL silhouette watermark and tiny magical crystal illustration, not a plant close-up. Clean editorial layout, readable hierarchy, subtle grain, no photorealism.
 `).trim();
 
-  const slide3 = neutralize(`
+  const slide3 = cleanPrompt(`
 Portrait 3:4 WIZL carousel end card.
 
 Text to render:
 Found in The Book.
-3,000+ strains. Free forever.
+Read the label. Keep a field note.
 wizl.space
 
 Deep navy background, large cream headline, neon green supporting line, warm gold site text. WIZL stands on the right holding The Book open with emerald page glow. The orange cat peeks from the satchel. Premium illustrated storybook style, subtle grain, soft haze, no photorealism.
@@ -660,38 +625,18 @@ function mascotStyleLock() {
 STRICT WIZL MASCOT STYLE LOCK:
 Use the clean WIZL avatar as the character style target: 2D hand-drawn cartoon mascot, simplified rounded shapes, big friendly eyes, compact cute proportions, thick clean dark outline, soft cel-shading, smooth color blocks, subtle painterly brush only inside large shapes.
 Fur must be simplified into broad color areas. Do NOT render individual fur strands, whisker-heavy realism, realistic animal anatomy, cinematic creature design, high-fantasy painting, oil painting, photoreal lighting, 3D render, hyper-detailed costume texture, ornate jewelry overload, dramatic realistic shadows, or gritty realism.
-The character should feel like a reusable app mascot/sticker from a storybook brand, not a fantasy novel cover. Keep the silhouette close to the reference: round otter face, simple smile, purple wizard hat and cloak, emerald crystal accent, open readable expression.
+The character should feel like a reusable app mascot/sticker from a storybook brand, not a fantasy novel cover. Keep the silhouette close to the reference: rounded friendly weasel face, simple smile, purple wizard hat and cloak, emerald crystal accent, open readable expression.
 `.trim();
 }
 
-function neutralize(text) {
-  return cleanText(text)
-    .replaceAll(/cannabis plants/gi, "tall magical plants")
-    .replaceAll(/cannabis-shop/gi, "apothecary")
-    .replaceAll(/cannabis shop/gi, "apothecary")
-    .replaceAll(/dispensary/gi, "apothecary")
-    .replaceAll(/marijuana/gi, "herbal")
-    .replaceAll(/cannabis/gi, "magical herbal")
-    .replaceAll(/weed/gi, "herb")
-    .replaceAll(/THC/gi, "intensity")
-    .replaceAll(/leaf pin/gi, "crystal pin")
-    .replaceAll(/leaf-shaped/gi, "crystal-shaped");
+function cleanPrompt(text) {
+  return cleanText(text);
 }
 
 function cleanText(text) {
   return text
-    .replaceAll("вЂ”", "-")
-    .replaceAll("вЂњ", '"')
-    .replaceAll("вЂќ", '"')
-    .replaceAll("вЂ™", "'")
-    .replaceAll("вЂ", "'")
-    .replaceAll("вЂ¦", "...")
-    .replaceAll("—", "-")
-    .replaceAll("–", "-")
-    .replaceAll("“", '"')
-    .replaceAll("”", '"')
-    .replaceAll("’", "'")
-    .replaceAll("×", "x");
+    .replaceAll("\r\n", "\n")
+    .replaceAll("\u00A0", " ");
 }
 
 function writeRemotionProps(manifest) {

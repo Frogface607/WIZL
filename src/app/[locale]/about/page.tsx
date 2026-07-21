@@ -12,7 +12,7 @@ export default function AboutPage() {
       {/* Hero */}
       <div className="text-center mb-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/mascot.png" alt="WIZL" className="w-24 h-24 mx-auto mb-4 rounded-2xl" />
+        <img src="/mascot.webp" alt="WIZL" className="w-24 h-24 mx-auto mb-4 rounded-2xl" />
         <h1 className="text-2xl font-black gradient-text mb-1">{t("title")}</h1>
         <p className="text-sm gradient-love font-medium">{tb("tagline")}</p>
       </div>
@@ -134,26 +134,6 @@ export default function AboutPage() {
         </Link>
       </div>
 
-      {/* Social links placeholder */}
-      <div className="glass-card rounded-2xl p-5 text-center">
-        <h3 className="font-bold text-sm mb-3">{t("followTitle")}</h3>
-        <div className="flex justify-center gap-3">
-          {[
-            { icon: "📸", label: "Instagram" },
-            { icon: "🎵", label: "TikTok" },
-            { icon: "🎬", label: "YouTube" },
-          ].map((social) => (
-            <div
-              key={social.label}
-              className="glass-card rounded-xl px-4 py-3 border border-border"
-            >
-              <span className="text-xl">{social.icon}</span>
-              <p className="text-text-muted text-[10px] mt-1">{social.label}</p>
-            </div>
-          ))}
-        </div>
-        <p className="text-text-muted text-xs mt-3">{t("followSoon")}</p>
-      </div>
     </div>
   );
 }

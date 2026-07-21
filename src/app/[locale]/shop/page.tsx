@@ -1,149 +1,54 @@
-"use client";
+import type { Metadata } from "next";
+import { ArrowLeft, FlaskConical, GraduationCap, Mail, ShieldCheck } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 
-import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
-import { createShop, isShopOwner } from "@/lib/shop-store";
+export const metadata: Metadata = {
+  title: "WIZL Partner Pilot",
+  description: "A compliance-first partner pilot for licensed cannabis education and quality work.",
+  robots: { index: false, follow: true },
+};
 
-const districts = [
-  "Sukhumvit", "Silom", "Sathorn", "Thonglor", "Ari",
-  "Nana", "Siam", "Old Town", "Chatuchak", "Khao San",
-  "Ratchada", "Ekkamai", "Phra Khanong", "On Nut", "Other",
-];
+export default function ShopPage() {
+  return (
+    <div className="max-w-lg mx-auto px-4 pb-24 pt-8">
+      <Link href="/" className="text-text-muted text-sm inline-flex items-center gap-2 mb-6 hover:text-text-secondary">
+        <ArrowLeft className="w-4 h-4" />
+        Back to WIZL
+      </Link>
 
-export default function ShopRegisterPage() {
-  const t = useTranslations();
-  const router = useRouter();
-  const [hasShop] = useState(() => isShopOwner());
-  const [step, setStep] = useState<"intro" | "form">("intro");
-  const [name, setName] = useState("");
-  const [district, setDistrict] = useState("");
+      <p className="text-accent-green text-xs font-bold uppercase mb-2">Partner pilot</p>
+      <h1 className="text-3xl font-black gradient-text mb-3">Build something responsible together.</h1>
+      <p className="text-text-secondary text-sm leading-relaxed mb-8">
+        WIZL is exploring small, documented collaborations with licensed organizations. This is not a paid listing form and it does not add a venue to the public map.
+      </p>
 
-  useEffect(() => {
-    if (hasShop) router.replace("/shop/dashboard");
-  }, [hasShop, router]);
-
-  if (hasShop) return null;
-
-  const handleCreate = () => {
-    if (!name.trim() || !district) return;
-    createShop(name.trim(), district);
-    router.push("/shop/dashboard");
-  };
-
-  if (step === "intro") {
-    return (
-      <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
-        <div className="text-center mb-8">
-          <div className="text-5xl mb-3 animate-float">🏪</div>
-          <h1 className="text-2xl font-black gradient-text mb-1">Add Your Shop</h1>
-          <p className="text-sm gradient-love font-medium mb-3">{t("brand.tagline")}</p>
-          <p className="text-text-secondary text-sm max-w-xs mx-auto">
-            Get your shop on the WIZL map. Customers find you, see your menu, and check in.
-          </p>
+      <div className="grid grid-cols-2 gap-3 mb-8">
+        <div className="glass-card rounded-2xl p-4">
+          <GraduationCap className="w-5 h-5 text-accent-purple mb-3" />
+          <p className="font-bold text-sm">Education</p>
+          <p className="text-text-muted text-xs mt-1">Responsible-use and label-literacy projects</p>
         </div>
-
-        {/* Benefits */}
-        <div className="flex flex-col gap-3 mb-8">
-          {[
-            { icon: "📍", title: "Be on the map", desc: "Tourists and locals find you instantly" },
-            { icon: "📋", title: "Your menu, live", desc: "Show your strains, prices, and what's in stock" },
-            { icon: "⭐", title: "Get reviews", desc: "Build reputation through community check-ins" },
-            { icon: "📸", title: "AI Scanner", desc: "Customers scan your products — free marketing" },
-            { icon: "📊", title: "Insights", desc: "See which strains are trending at your shop" },
-          ].map((item) => (
-            <div key={item.title} className="glass-card rounded-2xl p-4 flex items-start gap-3">
-              <span className="text-2xl">{item.icon}</span>
-              <div>
-                <p className="font-bold text-sm">{item.title}</p>
-                <p className="text-text-muted text-xs">{item.desc}</p>
-              </div>
-            </div>
-          ))}
+        <div className="glass-card rounded-2xl p-4">
+          <FlaskConical className="w-5 h-5 text-accent-orange mb-3" />
+          <p className="font-bold text-sm">Quality</p>
+          <p className="text-text-muted text-xs mt-1">Lab, cultivation, and traceability stories</p>
         </div>
+      </div>
 
-        {/* Price */}
-        <div className="glass-card rounded-2xl p-6 mb-6 text-center border border-accent-green/20 glow-green">
-          <p className="text-text-muted text-xs mb-2">All included in</p>
-          <div className="flex items-center justify-center gap-2 mb-1">
-            <span className="pro-badge px-3 py-1 rounded-full text-xs font-bold text-black">WIZL PRO</span>
-          </div>
-          <div className="text-3xl font-black price-420 mb-1">$4.20</div>
-          <p className="text-text-muted text-xs">/year — same as everyone</p>
-        </div>
-
-        <button
-          onClick={() => setStep("form")}
-          className="w-full py-4 rounded-2xl bg-accent-green text-black font-bold text-lg hover:brightness-110 transition-all glow-green mb-3"
-        >
-          🏪 Register Your Shop
-        </button>
-        <p className="text-text-muted text-xs text-center">
-          Free to register. PRO unlocks full features.
+      <div className="border-y border-border py-5 mb-8 flex items-start gap-3">
+        <ShieldCheck className="w-5 h-5 text-accent-green shrink-0 mt-0.5" />
+        <p className="text-text-muted text-xs leading-relaxed">
+          WIZL does not sell cannabis, publish menus or prices, guarantee exposure, or accept payment for unverified placement. Local legal review comes first.
         </p>
       </div>
-    );
-  }
 
-  // Registration form
-  return (
-    <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
-      <button onClick={() => setStep("intro")} className="text-text-muted text-sm mb-4 hover:text-text-secondary transition-colors">
-        ← Back
-      </button>
-
-      <h1 className="text-2xl font-black mb-1">🏪 Register Your Shop</h1>
-      <p className="text-text-secondary text-sm mb-6">
-        Tell us about your place. You can add menu and details later.
-      </p>
-
-      {/* Name */}
-      <div className="mb-5">
-        <label className="text-sm font-medium mb-2 block">Shop Name *</label>
-        <input
-          type="text"
-          placeholder="e.g. Green House BKK"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors"
-        />
-      </div>
-
-      {/* District */}
-      <div className="mb-6">
-        <label className="text-sm font-medium mb-2 block">District *</label>
-        <div className="grid grid-cols-3 gap-2">
-          {districts.map((d) => (
-            <button
-              key={d}
-              onClick={() => setDistrict(d)}
-              className={`px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                district === d
-                  ? "bg-accent-green text-black"
-                  : "bg-bg-card border border-border text-text-secondary hover:bg-bg-card-hover"
-              }`}
-            >
-              {d}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Submit */}
-      <button
-        onClick={handleCreate}
-        disabled={!name.trim() || !district}
-        className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
-          name.trim() && district
-            ? "bg-accent-green text-black hover:brightness-110 glow-green"
-            : "bg-bg-card text-text-muted border border-border"
-        }`}
+      <a
+        href="mailto:wizl.space.app@gmail.com?subject=WIZL%20licensed%20partner%20pilot"
+        className="w-full py-3.5 px-5 rounded-2xl bg-accent-green text-black font-bold inline-flex items-center justify-center gap-2 hover:brightness-110 transition-all"
       >
-        Create Shop
-      </button>
-      <p className="text-text-muted text-xs text-center mt-2">
-        You can edit everything later from the dashboard.
-      </p>
+        <Mail className="w-5 h-5" />
+        Start a conversation
+      </a>
     </div>
   );
 }

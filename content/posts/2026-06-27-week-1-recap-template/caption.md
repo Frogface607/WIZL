@@ -1,45 +1,38 @@
-# Instagram Feed Or Reel
+# Instagram or X
 
-Week 1 with WIZL:
+Week one with WIZL:
 
-The wizard opened The Book.
-The first scans started.
-The first questions came in.
+Qualified visits: [real number]
+First field notes: [real number]
+Real label cases tested: [real number]
+Most useful question: [real question]
 
-What I learned so far:
+What I learned:
 
-1. People want strain notes that feel useful, not corporate.
-2. The scan needs to be honest: educational estimate, not a lab test.
-3. The WIZL world makes the app easier to remember.
+1. [truth]
+2. [truth]
+3. [truth]
 
-Next: more strain wisdom, more shop clues, and more stories from the road.
+What I got wrong:
 
-Try WIZL free:
-wizl.space
+[one honest miss]
 
-Adults only where legal.
+What I am testing next:
 
-# X Post
+[one decision]
 
-Week 1 with WIZL:
-
-The Book is open.
-The first scans are the real test.
-The best questions are becoming new posts.
-
-WIZL is free to use:
-wizl.space
+WIZL is free at wizl.space
 
 Adults only where legal.
 
 # Stories
 
-1. Week 1 with WIZL.
-2. Poll: What next? More scans / More strain wisdom
-3. Question sticker: What should the wizard find next?
+1. Week one with WIZL: [real signal]
+2. Poll: What next? Better field notes / Better label clues
+3. Question sticker: What should the wizard learn next?
 
 # Replace Before Posting
 
-- Replace "first scans started" with the real strongest signal.
-- Add one real comment or question if available.
-- Add one metric only if it feels honest and useful.
+- Replace every bracket with real information.
+- Use no fake comment, metric, or user count.
+- Add one metric only when it helps the audience understand the next decision.

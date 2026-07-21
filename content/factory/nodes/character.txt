@@ -1,13 +1,11 @@
-WIZL the otter wizard — anthropomorphic otter with warm brown eyes and a gentle smile, soft brown fur, sturdy brown boots. Painterly storybook cartoon style matching the reference image exactly.
+WIZL is a small anthropomorphic weasel wizard with warm brown eyes, a gentle smile, a compact friendly build, and a clear 2D storybook-cartoon silhouette.
 
-MANDATORY elements that MUST be visible in every frame (unless story explicitly removes one):
+Mandatory character elements:
 
-1. PURPLE TRAVELING CLOAK adorned with flat cream-and-gold moon-and-star patches across the fabric (purple #8C6FB8).
+1. A purple traveling cloak with simple cream-and-gold moon and star patches.
+2. A weathered pointed purple wizard hat with a small faceted emerald crystal pin.
+3. A gnarled wooden staff topped with a glowing emerald crystal.
+4. A cross-body leather satchel with a calm orange tabby cat peeking out.
+5. Sturdy brown boots and natural, relaxed body language.
 
-2. WEATHERED POINTED WIZARD HAT — and on the brim a SMALL EMERALD-GREEN CRYSTAL PIN. The pin is a triangular faceted green crystal (#99F788). NOT a moon. NOT a star. NOT a leaf. A green crystal gem.
-
-3. GNARLED WOODEN STAFF held in his paw — topped with a glowing emerald-green crystal (#99F788). The staff MUST be visible in the frame. If the scene shows him sitting or kneeling, the staff may rest beside him or against a wall, but it must be in shot.
-
-4. LEATHER SATCHEL slung crossbody — with an ORANGE TABBY CAT clearly peeking out from the satchel opening. The cat's face and front paws should be visible. (Exception: scenes where the story removes the cat — narrator will say so explicitly.)
-
-Short stature, compact friendly build. NEVER in T-pose — always natural relaxed body language matching the scene action. Props interacted with naturally.
+Keep WIZL recognizably on-model in every frame. Show one WIZL only. Never use a T-pose, realistic animal anatomy, individual fur strands, photorealism, a 3D-rendered look, ornate costume overload, or a fantasy-novel-cover style. Props should be held and used naturally.

@@ -2,19 +2,19 @@
 
 Meet WIZL.
 
-A weasel wizard. An orange cat. A living Book with 3,000+ strain notes.
+A weasel wizard. An orange cat. A living Book with more than 3,000 strain references.
 
-Scan what you got.
-Save what you learn.
+Read the label.
+Remember the experience.
 Build your own taste trail.
 
-Free to use.
+WIZL is free. No account required. Your field notes stay on your device.
 
 wizl.space
 
 Adults only where legal.
 
-#wizl #cannabisculture #strainnotes #cannabiseducation #weedwisdom #indieapp
+#wizl #cannabisculture #strainnotes #cannabiseducation #indieapp
 
 # X
 
@@ -22,18 +22,16 @@ Meet WIZL.
 
 A weasel wizard.
 An orange cat.
-A living Book with 3,000+ strain notes.
+A living Book with more than 3,000 strain references.
 
-Scan what you got.
-Save what you learn.
-Build your own taste trail.
+Read the label. Remember the experience.
 
-Free to use: wizl.space
+Free at wizl.space
 
 Adults only where legal.
 
 # Stories
 
 1. Meet WIZL.
-2. 3,000+ strains in The Book.
-3. Poll: What should WIZL find next? A strain / A shop
+2. More than 3,000 references in the Book.
+3. Poll: What should WIZL explore next? A label clue / A lost page

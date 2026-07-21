@@ -1,42 +1,45 @@
 # Instagram Reel
 
-When the label is confusing, ask the wizard.
+A flower photo cannot prove a strain or THC.
 
-WIZL gives an educational strain estimate, then helps you save the note in your own Book.
+But a clear package label can give WIZL useful clues.
 
-Try one scan: wizl.space
+Read the label, compare the reference, and save what you actually noticed in private field notes.
 
-Adults only where legal.
+Try one label read at wizl.space.
 
-#wizl #cannabisculture #strainfinder #weedwisdom #cannabiseducation #indieapp
+Adults only where legal. A WIZL read is not a lab test.
+
+#wizl #cannabisculture #strainnotes #labelliteracy #cannabiseducation #indieapp
 
 # TikTok
 
-Not sure what you got?
+A flower photo cannot prove a strain.
 
-Scan the label with WIZL.
-Save it in The Book.
+A clear label can give useful clues.
+
+Read it. Compare it. Remember your own experience.
 
 Adults only where legal.
 
 # YouTube Shorts
 
-Title: Scan a Label With WIZL
+Title: Read a Cannabis Label With WIZL
 
 Description:
 
-Scan what you got, learn the vibe, and save your notes in The Book.
+Use a clear package label or exact printed name, compare reference information, and keep private field notes.
 
 wizl.space
 
-Adults only where legal.
+Adults only where legal. Not a lab test.
 
 # X
 
-Not sure what the label is telling you?
+A flower photo cannot prove a strain or potency.
 
-WIZL can scan it, give an educational strain estimate, and save the note in your Book.
+A clear label can give WIZL useful clues. Your own field note makes the memory personal.
 
-Try one scan: wizl.space
+Try it free: wizl.space
 
 Adults only where legal.

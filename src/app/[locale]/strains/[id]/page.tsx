@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { fetchStrainById } from "@/lib/strains-db";
-import { shops } from "@/data/shops";
 import StrainActions from "@/components/StrainActions";
 import StrainViewTracker from "@/components/StrainViewTracker";
 import { notFound } from "next/navigation";
@@ -25,7 +24,6 @@ import {
   Leaf,
   Cherry,
   Wind,
-  Store,
 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import { routing } from "@/i18n/routing";
@@ -106,7 +104,7 @@ export async function generateMetadata({
   if (!strain) {
     return {
       title: "Strain Not Found — WIZL",
-      description: "This page is not in The Book yet. Explore WIZL and scan what you got.",
+      description: "This page is not in The Book yet. Explore WIZL or read a clear package label.",
     };
   }
 
@@ -211,14 +209,6 @@ export default async function StrainPage({
   if (!strain) return notFound();
 
   const t = await getTranslations("strains");
-  const availableAt = shops.filter((s) =>
-    "topStrains" in s && Array.isArray((s as Record<string, unknown>).topStrains)
-      ? ((s as Record<string, unknown>).topStrains as string[]).some(
-          (ts: string) => ts.toLowerCase() === strain.name.toLowerCase()
-        )
-      : false
-  );
-
   const diff = difficultyConfig[strain.difficulty] || difficultyConfig.moderate;
 
   return (
@@ -306,7 +296,7 @@ export default async function StrainPage({
             <div className="flex items-center gap-3 mt-4 bg-bg-primary/60 rounded-2xl p-4">
               <div className="w-10 h-10 flex-shrink-0 animate-float">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/wizl-avatar.png" alt="WIZL" className="w-full h-full object-cover rounded-full border border-accent-purple/40" />
+                <img src="/wizl-avatar.webp" alt="WIZL" className="w-full h-full object-cover rounded-full border border-accent-purple/40" />
               </div>
               <div>
                 <p className="text-accent-neon text-sm font-semibold">Wizl hasn&apos;t tried this one yet</p>
@@ -577,48 +567,12 @@ export default async function StrainPage({
       )}
 
       {/* ============================================= */}
-      {/* AVAILABLE AT */}
-      {/* ============================================= */}
-      {availableAt.length > 0 && (
-        <section className="glass-card rounded-2xl p-5 mb-5">
-          <h2 className="font-bold mb-3 text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
-            <Store className="w-4 h-4" />
-            Available At
-          </h2>
-          <div className="flex flex-col gap-2">
-            {availableAt.map((s) => (
-              <Link
-                key={s.id}
-                href="/map"
-                className="flex items-center gap-3 p-3 rounded-xl bg-bg-primary/60 hover:bg-bg-primary transition-all"
-              >
-                <div className="w-10 h-10 rounded-xl bg-accent-green/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-accent-green" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-sm text-text-primary">{s.name}</p>
-                  <p className="text-text-muted text-xs">
-                    {s.city}, {s.country}
-                    {s.hours ? ` \u00B7 ${s.hours}` : ""}
-                  </p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-accent-green text-xs font-bold">{s.rating}</span>
-                  <Star className="w-3 h-3 text-accent-green fill-accent-green" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* ============================================= */}
       {/* REVIEWS — empty state, real reviews come from Supabase later */}
       {/* ============================================= */}
       <div className="glass-card rounded-2xl text-center py-10 px-6 mb-5">
         <div className="w-14 h-14 mx-auto mb-3 animate-float">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/wizl-book.png" alt="WIZL" className="w-full h-full object-contain" />
+          <img src="/wizl-book.webp" alt="WIZL" className="w-full h-full object-contain" />
         </div>
         <p className="text-text-secondary text-sm font-medium mb-1 italic">The Wizard&apos;s book has an empty page here.</p>
         <p className="text-text-muted text-xs mb-3">Will you fill it?</p>

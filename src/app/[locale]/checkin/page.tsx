@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { moods } from "@/data/strains";
 import { fetchStrains, fetchStrainById } from "@/lib/strains-db";
-import { shops } from "@/data/shops";
 import { Strain } from "@/types";
 import { addCheckin, Achievement } from "@/lib/store";
 import { getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
-import { Award, Copy, Leaf, MapPin, MessageCircle, Search, Share2, Store, User, Wand2, X } from "lucide-react";
+import { Award, Copy, Leaf, MessageCircle, NotebookPen, Search, Share2, User, Wand2 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 /** Build a temporary Strain object from a scan result stashed in sessionStorage */
@@ -55,11 +54,25 @@ function scanPendingToStrain(): Strain | null {
 }
 
 export default function CheckinPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="max-w-lg mx-auto px-4 py-20 text-center text-text-muted">
+          <NotebookPen className="w-8 h-8 text-accent-green mx-auto mb-3" />
+          <p className="text-sm">Opening field note...</p>
+        </div>
+      }
+    >
+      <CheckinFlow />
+    </Suspense>
+  );
+}
+
+function CheckinFlow() {
   const t = useTranslations("checkin");
   const locale = useLocale() as WisdomLocale;
   const searchParams = useSearchParams();
   const preselectedId = searchParams.get("strain");
-  const preselectedShopId = searchParams.get("shop");
   const fromScan = searchParams.get("scan") === "1";
   const [allStrains, setAllStrains] = useState<Strain[]>([]);
   // Lazy-read the scan result once (browser only)
@@ -74,15 +87,6 @@ export default function CheckinPage() {
   const [review, setReview] = useState("");
   const [selectedMood, setSelectedMood] = useState("");
   const [search, setSearch] = useState("");
-  const [shopSearch, setShopSearch] = useState("");
-  const [selectedShop, setSelectedShop] = useState<{ id: string; name: string } | null>(() => {
-    // Preselect shop if ?shop=ID in URL
-    if (preselectedShopId) {
-      const shop = shops.find((s) => s.id === preselectedShopId);
-      if (shop) return { id: shop.id, name: shop.name };
-    }
-    return null;
-  });
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
 
   // Fast path: fetch ONLY the preselected strain instantly (single query)
@@ -120,21 +124,15 @@ export default function CheckinPage() {
     ? allStrains.slice(0, 12)
     : filteredStrains.slice(0, 30);
 
-  const filteredShops = shops.filter((s) =>
-    s.name.toLowerCase().includes(shopSearch.toLowerCase()) ||
-    s.city.toLowerCase().includes(shopSearch.toLowerCase())
-  ).slice(0, 5);
-
   const handleSubmit = () => {
     if (!selectedStrain || rating === 0) return;
-    const result = addCheckin(selectedStrain, rating, selectedMood, review, selectedShop || undefined);
+    const result = addCheckin(selectedStrain, rating, selectedMood, review);
     trackEvent("checkin_saved", {
       strain_id: selectedStrain.id,
       strain_type: selectedStrain.type,
       rating,
       mood_selected: Boolean(selectedMood),
       note_length: review.length,
-      has_shop: Boolean(selectedShop),
       source: fromScan ? "scan_result" : preselectedId ? "strain_detail" : "checkin_search",
     });
     setNewAchievements(result.newAchievements);
@@ -148,8 +146,7 @@ export default function CheckinPage() {
   const getShareText = () => {
     const strainName = selectedStrain?.name || "a strain";
     const stars = rating > 0 ? `${rating}/5` : "saved";
-    const shopText = selectedShop ? ` at ${selectedShop.name}` : "";
-    return `I checked in ${strainName}${shopText} on WIZL: ${stars}. Scan it. Know it. Track it.`;
+    return "I logged " + strainName + " in my WIZL field notes: " + stars + ". Read the label. Remember the experience.";
   };
 
   const handleShare = async (channel: "native" | "copy" | "message") => {
@@ -167,7 +164,6 @@ export default function CheckinPage() {
       channel,
       strain_id: selectedStrain?.id,
       rating,
-      has_shop: Boolean(selectedShop),
     });
 
     if (channel === "native" && navigator.share) {
@@ -195,7 +191,7 @@ export default function CheckinPage() {
           <div className="relative w-32 h-32 mx-auto mb-5 animate-float">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/wizl-book.png"
+              src="/wizl-book.webp"
               alt="WIZL"
               className="w-full h-full object-contain"
             />
@@ -289,7 +285,7 @@ export default function CheckinPage() {
         <div className="w-20 h-20 mx-auto mb-4 animate-float">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/wizl-book.png"
+            src="/wizl-book.webp"
             alt="WIZL"
             className="w-full h-full object-contain"
           />
@@ -366,62 +362,13 @@ export default function CheckinPage() {
             className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors resize-none" />
         </div>
 
-        <div className="mb-6">
-          <h3 className="font-bold mb-3 inline-flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-accent-love" aria-hidden="true" />
-            Where are you?
-          </h3>
-          {selectedShop ? (
-            <div className="glass-card rounded-2xl p-3 flex items-center gap-3">
-              <Store className="h-5 w-5 text-accent-green" aria-hidden="true" />
-              <div className="flex-1">
-                <p className="font-semibold text-sm">{selectedShop.name}</p>
-              </div>
-              <button onClick={() => setSelectedShop(null)} className="text-text-muted text-xs hover:text-accent-love transition-colors inline-flex items-center gap-1">
-                <X className="h-3.5 w-3.5" aria-hidden="true" />
-                Remove
-              </button>
-            </div>
-          ) : (
-            <>
-              <input
-                type="text"
-                placeholder="Search shop..."
-                value={shopSearch}
-                onChange={(e) => setShopSearch(e.target.value)}
-                className="w-full bg-bg-card border border-border rounded-2xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-green/50 transition-colors mb-2"
-              />
-              {shopSearch.length > 0 && (
-                <div className="flex flex-col gap-1">
-                  {filteredShops.map((shop) => (
-                    <button
-                      key={shop.id}
-                      onClick={() => { setSelectedShop({ id: shop.id, name: shop.name }); setShopSearch(""); }}
-                      className="glass-card rounded-xl p-2.5 flex items-center gap-2 text-left hover:bg-bg-card-hover transition-all"
-                    >
-                      <Store className="h-4 w-4 text-accent-green" aria-hidden="true" />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">{shop.name}</p>
-                        <p className="text-text-muted text-[10px]">{shop.city}, {shop.country}</p>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-              {shopSearch.length === 0 && (
-                <p className="text-text-muted text-xs text-center py-2 italic">Tell WIZL where you found this.</p>
-              )}
-            </>
-          )}
-        </div>
-
         <button onClick={handleSubmit} disabled={rating === 0}
           className={`w-full py-4 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center gap-2 ${
             rating > 0 ? "bg-accent-green text-black hover:brightness-110 glow-green" : "bg-bg-card text-text-muted border border-border"
           }`}>
           {rating > 0 ? (
             <>
-              {t("checkIn")} <Search className="h-5 w-5" aria-hidden="true" />
+              {t("checkIn")} <NotebookPen className="h-5 w-5" aria-hidden="true" />
             </>
           ) : (
             t("rateFirst")
@@ -434,7 +381,7 @@ export default function CheckinPage() {
   return (
     <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
       <h1 className="text-2xl font-black mb-1 flex items-center gap-2">
-        <Search className="w-6 h-6 text-accent-green" aria-hidden="true" />
+        <NotebookPen className="w-6 h-6 text-accent-green" aria-hidden="true" />
         {t("title")}
       </h1>
       <p className="text-text-secondary text-sm mb-6">{t("subtitle")}</p>

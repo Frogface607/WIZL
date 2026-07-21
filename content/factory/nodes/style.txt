@@ -1,5 +1,13 @@
-Match the visual style of the clean WIZL mascot reference: warm 2D hand-drawn storybook cartoon, simplified rounded shapes, bold clean outline, soft cel-shading, smooth color blocks, and readable silhouette. The character should feel like a reusable brand mascot for an app and social stickers.
+Warm 2D hand-drawn storybook cartoon with simplified rounded shapes, a bold clean outline, soft cel shading, smooth color blocks, and a readable silhouette.
 
-Do not make WIZL realistic. Avoid individual fur strands, realistic animal anatomy, high-fantasy painting, oil painting, photoreal lighting, 3D render, hyper-detailed fabric, ornate costume overload, gritty texture, cinematic realism, or fantasy novel cover style. Keep fur simple and soft, with only broad painted patches of color.
+Palette:
+- deep navy #0B1218
+- emerald accent #99F788
+- wizard purple #8C6FB8
+- deep hat purple #5E3E7A
+- warm gold #CE8E58
+- cream #F2E8D4
+- soft brown fur
+- orange tabby #CE8E58
 
-Palette: deep navy backdrops #0B1218, neon green crystal accents #99F788, wizard purple cloak #8C6FB8, deeper hat purple #5E3E7A, warm gold morning/sunset light #CE8E58, cream highlights #F2E8D4, soft brown fur, orange cat #CE8E58. Atmosphere may include subtle smoke wisps, amber firefly particles, and faint distant stars, but keep backgrounds simpler than the character.
+Backgrounds should support the character rather than compete with it. Use subtle paper grain, light mist, small warm particles, and restrained practical lighting. Keep typography areas calm and uncluttered. Avoid photoreal lighting, realistic fur, oil-paint texture, 3D rendering, excessive detail, and generic cinematic realism.

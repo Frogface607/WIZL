@@ -1,79 +1,91 @@
 # WIZL Content Factory Pipeline
 
-This is the revived production lane for WIZL social content.
+This is the production lane for WIZL character, education, and adventure content.
 
-Before generating assets, read the brand kit:
+Read first:
 
-- `docs/wizl-brand-kit.md`
+- docs/wizl-brand-kit.md
+- content/content-plan.md
+- .agents/product-marketing.md
 
-## Default Stack
+## Default stack
 
-1. Plan the post folder and manifest:
+1. Plan a post folder and manifest with an approved recipe.
 
-```powershell
-npm run factory:plan -- --recipe shop-visit-reel --shop "Space Herbs" --world night-market
+Example:
+
 npm run factory:plan -- --recipe adventure-reel --title "The Lost Page at the Night Market" --world night-market --episode 01
-```
 
-2. Generate the start frame with Higgsfield GPT Image 2:
+2. Generate a start frame with GPT Image 2 through the configured Higgsfield route.
 
-```powershell
-npm run factory:image -- --manifest content/posts/2026-06-21-shop-space-herbs/manifest.json
-```
+npm run factory:image -- --manifest content/posts/POST_FOLDER/manifest.json
 
-3. Animate the start frame with Higgsfield Seedance 2:
+3. Animate with Seedance 2.
 
-```powershell
-npm run factory:video -- --manifest content/posts/2026-06-21-shop-space-herbs/manifest.json
-```
+npm run factory:video -- --manifest content/posts/POST_FOLDER/manifest.json
 
-4. Edit the final vertical reel with Remotion:
+4. Render captions and layout with Remotion.
 
-```powershell
-npm run factory:render -- --manifest content/posts/2026-06-21-shop-space-herbs/manifest.json
-```
+npm run factory:render -- --manifest content/posts/POST_FOLDER/manifest.json
 
-5. Inspect recent Higgsfield jobs:
+5. Inspect recent jobs.
 
-```powershell
 npm run factory:status
-```
 
-## Contract
+## Approved recipe families
 
-Each post folder owns a `manifest.json`. Remotion reads that manifest and renders a deterministic 1080x1920 edit.
+- WIZL adventure
+- wisdom card
+- strain-reference carousel with verified facts
+- story background
+- product ritual
+- founder support graphics
+- collectible character art without third-party branding
 
-Required output files:
+## Paused recipe families
 
-- `prompt-image.txt`
-- `prompt-motion.txt`
-- `caption.md`
-- `manifest.json`
+- shop visit or dispensary promotion
+- celebrity-tag campaigns
+- unauthorized brand collaborations
+- seller, menu, price, or map content
+- paraphernalia sales creative
 
-Generated files:
+A paused recipe can be reactivated only after legal, platform, partner-permission, and factual review.
 
-- `start.png` from `gpt_image_2`
-- `loop.mp4` from `seedance_2_0`
-- `edit.mp4` from Remotion
-- `cover.png` for thumbnails, when extracted later
+## Folder contract
 
-## Model Rules
+Each post folder owns a manifest.json.
 
-- Still frames: `gpt_image_2`
-- Motion: `seedance_2_0`
-- Editing/layout/export: Remotion
-- Fallback stills only when needed: `seedream_v4_5`
+Required planning outputs:
 
-Scene prompts use neutral visual wording. Overlay text may use real educational cannabis terms when the post needs it.
+- prompt-image.txt
+- prompt-motion.txt
+- caption.md
+- manifest.json
 
-## Remotion Preview
+Typical generated outputs:
 
-```powershell
-npm run remotion:studio
-```
+- start.png
+- loop.mp4
+- edit.mp4
+- cover.png
 
-For a quick frame check:
+## Model rules
 
-```powershell
-npm run remotion:still -- --props content/posts/2026-06-21-shop-space-herbs/remotion-props.json
-```
+- still frame: configured GPT Image 2
+- motion: configured Seedance 2
+- deterministic text, layout, captions, and export: Remotion
+- fallback still model only when necessary
+
+## Quality gate
+
+Before publishing:
+
+- character anatomy and wardrobe match the reference
+- cat and Book continuity are preserved
+- text fits mobile crop
+- factual claims use primary sources
+- no exact visual-identification claim
+- no purchase, seller, price, menu, or medical claim
+- no third-party logo or implied endorsement
+- one content job and one CTA

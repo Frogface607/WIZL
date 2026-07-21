@@ -1,183 +1,112 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
+import {
+  ArrowRight,
+  BookOpen,
+  Heart,
+  Mail,
+  NotebookPen,
+  ScanLine,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { getUserData, saveUserData } from "@/lib/store";
 import { trackEvent } from "@/lib/analytics";
 
+const freeFeatures = [
+  {
+    icon: BookOpen,
+    title: "The full Book",
+    description: "Explore more than 3,000 strain reference notes.",
+  },
+  {
+    icon: ScanLine,
+    title: "Five AI reads a day",
+    description: "Best for clear package labels and strain names.",
+  },
+  {
+    icon: NotebookPen,
+    title: "Private field notes",
+    description: "Ratings, moods, favorites, and your taste trail stay on this device.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "No account required",
+    description: "Start using WIZL without giving us an email.",
+  },
+];
+
 export default function ProPage() {
-  const t = useTranslations("pro");
-  const tb = useTranslations("brand");
-  const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
-
-  useEffect(() => {
-    queueMicrotask(() => {
-      if (searchParams.get("success") === "true") {
-        const data = getUserData();
-        data.isPro = true;
-        saveUserData(data);
-        trackEvent("club_checkout_success", { source: "gumroad" });
-        setSubscribed(true);
-        return;
-      }
-      setSubscribed(getUserData().isPro);
-    });
-  }, [searchParams]);
-
-  const handleSubscribe = () => {
-    setLoading(true);
-    trackEvent("club_support_clicked", { price: "4.20", destination: "gumroad" });
-    // Redirect to Gumroad checkout
-    window.location.href = "https://wizlspace.gumroad.com/l/wizlpro";
-  };
-
-  const features = [
-    { icon: "📸", title: t("aiScanner"), desc: t("aiScannerDesc") },
-    { icon: "🔓", title: t("unlimitedScans"), desc: t("unlimitedScansDesc") },
-    { icon: "🧠", title: t("smartInsights"), desc: t("smartInsightsDesc") },
-    { icon: "📊", title: t("fullHistory"), desc: t("fullHistoryDesc") },
-    { icon: "🏆", title: t("exclusiveBadges"), desc: t("exclusiveBadgesDesc") },
-    { icon: "🌍", title: t("globalMap"), desc: t("globalMapDesc") },
-  ];
-
-  const freeVsPro = [
-    { feature: t("browseStrains"), free: true, pro: true },
-    { feature: t("dailyScans"), free: t("freeScans"), pro: t("unlimited") },
-    { feature: "Check-ins", free: true, pro: true },
-    { feature: t("aiScannerFeature"), free: false, pro: true },
-    { feature: t("fullHistoryFeature"), free: false, pro: true },
-    { feature: t("smartInsightsFeature"), free: false, pro: true },
-    { feature: t("rareBadges"), free: false, pro: true },
-    { feature: t("noAds"), free: false, pro: true },
-  ];
-
-  if (subscribed) {
-    return (
-      <div className="max-w-lg mx-auto px-4 pb-24 pt-8">
-        <div className="text-center py-16">
-          <div className="text-7xl mb-4 animate-float">💚</div>
-          <h2 className="text-2xl font-black gradient-text mb-1">{t("welcomePro")}</h2>
-          <p className="text-sm gradient-love font-medium mb-4">{tb("tagline")}</p>
-          <p className="text-text-secondary text-sm mb-8">{t("youreIn")}</p>
-          <div className="flex gap-3 justify-center">
-            <Link href="/scan"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-accent-green text-black font-bold hover:brightness-110 transition-all glow-green">
-              🔍 {t("startScanning")}
-            </Link>
-            <Link href="/shop"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium hover:bg-bg-card-hover transition-all">
-              🏪 Add Shop
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const claimFree = () => {
-    const userData = getUserData();
-    userData.isPro = true;
-    saveUserData(userData);
-    trackEvent("club_free_claimed", { cohort: "first_420" });
-    setSubscribed(true);
-  };
+  const interestHref =
+    "mailto:wizl.space.app@gmail.com?subject=WIZL%20Club%20interest&body=Hey%20Sergey%2C%20I%20want%20to%20hear%20when%20the%20WIZL%20Club%20opens.";
 
   return (
-    <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
-      {/* Founders banner — first 420 get free */}
-      <div className="glass-card rounded-2xl p-4 mb-6 text-center border border-accent-neon/30"
-           style={{ boxShadow: "0 0 24px rgba(153,247,136,0.15)" }}>
-        <p className="text-accent-neon font-bold text-sm mb-1">{t("foundersBanner")}</p>
-        <p className="text-text-muted text-xs">{t("foundersDesc")}</p>
+    <div className="max-w-lg mx-auto px-4 pb-24 pt-8">
+      <div className="flex items-center gap-2 text-accent-green text-xs font-bold uppercase mb-3">
+        <Heart className="w-4 h-4" />
+        Built with love
       </div>
+      <h1 className="text-3xl font-black gradient-text mb-3">WIZL Club</h1>
+      <p className="text-text-secondary text-sm leading-relaxed mb-6">
+        WIZL is free while the core experience earns your trust. The supporter club is being designed in public, with honest benefits and a payment provider that explicitly approves the project.
+      </p>
 
-      <div className="text-center mb-8">
-        <div className="text-5xl mb-3 animate-float">🔍</div>
-        <h1 className="text-3xl font-black gradient-text mb-1">{t("title")}</h1>
-        <p className="text-sm gradient-love font-medium mb-3">{tb("tagline")}</p>
-        <p className="text-text-secondary text-sm">{t("subtitle")}</p>
-      </div>
-
-      <div className="glass-card rounded-3xl p-8 mb-8 text-center glow-green border border-accent-green/20">
-        <div className="text-6xl font-black price-420 mb-1">$4.20</div>
-        <p className="text-text-muted text-sm">{t("perMonth")}</p>
-        <p className="text-text-muted text-xs mt-2">{t("onPurpose")}</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 mb-8">
-        {features.map((f) => (
-          <div key={f.title} className="glass-card rounded-2xl p-4">
-            <span className="text-2xl">{f.icon}</span>
-            <p className="font-bold text-sm mt-2">{f.title}</p>
-            <p className="text-text-muted text-xs mt-1">{f.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* For shops */}
-      <div className="glass-card rounded-2xl p-5 mb-8 border border-accent-orange/20">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-xl">🏪</span>
-          <h3 className="font-bold text-sm">Shop owners</h3>
+      <div className="border-y border-border py-5 mb-8 flex items-start gap-3">
+        <ShieldCheck className="w-5 h-5 text-accent-orange shrink-0 mt-0.5" />
+        <div>
+          <p className="font-bold text-sm">Payments are paused</p>
+          <p className="text-text-muted text-xs leading-relaxed mt-1">
+            No card is collected and no paid feature is active. Existing app features remain free.
+          </p>
         </div>
-        <p className="text-text-secondary text-xs leading-relaxed mb-2">
-          PRO also lets you add your shop to the WIZL map with a full menu, hours, and reviews. Same $4.20 — forever.
-        </p>
-        <Link href="/shop" className="text-accent-orange text-xs font-semibold">
-          Learn more →
-        </Link>
       </div>
 
-      <div className="glass-card rounded-2xl p-5 mb-8">
-        <h3 className="font-bold mb-4">{t("freeVsPro")}</h3>
-        <div className="flex flex-col gap-3">
-          {freeVsPro.map((row) => (
-            <div key={row.feature} className="flex items-center justify-between">
-              <span className="text-text-secondary text-sm">{row.feature}</span>
-              <div className="flex items-center gap-6">
-                <span className="text-xs w-16 text-center text-text-muted">
-                  {row.free === true ? "✓" : row.free === false ? "—" : row.free}
-                </span>
-                <span className="text-xs w-16 text-center text-accent-green font-medium">
-                  {row.pro === true ? "✓" : row.pro}
-                </span>
-              </div>
+      <section className="mb-9">
+        <h2 className="text-lg font-bold mb-1">Free today</h2>
+        <p className="text-text-muted text-xs mb-4">The useful part is not waiting behind a paywall.</p>
+        <div className="grid grid-cols-2 gap-3">
+          {freeFeatures.map((feature) => (
+            <div key={feature.title} className="glass-card rounded-2xl p-4">
+              <feature.icon className="w-5 h-5 text-accent-green mb-3" />
+              <p className="font-bold text-sm">{feature.title}</p>
+              <p className="text-text-muted text-xs leading-relaxed mt-1">{feature.description}</p>
             </div>
           ))}
-          <div className="flex justify-end gap-6 mt-1 border-t border-border pt-2">
-            <span className="text-[10px] w-16 text-center text-text-muted">{t("free")}</span>
-            <span className="text-[10px] w-16 text-center text-accent-green font-bold">PRO</span>
-          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="glass-card rounded-2xl p-5 mb-8 text-center border border-accent-love/20 glow-love">
-        <p className="text-accent-love font-bold text-sm mb-2">💚 {t("supportJourney")}</p>
-        <p className="text-text-secondary text-xs leading-relaxed">{t("supportDesc")}</p>
-      </div>
+      <section className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="w-5 h-5 text-accent-purple" />
+          <h2 className="text-lg font-bold">Planned for founding supporters</h2>
+        </div>
+        <div className="flex flex-col divide-y divide-border border-y border-border">
+          <p className="py-3 text-sm text-text-secondary">A permanent founding supporter mark</p>
+          <p className="py-3 text-sm text-text-secondary">Early access to collectible drops and field-test features</p>
+          <p className="py-3 text-sm text-text-secondary">A vote on the next chapters, cities, and WIZL artifacts</p>
+        </div>
+        <p className="text-text-muted text-xs leading-relaxed mt-4">
+          The working founder price is a symbolic $4.20 per year. It is an idea, not an active offer, until compliance and delivery are ready.
+        </p>
+      </section>
 
-      <button
-        onClick={claimFree}
-        disabled={loading}
-        className="w-full py-4 rounded-2xl bg-accent-neon text-black font-bold text-lg hover:brightness-110 transition-all mb-2 disabled:opacity-50"
-        style={{ boxShadow: "0 0 24px rgba(153,247,136,0.3)" }}
+      <a
+        href={interestHref}
+        onClick={() => trackEvent("club_interest_clicked", { channel: "email" })}
+        className="w-full py-3.5 px-5 rounded-2xl bg-accent-green text-black font-bold inline-flex items-center justify-center gap-2 hover:brightness-110 transition-all"
       >
-        🌿 {t("claimFree")}
-      </button>
-      <p className="text-text-muted text-xs text-center mb-3">{t("orSupport")}</p>
-      <button
-        onClick={handleSubscribe}
-        disabled={loading}
-        className="w-full py-3 rounded-2xl bg-bg-card border border-border text-text-secondary font-medium text-sm hover:bg-bg-card-hover transition-all mb-3 disabled:opacity-50"
+        <Mail className="w-5 h-5" />
+        Tell Sergey you are interested
+      </a>
+      <p className="text-text-muted text-[11px] text-center mt-2">This opens an email. No payment and no automatic signup.</p>
+
+      <Link
+        href="/scan"
+        className="mt-6 text-accent-green text-sm font-semibold inline-flex items-center gap-2 hover:underline"
       >
-        {loading ? "Loading..." : t("startTrial")}
-      </button>
-      <p className="text-text-muted text-xs text-center mb-2">{t("trialNote")}</p>
-      <p className="text-text-muted text-[10px] text-center">{t("noTricks")}</p>
+        Continue exploring
+        <ArrowRight className="w-4 h-4" />
+      </Link>
     </div>
   );
 }

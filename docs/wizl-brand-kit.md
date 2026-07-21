@@ -1,6 +1,6 @@
 # WIZL Brand Kit
 
-Last updated: 2026-06-25
+Last updated: 2026-07-21
 
 This is the working brand kit for WIZL content, visuals, prompts, videos, social posts, and future collaborators.
 
@@ -10,9 +10,9 @@ Use this document as the source of truth before creating any WIZL asset.
 
 ### What WIZL Is
 
-WIZL is a cannabis strain explorer and folklore content brand.
+WIZL is a cannabis field guide, private journal, and folklore content brand.
 
-The product helps people scan, search, understand, save, and track cannabis strains. The content turns that utility into a living world: WIZL the small wizard travels through mystical city streets, finds strains, follows scent clues, writes field notes, and teaches what he learns.
+The product helps adults read package labels, explore strain references, and remember producer-, batch-, aroma-, and experience-specific notes. The content turns that utility into a living world: WIZL the small wizard travels through mystical city streets, follows clues, writes field notes, and teaches what he learns.
 
 ### Positioning
 
@@ -21,14 +21,14 @@ WIZL is not a dealer app, marketplace, hype page, or fake review platform.
 WIZL is:
 
 - A strain encyclopedia.
-- A friendly AI budtender.
-- A personal taste journal.
-- A map and discovery layer.
+- An educational AI guide.
+- A private field-note journal.
+- A future verified Atlas, currently paused.
 - A character-led cannabis folklore universe.
 
 ### One-Line Description
 
-WIZL is a magical cannabis strain companion: scan it, understand it, save it, and follow the wizard's field notes.
+WIZL is a magical cannabis field guide: read the label, remember the experience, and follow the wizard's field notes.
 
 ### Brand Formula
 
@@ -45,7 +45,7 @@ Primary:
 Product:
 
 - `Scan it. Know it. Track it.`
-- `Ask WIZL before you buy.`
+- `Ask WIZL what the label means.`
 - `Find your next strain in The Book.`
 
 Content:
@@ -66,7 +66,7 @@ Content:
 ### Secondary Audience
 
 - Budtenders.
-- Shop owners.
+- Licensed educators, labs, and quality-focused partners.
 - Cannabis educators.
 - Indie builders and design-minded followers.
 
@@ -87,7 +87,7 @@ WIZL is:
 - Useful before promotional.
 - Playful without becoming a meme account.
 
-WIZL sounds like a friendly wizard-budtender who has walked a thousand night markets and still gets excited by a good aroma note.
+WIZL sounds like a curious field-guide companion who has walked a thousand night markets and still gets excited by a useful aroma note.
 
 ### Voice Rules
 
@@ -190,7 +190,7 @@ Logo mark should sit on navy, transparent, or dark illustrated backgrounds. Keep
 
 ### WIZL
 
-WIZL is a kind anthropomorphic otter/weasel wizard.
+WIZL is a kind anthropomorphic weasel wizard.
 
 Required features:
 
@@ -375,7 +375,7 @@ Season question:
 | WIZL Adventures | 35% | Character IP, emotional attachment, reels |
 | Strain & Terpene Education | 30% | Saves, utility, authority |
 | WIZL Wisdom | 20% | Identity, quotes, repeatable social format |
-| Product Hooks | 10% | Scan, Ask WIZL, The Book, map, profile |
+| Product Hooks | 10% | Label reader, Ask WIZL, The Book, field notes |
 | Community Prompts | 5% | Comments, votes, tags |
 
 ## 9. Strain Content
@@ -439,17 +439,17 @@ wizl.space
 ### Quote Bank
 
 - The best strain is the one that matches your moment, not someone else's review.
-- Terpenes tell you more than THC ever will.
-- The nose knows.
+- The label starts the story. Your notes finish it.
+- A strain name is a clue, not a guarantee.
 - Low and slow.
-- Do not chase the highest number. Chase the right note.
-- Every strain has a story. Every smoker has a chapter.
-- A good budtender asks better questions.
-- Your body is the final reviewer.
-- If the scent feels wrong, listen.
+- Notice more than the highest number.
+- Every strain has a story. Every field note adds a chapter.
+- A useful field guide asks better questions.
+- Your own notes matter more than hype.
+- Producer and batch belong in the field note.
 - The Book remembers what hype forgets.
 - Start small. The wizard is patient.
-- The map is useful. The moment matters more.
+- The label is useful. The moment matters too.
 - Some strains whisper. Some strains wave a lantern.
 - Curiosity is safer than confidence.
 - With love, not pressure.
@@ -497,7 +497,7 @@ Avoid:
 ```text
 Vertical 9:16 cinematic key frame for a WIZL adventure reel.
 
-WIZL is a kind small otter wizard in a purple patched cloak, weathered wizard hat with emerald crystal pin, gnarled wooden staff with glowing emerald crystal, leather satchel with an orange cat peeking out, and The Book open in his paws.
+WIZL is a kind small weasel wizard in a purple patched cloak, weathered wizard hat with emerald crystal pin, gnarled wooden staff with glowing emerald crystal, leather satchel with an orange cat peeking out, and The Book open in his paws.
 
 Scene: [WORLD].
 
@@ -566,7 +566,7 @@ wizl.space
 
 [3-5 short educational lines.]
 
-Save this for your next shop visit.
+Save this for the next label you read.
 
 The Book remembers.
 

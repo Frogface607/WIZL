@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Send } from "lucide-react";
 import { getAllWisdoms, getRandomWisdom, type WisdomLocale } from "@/lib/wizl-wisdoms";
 
@@ -12,20 +12,8 @@ interface Message {
 }
 
 const MAX_MESSAGES_PER_SESSION = 10;
-const AVATAR_SRC = "/logo-mark-transparent.png";
+const AVATAR_SRC = "/logo-mark-transparent.webp";
 const AVATAR_CLASS = "w-full h-full object-contain object-center";
-
-const QUICK_SUGGESTIONS = [
-  "What grows under Bangkok moonlight?",
-  "Something for the wanderer's path?",
-  "Wizl's personal favorite?",
-];
-
-const INPUT_PLACEHOLDERS = [
-  "What does the wizard know about…",
-  "Ask me anything, traveler…",
-  "The book holds many secrets…",
-];
 
 /** Strip markdown formatting and Perplexity citation refs from AI replies */
 function cleanReply(text: string): string {
@@ -73,6 +61,9 @@ function ThinkingBubble({ locale }: { locale: WisdomLocale }) {
 
 export default function AskWizl() {
   const locale = useLocale() as WisdomLocale;
+  const t = useTranslations("ask");
+  const quickSuggestions = [t("quick1"), t("quick2"), t("quick3")];
+  const inputPlaceholders = [t("placeholder1"), t("placeholder2"), t("placeholder3")];
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -80,11 +71,12 @@ export default function AskWizl() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [placeholder, setPlaceholder] = useState(INPUT_PLACEHOLDERS[0]);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const placeholder = inputPlaceholders[placeholderIndex];
 
   useEffect(() => {
-    setPlaceholder(INPUT_PLACEHOLDERS[Math.floor(Math.random() * INPUT_PLACEHOLDERS.length)]);
-  }, []);
+    setPlaceholderIndex(Math.floor(Math.random() * 3));
+  }, [locale]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -157,8 +149,8 @@ export default function AskWizl() {
           <img src={AVATAR_SRC} alt="WIZL" className={AVATAR_CLASS} />
         </div>
         <div className="flex flex-col leading-tight">
-          <span className="font-bold text-sm text-text-primary">Ask WIZL The Wizard</span>
-          <span className="text-[10px] text-text-muted">your herbal guide</span>
+          <span className="font-bold text-sm text-text-primary">{t("title")}</span>
+          <span className="text-[10px] text-text-muted">{t("subtitle")}</span>
         </div>
       </div>
 
@@ -191,7 +183,7 @@ export default function AskWizl() {
                 <p className="whitespace-pre-wrap">{msg.content}</p>
                 {msg.sources && msg.sources.length > 0 && (
                   <div className="mt-2 pt-2 border-t border-border/50">
-                    <p className="text-[10px] text-text-muted mb-1">Sources:</p>
+                    <p className="text-[10px] text-text-muted mb-1">{t("sources")}</p>
                     {msg.sources.map((src, j) => (
                       <a
                         key={j}
@@ -216,7 +208,7 @@ export default function AskWizl() {
       {/* Quick suggestions — only when no messages */}
       {messages.length === 0 && (
         <div className="flex flex-wrap gap-2 px-4 py-3">
-          {QUICK_SUGGESTIONS.map((q) => (
+          {quickSuggestions.map((q) => (
             <button
               key={q}
               onClick={() => {
@@ -249,14 +241,14 @@ export default function AskWizl() {
             onClick={sendMessage}
             disabled={isLoading || !input.trim()}
             className="p-2.5 rounded-xl bg-accent-green text-white hover:bg-accent-green/80 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            aria-label="Send message"
+            aria-label={t("send")}
           >
             <Send className="w-4 h-4" />
           </button>
         </div>
         {messageCount > 0 && (
           <p className="text-[10px] text-text-muted/60 text-center mt-1.5">
-            {MAX_MESSAGES_PER_SESSION - messageCount} scrolls remain in this session
+            {t("scrollsRemain", { count: MAX_MESSAGES_PER_SESSION - messageCount })}
           </p>
         )}
       </div>

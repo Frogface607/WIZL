@@ -10,13 +10,10 @@ const corePaths = [
   "/about",
   "/scan",
   "/strains",
-  "/map",
   "/checkin",
   "/pro",
-  "/shop",
   "/privacy",
   "/terms",
-  "/refund",
 ];
 
 async function getStrainIds() {

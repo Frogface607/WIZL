@@ -11,7 +11,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify:book-data": "node scripts/verify-book-data.mjs",
-    "verify:shop-data": "node scripts/verify-shop-data.mjs",
     "verify:content-assets": "node scripts/verify-content-assets.mjs",
     "verify:launch-smoke": "node scripts/verify-launch-smoke.mjs",
     "factory:plan": "node content/factory/bin/wizl-factory.mjs plan",
@@ -19,19 +18,18 @@
     "factory:video": "node content/factory/bin/wizl-factory.mjs video",
     "factory:render": "node content/factory/bin/wizl-factory.mjs render",
     "factory:status": "node content/factory/bin/wizl-factory.mjs status",
-    "remotion:studio": "remotion studio remotion/index.ts --public-dir content/posts/2026-05-12-wisdom-terpenes",
-    "remotion:still": "remotion still remotion/index.ts WIZLFactoryReel content/factory/preview.png --public-dir content/posts/2026-05-12-wisdom-terpenes --frame 30 --overwrite"
+    "remotion:studio": "remotion studio remotion/index.ts --public-dir content/posts/2026-06-26-adventure-01-the-lost-page-at-the-night-market",
+    "remotion:still": "remotion still remotion/index.ts WIZLFactoryReel content/factory/preview.png --public-dir content/posts/2026-06-26-adventure-01-the-lost-page-at-the-night-market --frame 30 --overwrite",
+    "factory:review": "node content/factory/bin/review-sprint.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.103.0",
     "@vercel/analytics": "^2.0.1",
-    "leaflet": "^1.9.4",
     "lucide-react": "^1.7.0",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-leaflet": "^5.0.0"
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@remotion/cli": "^4.0.481",
@@ -40,7 +38,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/leaflet": "^1.9.21",
     "@types/node": "^20.19.41",
     "@types/react": "^19",
     "@types/react-dom": "^19",
